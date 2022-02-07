@@ -10,15 +10,16 @@ config_version=4
 
 [application]
 
-config/name="Temp"
+config/name="Treasure Hunter"
 run/main_scene="res://niveles/nivel_4_romper_objetos/lvl.tscn"
 config/icon="res://assets/sprites/captain_icon.png"
 
 [display]
 
 window/size/height=576
-window/size/resizable=false
 window/size/always_on_top=true
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [importer_defaults]
 

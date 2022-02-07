@@ -53,7 +53,6 @@ func _physics_process(delta):
 			action_counter += 1					# incrementa el index
 		# Generar Daño:
 			var collider = rayCast.get_collider()
-			print(collider)
 			if collider:
 				if collider.is_in_group("entity"):
 					collider.hit(damage,rayCast.cast_to)
@@ -73,8 +72,6 @@ func _physics_process(delta):
 		
 		elif velocity.y > 0:
 			animatedSprite.play("fall")
-
-
 
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP) 
