@@ -42,8 +42,11 @@ func _physics_process(delta):
 		animatedSprite.play("fall")
 
 	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2.UP) # movemos a player
+	velocity = move_and_slide(velocity, Vector2.UP) 
 
 func add_score(_value: int)-> void:
-	score += _value							# actualiza el puntaje de player
-	emit_signal("update_score",score)		# emite una señal hacia el hud con el puntaje
+	# actualiza el puntaje de player
+	score += _value
+	# emite una señal hacia el hud con el puntaje
+	emit_signal("update_score",score)
+	

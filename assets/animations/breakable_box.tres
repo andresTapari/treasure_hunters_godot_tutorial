@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
+
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Hit/3.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Hit/2.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Hit/4.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Destroyed/1.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Hit/1.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/destroyable_items/Box/Idle/1.png" type="Texture" id=6]
+
+[resource]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "destroyed",
+"speed": 5.0
+} ]

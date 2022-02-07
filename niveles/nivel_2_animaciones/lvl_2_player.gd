@@ -13,29 +13,42 @@ var velocity = Vector2.ZERO				# Vector velocidad
 func _physics_process(delta):
 	
 	velocity.x = 0
-	if Input.is_action_pressed("ui_right"):		# si player se mueve a la derecha
+	if Input.is_action_pressed("ui_right"):
+		# si player se mueve a la derecha
 		velocity.x += speed
-		animatedSprite.play("run")				# reproduce animacion correr
-		animatedSprite.flip_h = false			# voltear sprite horizontalmente hacia la derecha
+		# reproduce animacion correr
+		animatedSprite.play("run")				
+		# voltear sprite horizontalmente hacia la derecha
+		animatedSprite.flip_h = false			
 
-	if Input.is_action_pressed("ui_left"):		# si player se mueve hacia la izquierda
+	if Input.is_action_pressed("ui_left"):
+		# si player se mueve hacia la izquierda
 		velocity.x -= speed
-		animatedSprite.play("run")				# reproduce animacion correr
-		animatedSprite.flip_h = true			# voltea sprite horizontalmente hacia la izquierda
+		# reproduce animacion correr
+		animatedSprite.play("run")
+		# voltea sprite horizontalmente hacia la izquierda
+		animatedSprite.flip_h = true
 
 	if Input.is_action_just_pressed("ui_up"):
 		if is_on_floor():
 			velocity.y = jump_speed
 
-	if velocity == Vector2.ZERO:		# si player esta quieto:
-		animatedSprite.play("idle")		# reproduce animacion estar
+	if velocity == Vector2.ZERO:
+		# si player esta quieto:
+		# reproduce animacion estar
+		animatedSprite.play("idle")
 		
-	elif velocity.y < 0:				# si player se esta saltando
-		animatedSprite.play("jump")		# reproduce animacion saltar
+	elif velocity.y < 0:
+		# si player se esta saltando
+		# reproduce animacion saltar
+		animatedSprite.play("jump")
 	
-	elif velocity.y > 0:				# si player esta cayendo
-		animatedSprite.play("fall")		# reproduce animacion caer
+	elif velocity.y > 0:
+		# si player esta cayendo
+		# reproduce animacion caer
+		animatedSprite.play("fall")
 
 	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2.UP) # movemos a player
+	# movemos a player
+	velocity = move_and_slide(velocity, Vector2.UP)
 

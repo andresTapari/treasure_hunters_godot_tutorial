@@ -12,7 +12,6 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 2
 speed_scale = 2.0
 playing = true
 
@@ -20,8 +19,15 @@ playing = true
 position = Vector2( 0, -2 )
 shape = SubResource( 1 )
 
+[node name="Muzzle_rotation" type="Position2D" parent="."]
+
+[node name="Muzzle" type="Position2D" parent="Muzzle_rotation"]
+position = Vector2( 17, 0 )
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 20, 0 )
 collision_mask = 3
 collide_with_areas = true
+
+[connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
