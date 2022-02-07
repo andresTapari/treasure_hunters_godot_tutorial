@@ -10,6 +10,8 @@ func _physics_process(delta):		# <- Se ejecuta una vez por cada proceso fisico
 	position += direction.x * transform.x * speed * delta
 
 func _on_sword_projectile_body_entered(body: Node) -> void:
+	set_deferred("monitoring",false)
 	if body.is_in_group("entity"):
+#		$CollisionShape2D.set_deferred("disabled",false)
 		body.hit(damage,direction)
 		queue_free()
