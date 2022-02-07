@@ -1,0 +1,73 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Silver Coin/02.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Silver Coin/04.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Silver Coin/03.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/07.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Skull Effect/02.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Skull Effect/03.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Skull Effect/04.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Skull Effect/05.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Silver Coin/01.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/04.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/06.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/05.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Skull Effect/01.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/08.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/01.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Gold Coin/02.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Coin Effect/03.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/02.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Golden Skull/03.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Gold Coin/01.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Gold Coin/04.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Coin Effect/01.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Coin Effect/02.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/pickable_items/Sprites/Gold Coin/03.png" type="Texture" id=24]
+[ext_resource path="res://niveles/nivel_3_juntar_monedas/pickable_item.gd" type="Script" id=25]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 4 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "golden_skull",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "golden_skull_efect",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "silver_coin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 16 ), ExtResource( 24 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "golden_coin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "coin_effect",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.0
+
+[node name="pickable_item" type="Area2D"]
+script = ExtResource( 25 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "coin_effect"
+playing = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_pickable_item_body_entered"]
