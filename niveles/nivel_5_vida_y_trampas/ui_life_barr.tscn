@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/sprites/life_barr/3.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/life_barr/4.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/life_barr/1.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/life_barr/life_barr_green.png" type="Texture" id=4]
+[ext_resource path="res://niveles/nivel_5_vida_y_trampas/ui_life_barr.gd" type="Script" id=5]
 
 [node name="life_barr" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="1" type="Sprite" parent="."]
 position = Vector2( 16, 16 )

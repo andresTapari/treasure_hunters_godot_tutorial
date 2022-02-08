@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/sprites/ui/8.png" type="Texture" id=1]
-[ext_resource path="res://niveles/nivel_3_juntar_monedas/ui_hud.gd" type="Script" id=2]
+[ext_resource path="res://niveles/nivel_5_vida_y_trampas/ui_hud_nivel_5.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Pixeled.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/sprites/pickable_items/Sprites/Gold Coin/01.png" type="Texture" id=4]
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/ui_life_barr.tscn" type="PackedScene" id=5]

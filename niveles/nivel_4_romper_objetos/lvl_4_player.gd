@@ -100,25 +100,16 @@ func _on_AnimatedSprite_frame_changed() -> void:
 		# Si no esta atacando
 		# sale de la función
 		return
-	# evaluamos si la animacion es arrojar espada y si el frame es el 1
 	if animatedSprite.animation == "throw_sword" and animatedSprite.frame == 1:
 		# SPAWN de espada
-		# Creamos instancia de la clase SWORD
 		var new_projectile = SWORD.instance()
-		# Conectamos la señal de espada destruida con la funcion handle_sword_destroy
 		new_projectile.connect("sword_destroy",self,"handle_sword_destroy")
-		# Establecemos la direccion del proyectile como la de la direccion del raycast
 		new_projectile.direction=rayCast.cast_to.normalized()
-		# determinamos el offset de la posicion de spawn de la espada
 		var offset = muzzle.position * rayCast.cast_to.normalized()
 		if offset.x < 0:
-			#si esta mirando en sentido contrario, invertimos la animacion
 			new_projectile.get_node('AnimatedSprite').flip_h = true
-		# a la instancia agregamos la posicion y el offset
 		new_projectile.position = offset + position
-		# agregamos la instancia al padre del nodo player.
 		owner.add_child(new_projectile)
 			
 func handle_sword_destroy()->void:
-	# volvemos a poner en true la espada para poder volver a lanzarla
 	has_sword = true

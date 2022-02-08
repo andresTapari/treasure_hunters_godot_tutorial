@@ -29,7 +29,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 200, 136 )
-frame = 36
+frame = 6
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -37,7 +37,7 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 262152, 6, 0, 262153, 6, 1, 262154, 6, 1, 262155, 6, 2, 262157, 22, 0, 327692, 21, 0, 393229, 21, 0 )
+tile_data = PoolIntArray( 262152, 6, 0, 262153, 6, 1, 262154, 6, 1, 262155, 6, 2, 262157, 22, 0, 327685, 22, 0, 327692, 21, 0, 393222, 22, 0, 393229, 21, 0 )
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 2 )]
 
@@ -45,4 +45,7 @@ tile_data = PoolIntArray( 262152, 6, 0, 262153, 6, 1, 262154, 6, 1, 262155, 6, 2
 position = Vector2( 144, 212 )
 
 [node name="spikes" parent="." instance=ExtResource( 3 )]
-position = Vector2( 208, 208 )
+position = Vector2( 368, 208 )
+
+[node name="spikes2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 239.5, 208 )

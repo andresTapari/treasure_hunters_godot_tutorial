@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=34 format=2]
+[gd_resource type="SpriteFrames" load_steps=42 format=2]
 
 [ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/01-Idle/Idle 05.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/02-Run/Run 01.png" type="Texture" id=2]
@@ -33,12 +33,25 @@
 [ext_resource path="res://assets/sprites/units/Captain Clown Nose with Sword/20-Throw Sword/Throw Sword 01.png" type="Texture" id=31]
 [ext_resource path="res://assets/sprites/units/Captain Clown Nose with Sword/20-Throw Sword/Throw Sword 02.png" type="Texture" id=32]
 [ext_resource path="res://assets/sprites/units/Captain Clown Nose with Sword/20-Throw Sword/Throw Sword 03.png" type="Texture" id=33]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/06-Hit/Hit 04.png" type="Texture" id=34]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/07-Dead Hit/Dead Hit 01.png" type="Texture" id=35]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/06-Hit/Hit 01.png" type="Texture" id=36]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/06-Hit/Hit 02.png" type="Texture" id=37]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/07-Dead Hit/Dead Hit 04.png" type="Texture" id=38]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/06-Hit/Hit 03.png" type="Texture" id=39]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/07-Dead Hit/Dead Hit 02.png" type="Texture" id=40]
+[ext_resource path="res://assets/sprites/units/Captain Clown Nose without Sword/07-Dead Hit/Dead Hit 03.png" type="Texture" id=41]
 
 [resource]
 animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 35 ), ExtResource( 41 ), ExtResource( 38 ) ],
+"loop": true,
+"name": "die",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
@@ -84,5 +97,10 @@ animations = [ {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 22 ) ],
 "loop": true,
 "name": "atack_2",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 39 ), ExtResource( 34 ) ],
+"loop": true,
+"name": "hurt",
 "speed": 5.0
 } ]
