@@ -27,18 +27,19 @@ cell_size = Vector2( 32, 32 )
 collision_layer = 3
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 65550, 9, 0, 262148, 20, 0, 262149, 22, 0, 327683, 20, 0, 393220, 14, 0, 458753, 10, 0, 458766, 11, 0 )
+tile_data = PoolIntArray( 65550, 9, 0, 393220, 14, 0, 458753, 10, 0, 458766, 11, 0 )
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 368, 92 )
-frame = 10
+frame = 34
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )
-frame = 4
+frame = 2
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 336, 192 )
+frame = 1
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )

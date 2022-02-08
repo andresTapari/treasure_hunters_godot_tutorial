@@ -19,8 +19,8 @@ force_factor = 55
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
-animation = "anticipation"
-frame = 1
+animation = "idle"
+frame = 4
 speed_scale = 2.0
 playing = true
 
