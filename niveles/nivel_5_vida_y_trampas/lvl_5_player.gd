@@ -72,7 +72,7 @@ func _physics_process(delta):
 				var collider = rayCast.get_collider()
 				if collider:
 					if collider.is_in_group("entity"):
-						collider.hit(damage,rayCast.cast_to)
+						collider.hit(damage,rayCast.cast_to.normalized())
 				yield(animatedSprite,"animation_finished")
 				# sale en modo combate
 				atck_enable = false
@@ -159,6 +159,11 @@ func hit(_damage) -> void:
 	atck_enable=false
 	move_enable = true
 
+func heal(_value) -> void:
+	life += _value
+	if life > total_life:
+		life = total_life
+	emit_signal('update_health',total_life,life)
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	get_tree().reload_current_scene()
