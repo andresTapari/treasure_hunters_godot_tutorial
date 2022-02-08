@@ -44,22 +44,25 @@ func hit(_damage: int,_direction) -> void:
 	animatedSprite.play("hit")
 	if life <= 0:
 		# si la vida llega a cero 
-#		collider.disabled = true
-		collider.set_deferred("disabled",true)
+		collider.call_deferred("set","disabled",true)
 		# en un bucle de 4 iteraciones
 		for n in range(4):
 			# creamos una instancias de las partes del objeto
 			var new_particle = PARTICULAS.instance()
+			# la agregamos como hijo del nodo
+			call_deferred("add_child",new_particle)
 			# establecemos que animacion es (caja o barril)
 			new_particle.get_node("AnimatedSprite").animation = particle_animation
 			# establecemos el frame
 			new_particle.get_node("AnimatedSprite").frame = n - 1 
 			if type == tipo.barrel:
 				# si es una barril, usamos el barril como forma de colision
-				new_particle.get_node("CollisionShape2D_barrel").set_deferred("disabled",false)
+				# call_deferred("set","disabled",false) es igual collider.disabled = false 
+				# solo que lo hace durante el tiempo de inactividad, evitando errores. 
+				new_particle.get_node("CollisionShape2D_barrel").call_deferred("set","disabled",false)
 			else:
 				# si es una caja, usamos la caja como forma de colision
-				new_particle.get_node("CollisionShape2D_box").set_deferred("disabled",false)
+				new_particle.get_node("CollisionShape2D_box").call_deferred("set","disabled",false)
 			# actualizamos la semilla aleatoria
 			randomize()
 			# generamos un valor flotante entre -1 y 1 para el eje x
@@ -70,8 +73,6 @@ func hit(_damage: int,_direction) -> void:
 			var impulso = Vector2(x,y)
 			# aplicamos el impulso multiplicado por un factor de fuerza
 			new_particle.apply_impulse(position,impulso*explosion_force)
-			# la agregamos como hijo del nodo
-			add_child(new_particle)
 		# ponemos invisible el sprite del objeto
 		animatedSprite.visible = false
 		# comenzamos el timer

@@ -11,17 +11,18 @@
 [ext_resource path="res://niveles/nivel_4_romper_objetos/sword_projectile.gd" type="Script" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 5.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "embedded",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "spining",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "embedded",
 "speed": 5.0
 } ]
 
@@ -36,6 +37,7 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "spining"
+frame = 2
 speed_scale = 2.0
 playing = true
 

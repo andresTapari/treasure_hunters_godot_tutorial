@@ -45,32 +45,57 @@ func _physics_process(delta):
 			muzzleRotation.rotation = PI
 	# Ataque Melee
 	if Input.is_action_just_pressed("ui_hit"):
+		# animacion de golpe:
+		# Animacion:
 		if !atck_enable:
+			# si no esta atacando
+			# entra en modo ataque
 			atck_enable = true
 			if is_on_floor():
+			# si esta en el piso
 				if action_counter > 2:
+					# y si el indx de accion es > a 2
+					# indx de accion es 0
 					action_counter = 0
+				# reproduce la animacion  del indx
 				animatedSprite.play(hit_animation_floor[action_counter]) 
 			else:
+			# si esta en el aire
 				if action_counter > 1:
+					#y si el contador de accion es > a 1
+					# indx de accion es 0
 					action_counter = 0
+					# reproduce la animacion del indx
 				animatedSprite.play(hit_animation_air[action_counter]) 
+			# incrementa el index
 			action_counter += 1
 		# Generar Daño:
+			# inspecciona las colisiones del raycast
 			var collider = rayCast.get_collider()
 			if collider:
+				# si el collider es distinto de null
 				if collider.is_in_group("entity"):
+					# y si el collider esta en el grupo entity
+					# llama a la función hit del collider
 					collider.hit(damage,rayCast.cast_to)
+					# espera a que termine la animacion de golpe
 			yield(animatedSprite,"animation_finished")
+			# sale en modo combate
 			atck_enable = false
 			
 	# Golpe de rango:
 	if Input.is_action_just_pressed('ui_throw') and has_sword:
 		if !atck_enable:
+			# ponemos la variable en falso para evitar que vuelva arrojar la 
+			# espada mientras la instancia anterior este en el aire.
 			has_sword = false
+			# si no esta atacando
+			# entra en modo ataque
 			atck_enable = true
 			animatedSprite.play("throw_sword") # <- Ver señal de cambio de frame
+			# Espera a que la animacion termine
 			yield(animatedSprite,"animation_finished")
+			# sale del modo combate
 			atck_enable = false
 
 	if Input.is_action_just_pressed("ui_up"):

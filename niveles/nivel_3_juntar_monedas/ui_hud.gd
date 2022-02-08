@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # Nodos:
-onready var label_coin: Label = get_node("Label")
+onready var label_coin: Label = get_node("Node2D/Label")
 
 func handle_update_score(_value: int) -> void:
 	#Convertimos a string y lo asignamos a label
