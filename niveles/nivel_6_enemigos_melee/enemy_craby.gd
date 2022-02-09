@@ -10,7 +10,14 @@ onready var timer          = get_node("Timer")
 onready var debug_label    = get_node("Label")
 
 # Constante:
-enum state {idle,patrol,atack,hurt}
+# Estados posibles del enemigo:
+enum state {idle,				# Estar
+			patrol,				# Patrulla una zona, se mueve A->B y B->A
+			chase,				# Persigue al jugador si entra en su campo de vision
+			anticipation,		# Anticipacion antes del ataque, se puede cancelar si es atacado
+			atack,				# Ataca al jugar, no se puede cancelar
+			hurt				# 
+			}
 
 # Variables:
 export var life 			= 10				# Cantidad de vida que posee
@@ -88,8 +95,8 @@ func _physics_process(delta: float) -> void:
 				animatedSprite.play("run")
 			else:
 				current_state = state.idle
-			
-
+		state.anticipation:
+			pass
 		state.atack:
 			debug_label.text = "atack"
 			# Chequeamos ver al jugador:
@@ -97,21 +104,18 @@ func _physics_process(delta: float) -> void:
 				rayCast_fov.rotation_degrees = 180
 			else:
 				rayCast_fov.rotation_degrees = 0
-
 			rayCast_fov.force_raycast_update()
 			var collider = rayCast_fov.get_collider()
 			if collider:
 				if abs(collider.position.x - position.x) < atack_range :
-					animatedSprite.speed_scale = 1
 					animatedSprite.play("attack")
 					yield(animatedSprite,'animation_finished')
 				else:
-					animatedSprite.speed_scale = 1
 					animatedSprite.play("run")
 					linear_velocity.x = speed * dir_cof
 			else:
 				current_state = state.idle
-		_:
+		_: #default
 			debug_label.text = "idle"
 			animatedSprite.play("idle")
 

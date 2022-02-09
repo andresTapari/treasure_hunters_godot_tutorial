@@ -31,15 +31,15 @@ tile_data = PoolIntArray( 65550, 9, 0, 393220, 14, 0, 393229, 14, 0, 458753, 10,
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 368, 92 )
-frame = 42
+frame = 69
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )
-frame = 0
+frame = 5
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 336, 192 )
-frame = 5
+frame = 4
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 2 )

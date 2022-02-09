@@ -3,9 +3,8 @@
 [ext_resource path="res://assets/animations/enemy_melee_craby.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://niveles/nivel_6_enemigos_melee/enemy_craby.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape2D" id=4]
-radius = 10.5
-height = 9.0
+[sub_resource type="CircleShape2D" id=4]
+radius = 9.5
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5, 5 )
@@ -27,7 +26,7 @@ animation = "attack"
 frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 0, 8 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 4 )
 
