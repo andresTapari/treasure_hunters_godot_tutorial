@@ -1,49 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/animations/enemy_melee_craby.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://niveles/nivel_6_enemigos_melee/enemy_craby.gd" type="Script" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 9 )
-
-[sub_resource type="SegmentShape2D" id=2]
-b = Vector2( 128, 0 )
+[sub_resource type="CapsuleShape2D" id=1]
+height = 6.0
 
 [node name="enemy_craby" type="RigidBody2D" groups=["entity"]]
 collision_layer = 2
 collision_mask = 2
 mode = 2
+gravity_scale = 5.0
 script = ExtResource( 2 )
 force_factor = 55
+max_t_to_wait = 2
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 4
+frame = 6
 speed_scale = 2.0
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2, 8 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 1 )
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="RayCast_available_ground_back" type="RayCast2D" parent="."]
+position = Vector2( 48, 0 )
+cast_to = Vector2( 0, 40 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource( 2 )
+[node name="RayCast_available_ground_front" type="RayCast2D" parent="."]
+position = Vector2( -48, 0 )
+cast_to = Vector2( 0, 40 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="DetectionArea"]
-rotation = 3.14159
-shape = SubResource( 2 )
+[node name="Timer" type="Timer" parent="."]
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 0, 10 )
-rotation = 1.5708
-cast_to = Vector2( 0, 64 )
-
-[node name="RayCast2D2" type="RayCast2D" parent="."]
-position = Vector2( 0, 10 )
-rotation = -1.5708
-cast_to = Vector2( 0, 64 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
