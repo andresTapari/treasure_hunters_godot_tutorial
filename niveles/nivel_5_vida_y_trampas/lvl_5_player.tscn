@@ -7,12 +7,14 @@
 extents = Vector2( 8.5, 13 )
 
 [node name="lvl_5_player" type="KinematicBody2D" groups=["player"]]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 2
+frame = 3
 speed_scale = 2.0
 playing = true
 

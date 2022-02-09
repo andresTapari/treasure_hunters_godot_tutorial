@@ -31,15 +31,15 @@ tile_data = PoolIntArray( 65550, 9, 0, 393220, 14, 0, 393229, 14, 0, 458753, 10,
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 368, 92 )
-frame = 39
+frame = 42
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )
-frame = 1
+frame = 0
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 336, 192 )
-frame = 0
+frame = 5
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 2 )
@@ -55,10 +55,16 @@ tile_data = PoolIntArray( 196610, 22, 0, 262147, 22, 0, 262148, 6, 0, 262149, 6,
 position = Vector2( 76, 200 )
 type = 1
 
-[node name="RigidBody2D" parent="." instance=ExtResource( 7 )]
-position = Vector2( 147, 102 )
-patrol_target_A = Vector2( 360, 103 )
-patrol_target_B = Vector2( 147, 102 )
-
 [node name="lvl_5_player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 80, 84 )
+
+[node name="Patrol_Position_A" type="Position2D" parent="."]
+position = Vector2( 292, 116 )
+
+[node name="Patrol_Position_B" type="Position2D" parent="."]
+position = Vector2( 372, 116 )
+
+[node name="enemy_craby" parent="." instance=ExtResource( 7 )]
+position = Vector2( 232, 104 )
+position_target_A = NodePath("../Patrol_Position_A")
+position_target_B = NodePath("../Patrol_Position_B")
