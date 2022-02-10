@@ -69,7 +69,9 @@ func _physics_process(delta):
 					animatedSprite.play(hit_animation_air[action_counter]) 
 				action_counter += 1
 			# Generar Daño:
+				rayCast.force_update_transform()
 				var collider = rayCast.get_collider()
+				print_debug(collider)
 				if collider:
 					if collider.is_in_group("entity"):
 						collider.hit(damage,rayCast.cast_to.normalized())

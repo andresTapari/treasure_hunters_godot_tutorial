@@ -199,7 +199,11 @@ func _physics_process(delta: float) -> void:
 			# Volvemos al estado chase
 			current_state = state.chase
 		state.hurt:
-			pass
+		# A la variable vida le descuenta el daño.
+			animatedSprite.play("hit")
+			yield(animatedSprite,'animation_finished')
+		#	animatedSprite.play("idle")
+			current_state = state.chase
 		_: #default
 			debug_label.text = "idle"
 			animatedSprite.play("idle")
@@ -207,20 +211,15 @@ func _physics_process(delta: float) -> void:
 # Funcion Hit
 func hit(_damage: int,_direction) -> void:
 	# A la variable vida le descuenta el daño.
-	current_state = state.hurt
 	life -= _damage
 	# se carga un impulso en direccón del golpe
 	self.apply_central_impulse(Vector2(_direction.x*force_factor,-100))
-	# reproducimos animacion de daño
-	var current_animation = animatedSprite.animation
-	animatedSprite.play("hit")
+#	look_at_target(player)
 	if _direction.x < 0:
 		animatedSprite.flip_h = true
 	else:
 		animatedSprite.flip_h = false
-	yield(animatedSprite,'animation_finished')
-#	animatedSprite.play("idle")
-	current_state = state.idle
+	current_state = state.hurt
 
 
 func _on_Timer_timeout():
@@ -297,3 +296,8 @@ func look_at_target(_target) -> int:
 	rayCast_fov.rotation_degrees = 0
 	# Retornamos 1 como coeficiente de direccion
 	return 1
+
+
+func _on_enemy_craby_body_entered(body: Node) -> void:
+	print_debug(body)
+	pass # Replace with function body.
