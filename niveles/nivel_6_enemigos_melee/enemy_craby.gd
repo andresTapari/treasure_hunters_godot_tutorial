@@ -47,6 +47,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	match current_state:
+		# Estador estar:
 		state.idle:
 			# Identificamos el estado actual:
 			debug_label.text = "idle"
@@ -56,45 +57,69 @@ func _physics_process(delta: float) -> void:
 			linear_velocity.x = 0
 			# Determinamos el tiempo a esperar en modo idle
 			if timer.is_stopped():
+				# Si el timer esta detenido:
+				# Aleatoriza la semilla
 				randomize()
+				# Determinamos el tiempo a esperar entre t_min y t_max
 				var seconds_to_wait = rand_range(min_t_to_wait,max_t_to_wait)
-#				print_debug(seconds_to_wait)
+				# establecemos el tiempo
 				timer.wait_time = seconds_to_wait
+				# comenzamos el timer
 				timer.start()
 
+		# Estado patrullar:
 		state.patrol:
+			# Identificamos el estado actual:
 			debug_label.text = "patrol"
-			
 			# Chequeamos ver al jugador:
 			if dir_cof < 0:
+				#Si esta viendo hacia atras, rota el raycast 180º
 				rayCast_fov.rotation_degrees = 180
 			else:
+				# si esta viendo hacia adelante, rota el raycast hacia el frente.
 				rayCast_fov.rotation_degrees = 0
-				
+			# Actualizamos la información de colision del rayo
 			rayCast_fov.force_raycast_update()
+			# Cargamos en una variable el collider
 			var collider = rayCast_fov.get_collider()
+			# Si el collider es valido
 			if collider:
+				# y si el collider esta en el grupo player
 				if collider.is_in_group("player"):
+					# la posicion hacia donde moverse es la del jugador
 					target_to_move = collider.position
-					current_state = state.atack
-
+					# ponemos el estado actual en perseguir
+					current_state = state.chase
+					# salimos del estado
+					return
 			# Calculamos la distancia hacia la posicion para moverse
 			var distancia:float = target_to_move.x - position.x 
-			# si la distancia es mayor a la tolerancia
+			# determinamos la direccion donde hay que moverse
 			if distancia < 0:
+			# si se mueve para atras:
 				dir_cof = -1
 			else:
+				# si se mueve para delante:
 				dir_cof = 1
-			
+			# si la distancia es mayor a la tolerancia
 			if abs(distancia) > dist_tolerancia:
+				# establecemos la direccion hacia la que se tiene que mover
 				linear_velocity.x = speed * dir_cof
 				if dir_cof > 0:
+					# si movemos hacia la derecha, volteamos los sprites
 					animatedSprite.flip_h = true
 				else:
+					# si movemos hacia la izquierda, dejamos los sprites como originalmente estan
 					animatedSprite.flip_h = false
+				# reproducir animacion de correr 
 				animatedSprite.play("run")
 			else:
+				# si la distancia es menor  a la tolerancia:
+				# estado actual: Idle
 				current_state = state.idle
+		state.chase:
+			pass
+			
 		state.anticipation:
 			pass
 		state.atack:
