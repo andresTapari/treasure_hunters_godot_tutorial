@@ -47,6 +47,11 @@ animations = [ {
 "name": "hit",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 24 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "anticipation",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 26 ), ExtResource( 18 ), ExtResource( 28 ), ExtResource( 30 ) ],
 "loop": true,
 "name": "die",
@@ -67,12 +72,7 @@ animations = [ {
 "name": "run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 24 ), ExtResource( 19 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "anticipation",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 24 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 25 ) ],
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 25 ) ],
 "loop": true,
 "name": "attack",
 "speed": 5.0

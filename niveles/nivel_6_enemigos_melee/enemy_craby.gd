@@ -24,6 +24,7 @@ export var life 			= 10				# Cantidad de vida que posee
 export var force_factor		= 45				# Fuerza de nock-back
 export var speed			= 150				# Velocidad de movimiento
 export var damage			= 2
+export var fov_lenght		= 200				# Alcanze de deteccion
 export var position_target_A: NodePath			# Coordenadas hasta donde patrullar
 export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var min_t_to_wait: int = 0				# Tiempo minimo para esperar
@@ -33,9 +34,12 @@ var target_to_move 		= Vector2(360,102)		# Target para moverse
 var dist_tolerancia 	= 1						# Tolerancia para moverse
 var current_state 		= state.idle			# Estado actual 
 var dir_cof				= 1						# Coeficiente de la direccon
+var atack_range: int 	= 55-15					# Rango de ataque
+var atack_enable: bool  = 1						# Habilita el ataque
+
 var patrol_target_A: Vector2					# Coordenadas hasta donde patrullar
 var patrol_target_B: Vector2					# Coordenadas hasta donde patrullar
-var atack_range: int 	= 55-15					# Rango de ataque
+var target_to_chase: Node 						# Target del jugador
 
 # Funcion Ready:
 func _ready() -> void:
@@ -67,8 +71,6 @@ func _physics_process(delta: float) -> void:
 				timer.wait_time = seconds_to_wait
 				# comenzamos el timer
 				timer.start()
-
-
 		# Estado patrullar:
 		state.patrol:
 			# Identificamos el estado actual:
@@ -96,47 +98,49 @@ func _physics_process(delta: float) -> void:
 					return
 			# Calculamos la distancia hacia la posicion para moverse
 			var distancia:float = target_to_move.x - position.x 
-			# determinamos la direccion donde hay que moverse
-			if distancia < 0:
-			# si se mueve para atras:
-				dir_cof = -1
-			else:
-				# si se mueve para delante:
-				dir_cof = 1
 			# si la distancia es mayor a la tolerancia
 			if abs(distancia) > dist_tolerancia:
 				# establecemos la direccion hacia la que se tiene que mover
+				dir_cof = look_at_target(target_to_move)
+				# movemos el personaje
 				linear_velocity.x = speed * dir_cof
-				if dir_cof > 0:
-					# si movemos hacia la derecha, volteamos los sprites
-					animatedSprite.flip_h = true
-				else:
-					# si movemos hacia la izquierda, dejamos los sprites como originalmente estan
-					animatedSprite.flip_h = false
 				# reproducir animacion de correr 
 				animatedSprite.play("run")
 			else:
 				# si la distancia es menor  a la tolerancia:
 				# estado actual: Idle
 				current_state = state.idle
+
 		# Estado perseguir:
 		state.chase:
 			# Identificamos el estado actual:
 			debug_label.text = "chase"
 			# Chequeamos ver al jugador
 			rayCast_fov.force_raycast_update()
-			# Alojamos el primer objeto que el rayo intersecta
-			var collider = rayCast_fov.get_collider()
+			# Creamos la variable collider donde alojar al jugador
+			var collider
+			# Si ya tiene target a seguir
+			if target_to_chase:
+				if position.distance_to(target_to_chase.position) > fov_lenght:
+					target_to_chase = null
+				# asigna target a collider:
+				collider = target_to_chase
+			else:
+				# Si no lo tiene, asigna el primer objeto que el rayo intersecta
+				collider = rayCast_fov.get_collider()
 			# Si es valido
 			if collider:
+				dir_cof = look_at_target(collider.position)
 				# Si el collider es del grupo player:
 				if collider.is_in_group("player"):
 					# Establece la posicion a donde moverse
 					target_to_move = collider.position
-					# Si la distancia es menos que la tolerancia
-					if abs(target_to_move.x - position.x) < dist_tolerancia:
+					# Si la distancia es menos que el rango de ataque
+					if abs(target_to_move.x - position.x) < atack_range:
 						# Establecemos nuevo estado
 						current_state = state.anticipation
+						# Habilitamos el modo ataque
+						atack_enable = true
 						# Salimos del estado
 						return
 					else:
@@ -146,36 +150,53 @@ func _physics_process(delta: float) -> void:
 						linear_velocity.x = speed * dir_cof
 			else:
 				# si no hay collider se mueve a la ultima posicion encontrada
-				pass
-#			# 
-#			if dir_cof < 0:
-#
-#				rayCast_fov.rotation_degrees = 180
-#			else:
-#				rayCast_fov.rotation_degrees = 0
-#			rayCast_fov.force_raycast_update()
-#			var collider = rayCast_fov.get_collider()
+				if abs(target_to_move.x - position.x) < dist_tolerancia:
+					#Movemos el personaje hacia el jugador:
+					linear_velocity.x = speed * dir_cof
+				else:
+					current_state = state.idle
 			
 		state.anticipation:
-			pass
+			debug_label.text = "anticipation"
+			# Reproducimos animacion
+			animatedSprite.play("anticipation")
+			# Esperamos que la animacion termine
+			yield(animatedSprite,"animation_finished")
+			# Cambiamos el estado actual
+			current_state = state.atack
+
 		state.atack:
+			# Identificamos el estado actual:
 			debug_label.text = "atack"
-			# Chequeamos ver al jugador:
-			if dir_cof < 0:
-				rayCast_fov.rotation_degrees = 180
-			else:
-				rayCast_fov.rotation_degrees = 0
-			rayCast_fov.force_raycast_update()
-			var collider = rayCast_fov.get_collider()
+			# Si ataque esta deshabilitado
+			if !atack_enable:
+				# Salimos del estado atacar
+				return
+			# desabilitamos atacar, (con esto forzamos que despues de 
+			# cada ataque vuelva al estado chase)
+			atack_enable = false
+			# actualizamos las colisiones del raycast
+			rayCast_back.force_raycast_update()
+			# alojamos 
+			var collider = rayCast_back.get_collider()
 			if collider:
-				if abs(collider.position.x - position.x) < atack_range :
-					animatedSprite.play("attack")
-					yield(animatedSprite,'animation_finished')
-				else:
-					animatedSprite.play("run")
-					linear_velocity.x = speed * dir_cof
-			else:
-				current_state = state.idle
+				if collider.is_in_group("player"):
+					collider.hit(damage)
+					target_knok_back(60)
+
+			rayCast_front.force_raycast_update()
+			collider = rayCast_front.get_collider()
+			if collider:
+				if collider.is_in_group("player"):
+					collider.hit(damage)
+					target_knok_back(60)
+
+			animatedSprite.play("attack")
+			# Esperamos que la animacion termine
+			yield(animatedSprite,"animation_finished")
+			# Volvemos al estado chase
+			current_state = state.chase
+
 		_: #default
 			debug_label.text = "idle"
 			animatedSprite.play("idle")
@@ -213,28 +234,30 @@ func _on_Timer_timeout():
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
+		target_to_chase = body
 		body.hit(damage)
 		target_knok_back(80)
-		current_state = state.idle
+		current_state = state.chase
 
 
 func _on_AnimatedSprite_frame_changed() -> void:
-	if animatedSprite.animation != "attack":
-		return
-	else:
-		if animatedSprite.frame == 3:
-			rayCast_back.force_raycast_update()
-			var collider = rayCast_back.get_collider()
-			if collider:
-				if collider.is_in_group("player"):
-					collider.hit(damage)
-					target_knok_back(60)
-			rayCast_front.force_raycast_update()
-			collider = rayCast_front.get_collider()
-			if collider:
-				if collider.is_in_group("player"):
-					collider.hit(damage)
-					target_knok_back(60)
+	pass
+#	if animatedSprite.animation != "attack":
+#		return
+#	else:
+#		if animatedSprite.frame == 3:
+#			rayCast_back.force_raycast_update()
+#			var collider = rayCast_back.get_collider()
+#			if collider:
+#				if collider.is_in_group("player"):
+#					collider.hit(damage)
+#					target_knok_back(60)
+#			rayCast_front.force_raycast_update()
+#			collider = rayCast_front.get_collider()
+#			if collider:
+#				if collider.is_in_group("player"):
+#					collider.hit(damage)
+#					target_knok_back(60)
 
 func target_knok_back(_force:int)-> void:
 		var tween = get_node("Tween")
@@ -250,3 +273,24 @@ func target_knok_back(_force:int)-> void:
 		yield(tween,'tween_all_completed')
 		# Reestablecemos la dimension original
 		$StaticBody2D/CollisionShape2D.get_shape().extents = Vector2(10,10)
+
+func look_at_target(_target) -> int:
+	# determinamos la direccion donde hay que moverse
+	var distancia:float = _target.x - self.position.x 
+
+	# Si el target esta a la izquierda:
+	if distancia < 0:
+		# Hacemos que el srpite mire hacia la izquierda
+		animatedSprite.flip_h = false
+		# Rota el raycast 180º
+		rayCast_fov.rotation_degrees = 180
+		# Retornamos -1 como coeficiente de direccion
+		return  -1
+
+	# Si el target esta a la derecha:
+	# Hacemos que el srpite mire hacia la derecha
+	animatedSprite.flip_h = true
+	#rota el raycast hacia el frente.
+	rayCast_fov.rotation_degrees = 0
+	# Retornamos 1 como coeficiente de direccion
+	return 1
