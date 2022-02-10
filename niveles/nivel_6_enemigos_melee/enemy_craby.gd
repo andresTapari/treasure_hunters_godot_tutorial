@@ -47,6 +47,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	match current_state:
+
 		# Estador estar:
 		state.idle:
 			# Identificamos el estado actual:
@@ -66,6 +67,7 @@ func _physics_process(delta: float) -> void:
 				timer.wait_time = seconds_to_wait
 				# comenzamos el timer
 				timer.start()
+
 
 		# Estado patrullar:
 		state.patrol:
@@ -117,8 +119,42 @@ func _physics_process(delta: float) -> void:
 				# si la distancia es menor  a la tolerancia:
 				# estado actual: Idle
 				current_state = state.idle
+		# Estado perseguir:
 		state.chase:
-			pass
+			# Identificamos el estado actual:
+			debug_label.text = "chase"
+			# Chequeamos ver al jugador
+			rayCast_fov.force_raycast_update()
+			# Alojamos el primer objeto que el rayo intersecta
+			var collider = rayCast_fov.get_collider()
+			# Si es valido
+			if collider:
+				# Si el collider es del grupo player:
+				if collider.is_in_group("player"):
+					# Establece la posicion a donde moverse
+					target_to_move = collider.position
+					# Si la distancia es menos que la tolerancia
+					if abs(target_to_move.x - position.x) < dist_tolerancia:
+						# Establecemos nuevo estado
+						current_state = state.anticipation
+						# Salimos del estado
+						return
+					else:
+						# Establecemos animacion correr
+						animatedSprite.play("run")
+						# Movemos el personaje hacia el jugador:
+						linear_velocity.x = speed * dir_cof
+			else:
+				# si no hay collider se mueve a la ultima posicion encontrada
+				pass
+#			# 
+#			if dir_cof < 0:
+#
+#				rayCast_fov.rotation_degrees = 180
+#			else:
+#				rayCast_fov.rotation_degrees = 0
+#			rayCast_fov.force_raycast_update()
+#			var collider = rayCast_fov.get_collider()
 			
 		state.anticipation:
 			pass
