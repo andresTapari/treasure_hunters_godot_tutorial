@@ -24,7 +24,7 @@ export var life 			= 10				# Cantidad de vida que posee
 export var force_factor		= 45				# Fuerza de nock-back
 export var speed			= 150				# Velocidad de movimiento
 export var damage			= 2
-export var fov_lenght		= 200				# Alcanze de deteccion
+export var fov_lenght		= 100				# Alcanze de deteccion
 export var position_target_A: NodePath			# Coordenadas hasta donde patrullar
 export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var min_t_to_wait: int = 0				# Tiempo minimo para esperar
@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		# Estador estar:
 		state.idle:
 			# Identificamos el estado actual:
-			debug_label.text = "idle"
+			debug_label.text = "IDLE"
 			# Reproducimos animacion de estar:
 			animatedSprite.play("idle")
 			# Ponemos la velocidad a cero
@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 		# Estado patrullar:
 		state.patrol:
 			# Identificamos el estado actual:
-			debug_label.text = "patrol"
+			debug_label.text = "PATROL"
 			# Chequeamos ver al jugador:
 			if dir_cof < 0:
 				#Si esta viendo hacia atras, rota el raycast 180º
@@ -90,8 +90,8 @@ func _physics_process(delta: float) -> void:
 			if collider:
 				# y si el collider esta en el grupo player
 				if collider.is_in_group("player"):
-					# la posicion hacia donde moverse es la del jugador
-					target_to_move = collider.position
+					# establecemos el objetivo a perseguir:
+					target_to_chase = collider
 					# ponemos el estado actual en perseguir
 					current_state = state.chase
 					# salimos del estado
@@ -114,14 +114,16 @@ func _physics_process(delta: float) -> void:
 		# Estado perseguir:
 		state.chase:
 			# Identificamos el estado actual:
-			debug_label.text = "chase"
+			debug_label.text = "CHASE"
 			# Chequeamos ver al jugador
 			rayCast_fov.force_raycast_update()
 			# Creamos la variable collider donde alojar al jugador
 			var collider
 			# Si ya tiene target a seguir
 			if target_to_chase:
+				# Si el objetivo se encuentra fuera del rango de vision
 				if position.distance_to(target_to_chase.position) > fov_lenght:
+					# anulamos el target a perseguir
 					target_to_chase = null
 				# asigna target a collider:
 				collider = target_to_chase
@@ -157,7 +159,7 @@ func _physics_process(delta: float) -> void:
 					current_state = state.idle
 			
 		state.anticipation:
-			debug_label.text = "anticipation"
+			debug_label.text = "ANTICIPATION"
 			# Reproducimos animacion
 			animatedSprite.play("anticipation")
 			# Esperamos que la animacion termine
@@ -167,7 +169,7 @@ func _physics_process(delta: float) -> void:
 
 		state.atack:
 			# Identificamos el estado actual:
-			debug_label.text = "atack"
+			debug_label.text = "ATTACK"
 			# Si ataque esta deshabilitado
 			if !atack_enable:
 				# Salimos del estado atacar
@@ -196,7 +198,8 @@ func _physics_process(delta: float) -> void:
 			yield(animatedSprite,"animation_finished")
 			# Volvemos al estado chase
 			current_state = state.chase
-
+		state.hurt:
+			pass
 		_: #default
 			debug_label.text = "idle"
 			animatedSprite.play("idle")
