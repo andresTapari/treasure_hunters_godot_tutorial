@@ -116,12 +116,9 @@ func _physics_process(delta: float) -> void:
 				# reproducir animacion de correr 
 				animatedSprite.play("run")
 			else:
-				set_current_state(state.idle)
 				# si la distancia es menor  a la tolerancia:
 				# estado actual: Idle
-				# Transicion de estado patrol -> idle
-#				current_state = state.idle
-#				dialog.set_dialog("Interrogation_In")
+				set_current_state(state.idle)
 
 		# Estado perseguir:
 		state.chase:
@@ -223,10 +220,12 @@ func _physics_process(delta: float) -> void:
 			if life > 0:
 				animatedSprite.play("hit")
 				yield(animatedSprite,'animation_finished')
-				current_state = state.chase
+				set_current_state(state.chase)
+#				current_state = state.chase
 			else:
 				timer.stop()
-				current_state = state.dead
+				set_current_state(state.dead)
+#				current_state = state.dead
 				area2D.disconnect('body_entered',self,'_on_Area2D_body_entered')
 				# si ya no le queda vida
 				# reproducimos la animación die
@@ -282,7 +281,8 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		target_to_chase = body
 		body.hit(damage)
 		target_knok_back(80)
-		current_state = state.chase
+		set_current_state(state.chase)
+#		current_state = state.chase
 
 
 func _on_AnimatedSprite_frame_changed() -> void:
