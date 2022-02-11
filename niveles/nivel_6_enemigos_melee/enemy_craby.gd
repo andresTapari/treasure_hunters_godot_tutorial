@@ -78,29 +78,16 @@ func _physics_process(delta: float) -> void:
 				timer.wait_time = seconds_to_wait
 				# comenzamos el timer
 				timer.start()
-
-			if dir_cof < 0:
-				#Si esta viendo hacia atras, rota el raycast 180º
-				rayCast_fov.rotation_degrees = 180
-			else:
-				# si esta viendo hacia adelante, rota el raycast hacia el frente.
-				rayCast_fov.rotation_degrees = 0
-			# Actualizamos la información de colision del rayo
-			rayCast_fov.force_raycast_update()
-			# Cargamos en una variable el collider
-			var collider = rayCast_fov.get_collider()
+			# Chequeamos ver al jugador
+			var collider = check_ray_cast()
 			# Si el collider es valido
 			if collider:
-				# y si el collider esta en el grupo player
-				if collider.is_in_group("player"):
-					# establecemos el objetivo a perseguir:
 					target_to_chase = collider
 					# ponemos el estado actual en perseguir
 					set_current_state(state.chase)
 					# salimos del estado
 					return
-	
-			
+
 		# Estado patrullar:
 		state.patrol:
 			# Identificamos el estado actual:
@@ -115,17 +102,16 @@ func _physics_process(delta: float) -> void:
 			# Actualizamos la información de colision del rayo
 			rayCast_fov.force_raycast_update()
 			# Cargamos en una variable el collider
-			var collider = rayCast_fov.get_collider()
+			var collider = check_ray_cast()
 			# Si el collider es valido
 			if collider:
-				# y si el collider esta en el grupo player
-				if collider.is_in_group("player"):
 					# establecemos el objetivo a perseguir:
 					target_to_chase = collider
 					# ponemos el estado actual en perseguir
 					set_current_state(state.chase)
 					# salimos del estado
 					return
+			
 			# Calculamos la distancia hacia la posicion para moverse
 			var distancia:float = target_to_move.x - position.x 
 			# si la distancia es mayor a la tolerancia
@@ -375,3 +361,24 @@ func set_current_state(_state) -> void:
 			dialog.set_dialog("Dead_In")
 	# establecemos como el estado actual a _state
 	current_state = _state
+
+func check_ray_cast() -> Node:
+	if dir_cof < 0:
+		#Si esta viendo hacia atras, rota el raycast 180º
+		rayCast_fov.rotation_degrees = 180
+	else:
+		# si esta viendo hacia adelante, rota el raycast hacia el frente.
+		rayCast_fov.rotation_degrees = 0
+	# Actualizamos la información de colision del rayo
+	rayCast_fov.force_raycast_update()
+	# Cargamos en una variable el collider
+	var collider = rayCast_fov.get_collider()
+	# Si el collider es valido
+	if collider:
+		# y si el collider esta en el grupo player
+		if collider.is_in_group("player"):
+			# establecemos el objetivo a perseguir:
+			return collider
+	return null
+	
+	
