@@ -99,10 +99,7 @@ func _physics_process(delta: float) -> void:
 					# establecemos el objetivo a perseguir:
 					target_to_chase = collider
 					# ponemos el estado actual en perseguir
-#					current_state = state.chase
 					set_current_state(state.chase)
-					# mostramos dialogo de exclamacion
-#					dialog.set_dialog("Exclamation_In")
 					# salimos del estado
 					return
 			# Calculamos la distancia hacia la posicion para moverse
@@ -151,7 +148,6 @@ func _physics_process(delta: float) -> void:
 						if life > 0:
 							# Establecemos nuevo estado
 							set_current_state(state.anticipation)
-#							current_state = state.anticipation
 							# Habilitamos el modo ataque
 							atack_enable = true
 							# Salimos del estado
@@ -164,12 +160,11 @@ func _physics_process(delta: float) -> void:
 			else:
 				# si no hay collider se mueve a la ultima posicion encontrada
 				if abs(target_to_move.x - position.x) < dist_tolerancia:
-					#Movemos el personaje hacia el jugador:
+					# Movemos el personaje hacia el jugador:
 					linear_velocity.x = speed * dir_cof
 				else:
-					dialog.set_dialog("Interrogation_In")
+					# Establecemos estado IDLE
 					set_current_state(state.idle)
-#					current_state = state.idle
 			
 		state.anticipation:
 			debug_label.text = "ANTICIPATION"
@@ -177,9 +172,6 @@ func _physics_process(delta: float) -> void:
 			animatedSprite.play("anticipation")
 			# Esperamos que la animacion termine
 			yield(animatedSprite,"animation_finished")
-			# Como yield retomara el script luego que se termine la animacion,
-			# hay que controlar que no tenga vida, puesto que si no, cuando el personaje muera
-			# en este estado, retomara el ataque, mientras desaparece por el borde del mapa.
 			# Cambiamos el estado actual
 			set_current_state(state.atack)
 
@@ -196,7 +188,7 @@ func _physics_process(delta: float) -> void:
 			atack_enable = false
 			# actualizamos las colisiones del raycast
 			rayCast_back.force_raycast_update()
-			# alojamos 
+			# alojamos collider raycast
 			var collider = rayCast_back.get_collider()
 			if collider:
 				if collider.is_in_group("player"):
@@ -214,14 +206,13 @@ func _physics_process(delta: float) -> void:
 			yield(animatedSprite,"animation_finished")
 			# Volvemos al estado chase
 			set_current_state(state.chase)
-#			current_state = state.chase
+
 		state.hurt:
 		# A la variable vida le descuenta el daño.
 			if life > 0:
 				animatedSprite.play("hit")
 				yield(animatedSprite,'animation_finished')
 				set_current_state(state.chase)
-#				current_state = state.chase
 			else:
 				timer.stop()
 				set_current_state(state.dead)
@@ -237,14 +228,15 @@ func _physics_process(delta: float) -> void:
 				animatedSprite.stop()
 				# desactivamos la caja de colision para que deje de percibir daño 
 				# y se caiga por los limites de la pantalla
-
 				# salimos de la función
 				return
+
 		state.dead:
 			debug_label.text = "DEAD"
 			timer.stop()
 			# Bucle vacio
 			return
+
 		_: #default
 			return
 
