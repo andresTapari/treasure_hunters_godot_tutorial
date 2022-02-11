@@ -74,7 +74,11 @@ func _physics_process(delta):
 				print_debug(collider)
 				if collider:
 					if collider.is_in_group("entity"):
-						collider.hit(damage,rayCast.cast_to.normalized())
+						if collider is RigidBody2D:
+							collider.hit(damage,rayCast.cast_to.normalized())
+						elif collider is Area2D:
+							collider.get_parent().hit(damage,rayCast.cast_to.normalized())
+						
 				yield(animatedSprite,"animation_finished")
 				# sale en modo combate
 				atck_enable = false
@@ -96,7 +100,7 @@ func _physics_process(delta):
 		if velocity == Vector2.ZERO:
 			animatedSprite.play("idle")
 		
-		elif velocity.y < 0:
+		elif velocity.y < 0 and move_enable:
 			animatedSprite.play("jump")
 		
 		elif velocity.y > 0:

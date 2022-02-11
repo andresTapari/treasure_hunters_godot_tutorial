@@ -8,6 +8,8 @@ onready var rayCast_back   = get_node("RayCast_available_ground_back")
 onready var rayCast_fov    = get_node("RayCast_fov")
 onready var timer          = get_node("Timer")
 onready var debug_label    = get_node("Label")
+onready var dialog         = get_node("character_dialog")
+onready var area2D         = get_node("Area2D")
 
 # Constante:
 # Estados posibles del enemigo:
@@ -16,7 +18,8 @@ enum state {idle,				# Estar
 			chase,				# Persigue al jugador si entra en su campo de vision
 			anticipation,		# Anticipacion antes del ataque, se puede cancelar si es atacado
 			atack,				# Ataca al jugar, no se puede cancelar
-			hurt				# 
+			hurt,				# estado dodne persibe daño
+			dead				# estado donde la unidad muere
 			}
 
 # Variables:
@@ -46,14 +49,16 @@ func _ready() -> void:
 	if !position_target_A.is_empty() and !position_target_B.is_empty():
 		patrol_target_A = get_node(position_target_A).position
 		patrol_target_B = get_node(position_target_B).position
+		set_current_state(state.idle)
 	else:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")
 
 func _physics_process(delta: float) -> void:
 	match current_state:
-
 		# Estador estar:
 		state.idle:
+			if life <= 0:
+				return
 			# Identificamos el estado actual:
 			debug_label.text = "IDLE"
 			# Reproducimos animacion de estar:
@@ -61,7 +66,7 @@ func _physics_process(delta: float) -> void:
 			# Ponemos la velocidad a cero
 			linear_velocity.x = 0
 			# Determinamos el tiempo a esperar en modo idle
-			if timer.is_stopped():
+			if timer.is_stopped() and life > 0:
 				# Si el timer esta detenido:
 				# Aleatoriza la semilla
 				randomize()
@@ -71,6 +76,7 @@ func _physics_process(delta: float) -> void:
 				timer.wait_time = seconds_to_wait
 				# comenzamos el timer
 				timer.start()
+
 		# Estado patrullar:
 		state.patrol:
 			# Identificamos el estado actual:
@@ -93,7 +99,10 @@ func _physics_process(delta: float) -> void:
 					# establecemos el objetivo a perseguir:
 					target_to_chase = collider
 					# ponemos el estado actual en perseguir
-					current_state = state.chase
+#					current_state = state.chase
+					set_current_state(state.chase)
+					# mostramos dialogo de exclamacion
+#					dialog.set_dialog("Exclamation_In")
 					# salimos del estado
 					return
 			# Calculamos la distancia hacia la posicion para moverse
@@ -107,9 +116,12 @@ func _physics_process(delta: float) -> void:
 				# reproducir animacion de correr 
 				animatedSprite.play("run")
 			else:
+				set_current_state(state.idle)
 				# si la distancia es menor  a la tolerancia:
 				# estado actual: Idle
-				current_state = state.idle
+				# Transicion de estado patrol -> idle
+#				current_state = state.idle
+#				dialog.set_dialog("Interrogation_In")
 
 		# Estado perseguir:
 		state.chase:
@@ -139,11 +151,13 @@ func _physics_process(delta: float) -> void:
 					target_to_move = collider.position
 					# Si la distancia es menos que el rango de ataque
 					if abs(target_to_move.x - position.x) < atack_range:
-						# Establecemos nuevo estado
-						current_state = state.anticipation
-						# Habilitamos el modo ataque
-						atack_enable = true
-						# Salimos del estado
+						if life > 0:
+							# Establecemos nuevo estado
+							set_current_state(state.anticipation)
+#							current_state = state.anticipation
+							# Habilitamos el modo ataque
+							atack_enable = true
+							# Salimos del estado
 						return
 					else:
 						# Establecemos animacion correr
@@ -156,7 +170,9 @@ func _physics_process(delta: float) -> void:
 					#Movemos el personaje hacia el jugador:
 					linear_velocity.x = speed * dir_cof
 				else:
-					current_state = state.idle
+					dialog.set_dialog("Interrogation_In")
+					set_current_state(state.idle)
+#					current_state = state.idle
 			
 		state.anticipation:
 			debug_label.text = "ANTICIPATION"
@@ -164,10 +180,14 @@ func _physics_process(delta: float) -> void:
 			animatedSprite.play("anticipation")
 			# Esperamos que la animacion termine
 			yield(animatedSprite,"animation_finished")
+			# Como yield retomara el script luego que se termine la animacion,
+			# hay que controlar que no tenga vida, puesto que si no, cuando el personaje muera
+			# en este estado, retomara el ataque, mientras desaparece por el borde del mapa.
 			# Cambiamos el estado actual
-			current_state = state.atack
+			set_current_state(state.atack)
 
 		state.atack:
+			dialog.set_dialog("Dead_In")
 			# Identificamos el estado actual:
 			debug_label.text = "ATTACK"
 			# Si ataque esta deshabilitado
@@ -192,21 +212,42 @@ func _physics_process(delta: float) -> void:
 				if collider.is_in_group("player"):
 					collider.hit(damage)
 					target_knok_back(60)
-
 			animatedSprite.play("attack")
 			# Esperamos que la animacion termine
 			yield(animatedSprite,"animation_finished")
 			# Volvemos al estado chase
-			current_state = state.chase
+			set_current_state(state.chase)
+#			current_state = state.chase
 		state.hurt:
 		# A la variable vida le descuenta el daño.
-			animatedSprite.play("hit")
-			yield(animatedSprite,'animation_finished')
-		#	animatedSprite.play("idle")
-			current_state = state.chase
+			if life > 0:
+				animatedSprite.play("hit")
+				yield(animatedSprite,'animation_finished')
+				current_state = state.chase
+			else:
+				timer.stop()
+				current_state = state.dead
+				area2D.disconnect('body_entered',self,'_on_Area2D_body_entered')
+				# si ya no le queda vida
+				# reproducimos la animación die
+				animatedSprite.play("die")
+				$CollisionShape2D.set_deferred("disabled",true)
+				# Esperamos a que la animacion termine
+				yield(animatedSprite,"animation_finished")
+				# detenemos animación
+				animatedSprite.stop()
+				# desactivamos la caja de colision para que deje de percibir daño 
+				# y se caiga por los limites de la pantalla
+
+				# salimos de la función
+				return
+		state.dead:
+			debug_label.text = "DEAD"
+			timer.stop()
+			# Bucle vacio
+			return
 		_: #default
-			debug_label.text = "idle"
-			animatedSprite.play("idle")
+			return
 
 # Funcion Hit
 func hit(_damage: int,_direction) -> void:
@@ -219,7 +260,8 @@ func hit(_damage: int,_direction) -> void:
 		animatedSprite.flip_h = true
 	else:
 		animatedSprite.flip_h = false
-	current_state = state.hurt
+	set_current_state(state.hurt)
+#	current_state = state.hurt
 
 
 func _on_Timer_timeout():
@@ -232,7 +274,8 @@ func _on_Timer_timeout():
 			target_to_move = patrol_target_A
 		else:
 			target_to_move = patrol_target_B
-		current_state = state.patrol
+		set_current_state(state.patrol)
+		#current_state = state.patrol
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
@@ -243,23 +286,22 @@ func _on_Area2D_body_entered(body: Node) -> void:
 
 
 func _on_AnimatedSprite_frame_changed() -> void:
-	pass
-#	if animatedSprite.animation != "attack":
-#		return
-#	else:
-#		if animatedSprite.frame == 3:
-#			rayCast_back.force_raycast_update()
-#			var collider = rayCast_back.get_collider()
-#			if collider:
-#				if collider.is_in_group("player"):
-#					collider.hit(damage)
-#					target_knok_back(60)
-#			rayCast_front.force_raycast_update()
-#			collider = rayCast_front.get_collider()
-#			if collider:
-#				if collider.is_in_group("player"):
-#					collider.hit(damage)
-#					target_knok_back(60)
+	if animatedSprite.animation != "attack":
+		return
+	else:
+		if animatedSprite.frame == 3:
+			rayCast_back.force_raycast_update()
+			var collider = rayCast_back.get_collider()
+			if collider:
+				if collider.is_in_group("player"):
+					collider.hit(damage)
+					target_knok_back(60)
+			rayCast_front.force_raycast_update()
+			collider = rayCast_front.get_collider()
+			if collider:
+				if collider.is_in_group("player"):
+					collider.hit(damage)
+					target_knok_back(60)
 
 func target_knok_back(_force:int)-> void:
 		var tween = get_node("Tween")
@@ -297,7 +339,18 @@ func look_at_target(_target) -> int:
 	# Retornamos 1 como coeficiente de direccion
 	return 1
 
-
 func _on_enemy_craby_body_entered(body: Node) -> void:
 	print_debug(body)
 	pass # Replace with function body.
+
+func set_current_state(_state) -> void:
+	if current_state == state.dead:
+		return
+	match _state:
+		state.idle:
+			dialog.set_dialog("Interrogation_In")
+		state.chase:
+			dialog.set_dialog("Exclamation_In")
+		state.anticipation:
+			dialog.set_dialog("Dead_In")
+	current_state = _state

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/animations/characte_dialogs.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://niveles/nivel_6_enemigos_melee/characte_dialogs.gd" type="Script" id=16]
+
+[node name="character_dialog" type="Node2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 7, -6 )
+frames = ExtResource( 1 )
+animation = "dead_in"
+frame = 2

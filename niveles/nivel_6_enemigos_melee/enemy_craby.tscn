@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/animations/enemy_melee_craby.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://niveles/nivel_6_enemigos_melee/enemy_craby.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/fuente_predeterminada.tres" type="DynamicFontData" id=3]
+[ext_resource path="res://niveles/nivel_6_enemigos_melee/characte_dialogs.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 9.5
@@ -18,15 +19,17 @@ font_data = ExtResource( 3 )
 extents = Vector2( 5, 5 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 22.0227
+radius = 25.0
 
 [node name="enemy_craby" type="RigidBody2D" groups=["entity"]]
 mode = 2
 gravity_scale = 5.0
 contact_monitor = true
 script = ExtResource( 2 )
+life = 3
 force_factor = 55
-max_t_to_wait = 2
+min_t_to_wait = 2
+max_t_to_wait = 4
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -62,9 +65,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -104.0
-margin_top = -48.0
+margin_top = -61.0
 margin_right = 104.0
-margin_bottom = -2.0
+margin_bottom = -15.0
 custom_fonts/font = SubResource( 5 )
 text = "current_state"
 align = 1
@@ -81,11 +84,8 @@ position = Vector2( -1.90735e-06, 25 )
 rotation = -0.780851
 shape = SubResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
-visible = false
+[node name="Area2D" type="Area2D" parent="." groups=["entity"]]
 position = Vector2( 0, -36 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, 43 )
@@ -93,6 +93,10 @@ shape = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="character_dialog" parent="." instance=ExtResource( 4 )]
+position = Vector2( 14, -18 )
+
 [connection signal="body_entered" from="." to="." method="_on_enemy_craby_body_entered"]
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

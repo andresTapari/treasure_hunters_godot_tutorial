@@ -1,0 +1,49 @@
+[gd_resource type="SpriteFrames" load_steps=15 format=2]
+
+[ext_resource path="res://assets/sprites/character_dialogs/Exclamation/Exclamation Out 01.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/character_dialogs/Exclamation/Exclamation In 03.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/character_dialogs/Exclamation/Exclamation Out 02.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/character_dialogs/Dead/Dead Out 02.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/character_dialogs/Dead/Dead In 02.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/character_dialogs/Interrogation/Interrogation In 02.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/character_dialogs/Exclamation/Exclamation In 02.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/character_dialogs/Dead/Dead In 03.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/character_dialogs/Interrogation/Interrogation Out 02.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/character_dialogs/Interrogation/Interrogation Out 01.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/character_dialogs/Interrogation/Interrogation In 01.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/character_dialogs/Interrogation/Interrogation In 03.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/character_dialogs/Exclamation/Exclamation In 01.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/character_dialogs/Dead/Dead Out 01.png" type="Texture" id=15]
+
+[resource]
+animations = [ {
+"frames": [ null, ExtResource( 11 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), null ],
+"loop": true,
+"name": "interrogation_in",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "dead_out",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "interrogation_out",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "exclamation_out",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "dead_in",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), null ],
+"loop": true,
+"name": "exclamation_in",
+"speed": 5.0
+} ]
