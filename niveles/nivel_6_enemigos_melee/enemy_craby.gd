@@ -27,7 +27,7 @@ export var life 			= 10				# Cantidad de vida que posee
 export var force_factor		= 45				# Fuerza de nock-back
 export var speed			= 150				# Velocidad de movimiento
 export var damage			= 2
-export var fov_lenght		= 100				# Alcanze de deteccion
+export var fov_lenght		= 150				# Alcanze de deteccion
 export var position_target_A: NodePath			# Coordenadas hasta donde patrullar
 export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var min_t_to_wait: int = 0				# Tiempo minimo para esperar
@@ -49,6 +49,7 @@ func _ready() -> void:
 	if !position_target_A.is_empty() and !position_target_B.is_empty():
 		patrol_target_A = get_node(position_target_A).position
 		patrol_target_B = get_node(position_target_B).position
+		rayCast_fov.cast_to=Vector2(fov_lenght,0)
 		set_current_state(state.idle)
 	else:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")
@@ -66,6 +67,7 @@ func _physics_process(delta: float) -> void:
 			# Ponemos la velocidad a cero
 			linear_velocity.x = 0
 			# Determinamos el tiempo a esperar en modo idle
+			
 			if timer.is_stopped() and life > 0:
 				# Si el timer esta detenido:
 				# Aleatoriza la semilla
@@ -77,6 +79,28 @@ func _physics_process(delta: float) -> void:
 				# comenzamos el timer
 				timer.start()
 
+			if dir_cof < 0:
+				#Si esta viendo hacia atras, rota el raycast 180º
+				rayCast_fov.rotation_degrees = 180
+			else:
+				# si esta viendo hacia adelante, rota el raycast hacia el frente.
+				rayCast_fov.rotation_degrees = 0
+			# Actualizamos la información de colision del rayo
+			rayCast_fov.force_raycast_update()
+			# Cargamos en una variable el collider
+			var collider = rayCast_fov.get_collider()
+			# Si el collider es valido
+			if collider:
+				# y si el collider esta en el grupo player
+				if collider.is_in_group("player"):
+					# establecemos el objetivo a perseguir:
+					target_to_chase = collider
+					# ponemos el estado actual en perseguir
+					set_current_state(state.chase)
+					# salimos del estado
+					return
+	
+			
 		# Estado patrullar:
 		state.patrol:
 			# Identificamos el estado actual:
@@ -188,19 +212,29 @@ func _physics_process(delta: float) -> void:
 			atack_enable = false
 			# actualizamos las colisiones del raycast
 			rayCast_back.force_raycast_update()
-			# alojamos collider raycast
+			# alojamos collider raycast posterior
 			var collider = rayCast_back.get_collider()
+			# evaluamos si el collider es valido 
 			if collider:
+				# si el collider es el grupo "player"
 				if collider.is_in_group("player"):
+					# llama a la función hit
 					collider.hit(damage)
+					# llama a la función knok back
 					target_knok_back(60)
-
+			# actualizamos las colisiones del raycast
 			rayCast_front.force_raycast_update()
+			# cargamos las colsiiones del raycast frontal
 			collider = rayCast_front.get_collider()
+			# so el collider es valido
 			if collider:
+				# si el collider pertecence al grupo player
 				if collider.is_in_group("player"):
+					# llama a la funcion hit 
 					collider.hit(damage)
+					# llama a la funcion knok back
 					target_knok_back(60)
+			# reproduce animacion attack
 			animatedSprite.play("attack")
 			# Esperamos que la animacion termine
 			yield(animatedSprite,"animation_finished")
@@ -221,19 +255,23 @@ func _physics_process(delta: float) -> void:
 				# si ya no le queda vida
 				# reproducimos la animación die
 				animatedSprite.play("die")
+				# desactivamos la caja de colision del rigib_body para que 
+				# caiga por los limites del mapa
 				$CollisionShape2D.set_deferred("disabled",true)
+				# desactivamos el nodo de colsion de la caja estatica para 
+				# que no interaccione con ningun objeto mientras cae
+				$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
 				# Esperamos a que la animacion termine
 				yield(animatedSprite,"animation_finished")
 				# detenemos animación
 				animatedSprite.stop()
-				# desactivamos la caja de colision para que deje de percibir daño 
-				# y se caiga por los limites de la pantalla
 				# salimos de la función
 				return
 
 		state.dead:
 			debug_label.text = "DEAD"
 			timer.stop()
+			dialog.visible = false
 			# Bucle vacio
 			return
 
@@ -276,25 +314,6 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		set_current_state(state.chase)
 #		current_state = state.chase
 
-
-func _on_AnimatedSprite_frame_changed() -> void:
-	if animatedSprite.animation != "attack":
-		return
-	else:
-		if animatedSprite.frame == 3:
-			rayCast_back.force_raycast_update()
-			var collider = rayCast_back.get_collider()
-			if collider:
-				if collider.is_in_group("player"):
-					collider.hit(damage)
-					target_knok_back(60)
-			rayCast_front.force_raycast_update()
-			collider = rayCast_front.get_collider()
-			if collider:
-				if collider.is_in_group("player"):
-					collider.hit(damage)
-					target_knok_back(60)
-
 func target_knok_back(_force:int)-> void:
 		var tween = get_node("Tween")
 		# cargamos parametro al nodo Tween
@@ -312,7 +331,7 @@ func target_knok_back(_force:int)-> void:
 
 func look_at_target(_target) -> int:
 	# determinamos la direccion donde hay que moverse
-	var distancia:float = _target.x - self.position.x 
+	var distancia: float = _target.x - self.position.x 
 
 	# Si el target esta a la izquierda:
 	if distancia < 0:
@@ -336,13 +355,23 @@ func _on_enemy_craby_body_entered(body: Node) -> void:
 	pass # Replace with function body.
 
 func set_current_state(_state) -> void:
+	# Si el estado actual es dead:
 	if current_state == state.dead:
+		# salimos de la funcion
 		return
+	# evaluamos cual es el estado _state
 	match _state:
+		# si es idle:
 		state.idle:
+			# mostramos el dialogo "Interrogation In"
 			dialog.set_dialog("Interrogation_In")
+		# si es chase:
 		state.chase:
+			# mostramos el dialogo "Exclamation In"
 			dialog.set_dialog("Exclamation_In")
+		# si es anticipacion:
 		state.anticipation:
+			# mostramos el dialogo "Dead In
 			dialog.set_dialog("Dead_In")
+	# establecemos como el estado actual a _state
 	current_state = _state
