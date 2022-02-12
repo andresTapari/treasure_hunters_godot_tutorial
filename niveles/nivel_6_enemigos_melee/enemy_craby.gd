@@ -175,7 +175,8 @@ func _physics_process(delta: float) -> void:
 				else:
 					# Establecemos estado IDLE
 					set_current_state(state.idle)
-			
+		
+		# Estado anticipar
 		state.anticipation:
 			debug_label.text = "ANTICIPATION"
 			# Reproducimos animacion
@@ -185,7 +186,9 @@ func _physics_process(delta: float) -> void:
 			# Cambiamos el estado actual
 			set_current_state(state.atack)
 
+		# Estado atacar
 		state.atack:
+			# establecemos globo de dialogo como calavera
 			dialog.set_dialog("Dead_In")
 			# Identificamos el estado actual:
 			debug_label.text = "ATTACK"
@@ -227,18 +230,24 @@ func _physics_process(delta: float) -> void:
 			# Volvemos al estado chase
 			set_current_state(state.chase)
 
+		# Estado daño
 		state.hurt:
-		# A la variable vida le descuenta el daño.
+			# Si vida es mayor a 0
 			if life > 0:
+				# Reproducimos animacion hit
 				animatedSprite.play("hit")
+				# esperamos a que la animacion termine
 				yield(animatedSprite,'animation_finished')
+				# el estado actual es perseguir
 				set_current_state(state.chase)
+			# si la vida es menor a 0
 			else:
+				# detenemos el timer
 				timer.stop()
+				# establecemos el estado actual como muerto
 				set_current_state(state.dead)
-#				current_state = state.dead
+				# desconectamos la señal del area 2D
 				area2D.disconnect('body_entered',self,'_on_Area2D_body_entered')
-				# si ya no le queda vida
 				# reproducimos la animación die
 				animatedSprite.play("die")
 				# desactivamos la caja de colision del rigib_body para que 
@@ -252,17 +261,19 @@ func _physics_process(delta: float) -> void:
 				# detenemos animación
 				animatedSprite.stop()
 				# salimos de la función
-				return
 
+		# Estado muerto:
 		state.dead:
+			# Mostramos en el texto DEAD
 			debug_label.text = "DEAD"
+			# Detenemos el timer
 			timer.stop()
+			# Ocultamos el globo de dialogo
 			dialog.visible = false
-			# Bucle vacio
-			return
+			# Salimos de la funcion
 
 		_: #default
-			return
+			pass
 
 # Funcion Hit
 func hit(_damage: int,_direction) -> void:
@@ -280,20 +291,29 @@ func hit(_damage: int,_direction) -> void:
 
 
 func _on_Timer_timeout():
+	# Si el estado actual es idle o patrol:
 	if current_state == state.idle or current_state == state.patrol:
+		# detiene el timer
 		timer.stop()
-		# Esta acción cambia el modo de timer
+		# Calcula la distancia a la posicion A
 		var dist_to_A = abs(position.x - patrol_target_A.x)
+		# Calcula la distancia a la posicion B
 		var dist_to_B = abs(position.x - patrol_target_B.x)
+		# Determina cual es la mas cercana
 		if dist_to_A > dist_to_B:
+			# si A es mayor a B, target_to_move es la posicion A
 			target_to_move = patrol_target_A
 		else:
+			# si B es mayor a A, target_to_move es la posicion B
 			target_to_move = patrol_target_B
+		#establecemos el estado actual, patrol:
 		set_current_state(state.patrol)
-		#current_state = state.patrol
+
 
 func _on_Area2D_body_entered(body: Node) -> void:
+	# si el cuerpo esta en el grupo player
 	if body.is_in_group("player"):
+		# 
 		target_to_chase = body
 		body.hit(damage)
 		target_knok_back(80)
@@ -379,6 +399,7 @@ func check_ray_cast() -> Node:
 		if collider.is_in_group("player"):
 			# establecemos el objetivo a perseguir:
 			return collider
+	# Si el collider no es valido retorna nulo
 	return null
 	
 	
