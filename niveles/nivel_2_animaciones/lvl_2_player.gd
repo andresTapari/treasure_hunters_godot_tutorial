@@ -17,9 +17,9 @@ func _physics_process(delta):
 		# si player se mueve a la derecha
 		velocity.x += speed
 		# reproduce animacion correr
-		animatedSprite.play("run")				
+		animatedSprite.play("run")
 		# voltear sprite horizontalmente hacia la derecha
-		animatedSprite.flip_h = false			
+		animatedSprite.flip_h = false
 
 	if Input.is_action_pressed("ui_left"):
 		# si player se mueve hacia la izquierda

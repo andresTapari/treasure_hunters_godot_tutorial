@@ -1,7 +1,7 @@
 extends Node2D
 
 # creamos una variable para player
-onready var player = get_node('lvl_4_player')
+onready var player = get_node('lvl_5_player')
 
 func _ready():
 	# Conectamos la señal "update_score" de player con la función del HUD

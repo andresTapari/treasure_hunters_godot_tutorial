@@ -5,7 +5,7 @@
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/spikes.tscn" type="PackedScene" id=3]
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/lvl_5_player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/decorations/window.tscn" type="PackedScene" id=5]
-[ext_resource path="res://niveles/nivel_4_romper_objetos/lvl.gd" type="Script" id=6]
+[ext_resource path="res://niveles/nivel_5_vida_y_trampas/lvl.gd" type="Script" id=6]
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/pickable_item_health.tscn" type="PackedScene" id=7]
 
 [node name="lvl" type="Node2D"]
@@ -30,7 +30,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 200, 136 )
-frame = 31
+frame = 49
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

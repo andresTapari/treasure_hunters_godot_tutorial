@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-
 # Nodos:
 onready var animatedSprite = get_node('AnimatedSprite')
 onready var rayCast_front  = get_node("RayCast_available_ground_front")
@@ -12,6 +11,7 @@ onready var dialog         = get_node("character_dialog")
 onready var area2D         = get_node("Area2D")
 
 # Constante:
+
 # Estados posibles del enemigo:
 enum state {idle,				# Estar
 			patrol,				# Patrulla una zona, se mueve A->B y B->A
@@ -46,12 +46,18 @@ var target_to_chase: Node 						# Target del jugador
 
 # Funcion Ready:
 func _ready() -> void:
+	# si position A y position B estan no estan vacios:
 	if !position_target_A.is_empty() and !position_target_B.is_empty():
+		# Se asigna a la patrol_target_A la posision de A
 		patrol_target_A = get_node(position_target_A).position
+		# Se asigna a la patrol_target_A la posision de B
 		patrol_target_B = get_node(position_target_B).position
+		# Establecemos el largo del Fov
 		rayCast_fov.cast_to=Vector2(fov_lenght,0)
+		# Establecemos el estado actual como Idle
 		set_current_state(state.idle)
 	else:
+		# si estan vacios da un aviso que no tiene posiciones para patrullar:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")
 
 func _physics_process(delta: float) -> void:
