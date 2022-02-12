@@ -9,7 +9,6 @@
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/pickable_item_health.tscn" type="PackedScene" id=7]
 
 [node name="lvl" type="Node2D"]
-scale = Vector2( 2, 2 )
 script = ExtResource( 6 )
 
 [node name="TileMap_fondo" type="TileMap" parent="."]
@@ -30,7 +29,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 200, 136 )
-frame = 49
+frame = 37
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -52,5 +51,5 @@ position = Vector2( 368, 208 )
 position = Vector2( 239.5, 208 )
 
 [node name="pickable_item_health" parent="." instance=ExtResource( 7 )]
-position = Vector2( 80, 216 )
+position = Vector2( 80, 208 )
 tipo = 1

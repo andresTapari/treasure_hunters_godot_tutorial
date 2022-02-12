@@ -172,4 +172,5 @@ func heal(_value) -> void:
 	emit_signal('update_health',total_life,life)
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().reload_current_scene()

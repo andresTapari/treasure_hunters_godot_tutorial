@@ -32,13 +32,14 @@ export var position_target_A: NodePath			# Coordenadas hasta donde patrullar
 export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var min_t_to_wait: int = 0				# Tiempo minimo para esperar
 export var max_t_to_wait: int = 0				# Tiempo maximo para esperar
+export var target_knok_back_force: int = 40		#Fuerza con la que repele a player
 
 var target_to_move 		= Vector2(360,102)		# Target para moverse
 var dist_tolerancia 	= 1						# Tolerancia para moverse
 var current_state 		= state.idle			# Estado actual 
 var dir_cof				= 1						# Coeficiente de la direccon
 var atack_range: int 	= 55-15					# Rango de ataque
-var atack_enable: bool  = 1						# Habilita el ataque
+var atack_enable: bool  = true					# Habilita el ataque
 
 var patrol_target_A: Vector2					# Coordenadas hasta donde patrullar
 var patrol_target_B: Vector2					# Coordenadas hasta donde patrullar
@@ -60,7 +61,8 @@ func _ready() -> void:
 		# si estan vacios da un aviso que no tiene posiciones para patrullar:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
+	# Evalumos estado
 	match current_state:
 		# Estador estar:
 		state.idle:
@@ -216,7 +218,7 @@ func _physics_process(delta: float) -> void:
 					# llama a la función hit
 					collider.hit(damage)
 					# llama a la función knok back
-					target_knok_back(60)
+					target_knok_back(target_knok_back_force*2)
 			# actualizamos las colisiones del raycast
 			rayCast_front.force_raycast_update()
 			# cargamos las colsiiones del raycast frontal
@@ -228,7 +230,7 @@ func _physics_process(delta: float) -> void:
 					# llama a la funcion hit 
 					collider.hit(damage)
 					# llama a la funcion knok back
-					target_knok_back(60)
+					target_knok_back(target_knok_back_force*2)
 			# reproduce animacion attack
 			animatedSprite.play("attack")
 			# Esperamos que la animacion termine
@@ -322,7 +324,7 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		# 
 		target_to_chase = body
 		body.hit(damage)
-		target_knok_back(80)
+		target_knok_back(target_knok_back_force)
 		set_current_state(state.chase)
 #		current_state = state.chase
 
@@ -330,7 +332,7 @@ func target_knok_back(_force:int)-> void:
 		var tween = get_node("Tween")
 		# cargamos parametro al nodo Tween
 		tween.interpolate_property($StaticBody2D/CollisionShape2D.get_shape(),
-		 "extents",Vector2(10,10),Vector2(_force,_force),0.05,
+		 "extents",Vector2(2.5,2.5),Vector2(_force,_force),0.05,
 		Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 		# Iniciamos en nodo Tween, este hace que la caja de colision de statick body
 		# aumente su tamaño, empujando al jugador, logrando generar el efecto
@@ -339,7 +341,7 @@ func target_knok_back(_force:int)-> void:
 		# Esperamos que tween termine
 		yield(tween,'tween_all_completed')
 		# Reestablecemos la dimension original
-		$StaticBody2D/CollisionShape2D.get_shape().extents = Vector2(10,10)
+		$StaticBody2D/CollisionShape2D.get_shape().extents = Vector2(2.5,2.5)
 
 func look_at_target(_target) -> int:
 	# determinamos la direccion donde hay que moverse

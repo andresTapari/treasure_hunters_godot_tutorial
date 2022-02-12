@@ -9,3 +9,5 @@ func _ready():
 	player.connect("update_score",$CanvasLayer,"handle_update_score")
 	# Conectamos la señal "update_score" de player con la función del HUD
 	player.connect('update_health',$CanvasLayer,"handle_update_health")
+
+

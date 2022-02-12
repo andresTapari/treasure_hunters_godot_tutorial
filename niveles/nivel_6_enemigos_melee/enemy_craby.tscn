@@ -6,7 +6,7 @@
 [ext_resource path="res://niveles/nivel_6_enemigos_melee/characte_dialogs.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 9.5
+radius = 6.08276
 
 [sub_resource type="DynamicFont" id=5]
 size = 8
@@ -16,10 +16,10 @@ use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 5, 5 )
+extents = Vector2( 2.5, 2.5 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 25.0
+radius = 12.0
 
 [node name="enemy_craby" type="RigidBody2D" groups=["entity"]]
 mode = 2
@@ -27,12 +27,13 @@ gravity_scale = 5.0
 contact_monitor = true
 script = ExtResource( 2 )
 life = 3
-force_factor = 55
+force_factor = 27
+speed = 75
+fov_lenght = 100
 min_t_to_wait = 2
 max_t_to_wait = 4
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 2, 2 )
 frames = ExtResource( 1 )
 animation = "attack"
 frame = 3
@@ -40,22 +41,21 @@ speed_scale = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 7 )
-scale = Vector2( 2, 2 )
 shape = SubResource( 4 )
 
 [node name="RayCast_available_ground_back" type="RayCast2D" parent="."]
-position = Vector2( 0, 11 )
+position = Vector2( 0, 6 )
 exclude_parent = false
-cast_to = Vector2( 55, 0 )
+cast_to = Vector2( 30, 0 )
 
 [node name="RayCast_available_ground_front" type="RayCast2D" parent="."]
-position = Vector2( 0, 11 )
-cast_to = Vector2( -55, 0 )
+position = Vector2( 0, 6 )
+cast_to = Vector2( -30, 0 )
 
 [node name="RayCast_fov" type="RayCast2D" parent="."]
 rotation = 3.14159
 enabled = true
-cast_to = Vector2( 200, 0 )
+cast_to = Vector2( 100, 0 )
 collision_mask = 5
 
 [node name="Timer" type="Timer" parent="."]
@@ -82,21 +82,21 @@ collision_layer = 6
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -1.90735e-06, 25 )
+position = Vector2( -1.90735e-06, 11 )
 rotation = -0.780851
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity"]]
-position = Vector2( 0, -36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, 43 )
+position = Vector2( 0, 3 )
 shape = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="character_dialog" parent="." instance=ExtResource( 4 )]
-position = Vector2( 14, -18 )
+position = Vector2( 8, -9 )
+scale = Vector2( 1, 1 )
 
 [connection signal="body_entered" from="." to="." method="_on_enemy_craby_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

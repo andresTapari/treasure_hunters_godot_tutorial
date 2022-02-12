@@ -10,6 +10,8 @@ extents = Vector2( 8.5, 13 )
 collision_layer = 5
 collision_mask = 5
 script = ExtResource( 2 )
+speed = 125
+jump_speed = -300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
