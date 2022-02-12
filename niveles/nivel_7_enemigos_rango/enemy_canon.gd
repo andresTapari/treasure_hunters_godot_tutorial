@@ -24,6 +24,7 @@ func _ready():
 		muzzle_origin.scale = Vector2(-1,1)
 		animatedSpriteCanon.flip_h = true
 	apply_scale(Vector2(1,1))
+	timer.wait_time = cadence
 	timer.start()
 
 func hit(_damage: int,_direction) -> void:

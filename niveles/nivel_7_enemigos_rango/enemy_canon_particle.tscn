@@ -5,6 +5,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="enemy_canon_particle" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
