@@ -49,7 +49,7 @@ func hit(_damage: int,_direction) -> void:
 	animatedSpriteCanon.play("hit")
 	# aplicamos un impulso de knock_back
 	yield(animatedSpriteCanon,"animation_finished")
-	
+	# si la instancia del cañon es valida
 	if is_instance_valid(animatedSpriteCanon):
 		# reproducimos la animacion idle
 		animatedSpriteCanon.play("idle")
@@ -70,7 +70,7 @@ func _on_Timer_timeout():
 
 func _on_AnimatedSprite_cannon_frame_changed():
 	# si la animacion es "fire"
-	if animatedSpriteCanon.animation == "fire":
+	if animatedSpriteCanon.animation == "fire" and life > 0:
 		# y si el frame es 3:
 		if animatedSpriteCanon.frame == 3: 
 			# reproducimos animacion "fire"
