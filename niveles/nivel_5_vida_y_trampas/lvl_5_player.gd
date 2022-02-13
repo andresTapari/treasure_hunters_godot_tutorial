@@ -21,6 +21,7 @@ export (int) var gravity 	= 1000			# Aceleracion de la gravedad
 export (int) var damage		= 1				# Daño que provoca el jugador
 export (int) var total_life = 10			# Total de vida del jugador
 export (int) var life		= 10			# Cantidad de vida del jugador
+export (int) var knokback_f = 150			# Fuerza de empuje hacia atras cuando el jugador percibe daño
 
 var velocity:Vector2			= Vector2.ZERO					# Vector velocidad
 var score:int					= 0								# Puntaje del jugador
@@ -38,8 +39,8 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	
-	velocity.x = 0
 	if move_enable:
+		velocity.x = 0
 		if Input.is_action_pressed("ui_right"):
 			velocity.x += speed
 			if !atck_enable:
@@ -105,7 +106,8 @@ func _physics_process(delta):
 		
 		elif velocity.y > 0:
 			animatedSprite.play("fall")
-
+	
+	
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP) 
 
@@ -134,7 +136,18 @@ func handle_sword_destroy() -> void:
 	# volvemos a poner en true la espada para poder volver a lanzarla
 	has_sword = true
 
-func hit(_damage) -> void:
+func hit(_damage,_origin) -> void:
+	# determinamos la direccion donde proviene el daño
+	var dir: Vector2= global_position.direction_to(_origin)
+	# evaluamos si esta a la izquierda:
+	if dir.x < 0:
+		# la velocidad en x resultante sera la fuerza de empuje dividido 2
+		velocity.x = knokback_f/2
+	else:
+		# la velocidad en x resultante sera la fuerza negativa de empuje dividido 2
+		velocity.x = -knokback_f/2
+	# la velocidad en y sera:
+	velocity.y = -knokback_f
 	# se ejecuta cada vez que el personaje percibe daño
 	# Se resta la vida por el daño que percibe el personaje
 	life -= _damage 
@@ -144,17 +157,17 @@ func hit(_damage) -> void:
 	atck_enable=true
 	# evitamos que se siga moviendo
 	move_enable = false
+	# si ya no le queda vida
 	if life <= 0:
-		# si ya no le queda vida
+		# desactivamos la caja de colision para que deje de percibir daño 
+		# o juntar items y se caiga por los limites de la pantalla
+		$CollisionShape2D.set_deferred("disabled",true)
 		# reproducimos la animación die
 		animatedSprite.play("die")
 		# Esperamos a que la animacion termine
 		yield(animatedSprite,"animation_finished")
 		# detenemos animación
 		animatedSprite.stop()
-		# desactivamos la caja de colision para que deje de percibir daño 
-		# y se caiga por los limites de la pantalla
-		$CollisionShape2D.set_deferred("disabled",true)
 		# salimos de la función
 		return
 	# reproducimos animación de daño

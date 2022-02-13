@@ -4,10 +4,10 @@ extends Area2D
 var CANON_BALL_PARTICLE = preload("res://niveles/nivel_7_enemigos_rango/canon_bal_particle.tscn")
 
 # Variables:
-var speed:int 			= 200			# Velocidad del proyecile
+var speed:int 			= 300			# Velocidad del proyecile
 var direction:Vector2	= Vector2.ZERO	# Direccion del proyectil
 var damage 				= 5				# Daño que provoca el proyectil
-var explosion_force		= 50
+var explosion_force		= 150
 
 
 func _physics_process(delta):		# <- Se ejecuta una vez por cada proceso fisico
@@ -17,11 +17,11 @@ func _physics_process(delta):		# <- Se ejecuta una vez por cada proceso fisico
 
 
 func _on_Area2D_body_entered(body):
-	call_deferred("set","monitoring",false)s
+	call_deferred("set","monitoring",false)
 	call_deferred("set","monitoreable",false)
 	speed = 0
 	if body.is_in_group("player"):
-		body.hit(10)
+		body.hit(damage,global_position)
 	for n in range(3):
 			# creamos una instancia de particula cañon
 			var new_particle = CANON_BALL_PARTICLE.instance()

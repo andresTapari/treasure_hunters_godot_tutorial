@@ -216,9 +216,7 @@ func _physics_process(_delta: float) -> void:
 				# si el collider es el grupo "player"
 				if collider.is_in_group("player"):
 					# llama a la función hit
-					collider.hit(damage)
-					# llama a la función knok back
-					target_knok_back(target_knok_back_force*2)
+					collider.hit(damage,global_position)
 			# actualizamos las colisiones del raycast
 			rayCast_front.force_raycast_update()
 			# cargamos las colsiiones del raycast frontal
@@ -228,9 +226,7 @@ func _physics_process(_delta: float) -> void:
 				# si el collider pertecence al grupo player
 				if collider.is_in_group("player"):
 					# llama a la funcion hit 
-					collider.hit(damage)
-					# llama a la funcion knok back
-					target_knok_back(target_knok_back_force*2)
+					collider.hit(damage,global_position)
 			# reproduce animacion attack
 			animatedSprite.play("attack")
 			# Esperamos que la animacion termine
@@ -261,9 +257,6 @@ func _physics_process(_delta: float) -> void:
 				# desactivamos la caja de colision del rigib_body para que 
 				# caiga por los limites del mapa
 				$CollisionShape2D.set_deferred("disabled",true)
-				# desactivamos el nodo de colsion de la caja estatica para 
-				# que no interaccione con ningun objeto mientras cae
-				$StaticBody2D/CollisionShape2D.set_deferred("disabled",true)
 				# Esperamos a que la animacion termine
 				yield(animatedSprite,"animation_finished")
 				# detenemos animación
@@ -321,27 +314,25 @@ func _on_Timer_timeout():
 func _on_Area2D_body_entered(body: Node) -> void:
 	# si el cuerpo esta en el grupo player
 	if body.is_in_group("player"):
-		# 
 		target_to_chase = body
-		body.hit(damage)
-		target_knok_back(target_knok_back_force)
+		body.hit(damage,global_position)
 		set_current_state(state.chase)
 #		current_state = state.chase
 
-func target_knok_back(_force:int)-> void:
-		var tween = get_node("Tween")
-		# cargamos parametro al nodo Tween
-		tween.interpolate_property($StaticBody2D/CollisionShape2D.get_shape(),
-		 "extents",Vector2(2.5,2.5),Vector2(_force,_force),0.05,
-		Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-		# Iniciamos en nodo Tween, este hace que la caja de colision de statick body
-		# aumente su tamaño, empujando al jugador, logrando generar el efecto
-		# de knock back del mismo al recibir daño.
-		tween.start()
-		# Esperamos que tween termine
-		yield(tween,'tween_all_completed')
-		# Reestablecemos la dimension original
-		$StaticBody2D/CollisionShape2D.get_shape().extents = Vector2(2.5,2.5)
+#func target_knok_back(_force:int)-> void:
+#		var tween = get_node("Tween")
+#		# cargamos parametro al nodo Tween
+#		tween.interpolate_property($StaticBody2D/CollisionShape2D.get_shape(),
+#		 "extents",Vector2(2.5,2.5),Vector2(_force,_force),0.05,
+#		Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+#		# Iniciamos en nodo Tween, este hace que la caja de colision de statick body
+#		# aumente su tamaño, empujando al jugador, logrando generar el efecto
+#		# de knock back del mismo al recibir daño.
+#		tween.start()
+#		# Esperamos que tween termine
+#		yield(tween,'tween_all_completed')
+#		# Reestablecemos la dimension original
+#		$StaticBody2D/CollisionShape2D.get_shape().extents = Vector2(2.5,2.5)
 
 func look_at_target(_target) -> int:
 	# determinamos la direccion donde hay que moverse

@@ -29,7 +29,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 200, 136 )
-frame = 37
+frame = 26
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -42,13 +42,16 @@ tile_data = PoolIntArray( 262152, 6, 0, 262153, 6, 1, 262154, 6, 1, 262155, 6, 2
 [node name="CanvasLayer" parent="." instance=ExtResource( 2 )]
 
 [node name="lvl_5_player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 144, 212 )
+position = Vector2( 208, 184 )
 
 [node name="spikes" parent="." instance=ExtResource( 3 )]
 position = Vector2( 368, 208 )
 
 [node name="spikes2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 239.5, 208 )
+
+[node name="spikes3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 128, 208 )
 
 [node name="pickable_item_health" parent="." instance=ExtResource( 7 )]
 position = Vector2( 80, 208 )

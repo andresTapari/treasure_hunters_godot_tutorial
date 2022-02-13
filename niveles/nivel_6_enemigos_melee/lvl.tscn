@@ -32,7 +32,7 @@ tile_data = PoolIntArray( 65537, 8, 0, 65550, 9, 0, 393220, 14, 0, 393229, 14, 0
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 368, 92 )
-frame = 9
+frame = 21
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )

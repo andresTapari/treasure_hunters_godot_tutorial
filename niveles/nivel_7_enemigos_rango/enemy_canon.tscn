@@ -96,5 +96,7 @@ position = Vector2( -6, 0 )
 frames = SubResource( 2 )
 animation = "idle"
 
+[node name="Timer_queuefree" type="Timer" parent="."]
+
 [connection signal="frame_changed" from="AnimatedSprite_cannon" to="." method="_on_AnimatedSprite_cannon_frame_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
