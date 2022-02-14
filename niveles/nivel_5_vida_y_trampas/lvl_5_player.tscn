@@ -16,6 +16,7 @@ jump_speed = -300
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
+frame = 2
 speed_scale = 2.0
 playing = true
 
