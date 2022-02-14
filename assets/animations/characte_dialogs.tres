@@ -17,11 +17,6 @@
 
 [resource]
 animations = [ {
-"frames": [ null, ExtResource( 11 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), null ],
-"loop": true,
-"name": "interrogation_in",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "dead_out",
@@ -30,6 +25,11 @@ animations = [ {
 "frames": [ ExtResource( 10 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "interrogation_out",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), null ],
+"loop": true,
+"name": "exclamation_in",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
@@ -42,8 +42,8 @@ animations = [ {
 "name": "dead_in",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), null ],
+"frames": [ null, ExtResource( 11 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 9 ), null ],
 "loop": true,
-"name": "exclamation_in",
+"name": "interrogation_in",
 "speed": 5.0
 } ]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/pickable_item_health.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/decorations/candle.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/door.tscn" type="PackedScene" id=7]
 [ext_resource path="res://niveles/nivel_3_juntar_monedas/pickable_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/lvl_8_player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://niveles/nivel_6_enemigos_melee/enemy_craby.tscn" type="PackedScene" id=10]
 
 [node name="lvl" type="Node2D"]
 script = ExtResource( 6 )
@@ -51,14 +52,14 @@ tile_data = PoolIntArray( 65550, 9, 0, 393220, 14, 0, 393221, 16, 0, 393222, 16,
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 426, 85 )
-frame = 39
+frame = 44
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 176, 192 )
+frame = 4
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 336, 192 )
-frame = 2
 
 [node name="pickable_item" parent="." instance=ExtResource( 8 )]
 position = Vector2( 187, 116 )
@@ -71,3 +72,14 @@ position = Vector2( 223, 103 )
 
 [node name="pickable_item_health" parent="." instance=ExtResource( 1 )]
 position = Vector2( 221, 216 )
+
+[node name="enemy_craby" parent="." instance=ExtResource( 10 )]
+position = Vector2( 355, 211 )
+position_target_A = NodePath("../Position2D")
+position_target_B = NodePath("../Position2D2")
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 140, 214 )
+
+[node name="Position2D2" type="Position2D" parent="."]
+position = Vector2( 401, 216 )
