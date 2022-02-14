@@ -7,8 +7,11 @@ onready var animatedSprite = get_node("AnimatedSprite")
 enum item {silver_coin,golden_coin,golden_skull}	# Tipos de item
 export (item) var tipo								# tipo de item, editable desde Inspector
 var score: int =  0									# variable de puntaje
+var id:	String = ""
 
 func _ready():	# <- Se ejecuta cuando el nodo aparece en la escena raiz
+	id = owner.id + "_" + name
+	print_debug(id)
 	match tipo:	# <- Evalua el tipo
 		item.silver_coin:
 			# si es una moneda de plata
@@ -49,8 +52,11 @@ func _on_pickable_item_body_entered(body):
 			# si no es una calavera
 			# reproduce animacion de efecto de moneda
 			animatedSprite.play("coin_effect")
-
 		# espera a que termine la animacion
 		yield(animatedSprite, "animation_finished")
+		# llamamos a la funcion add_to_picked_item_list para agregar
+		# el item a la lista de items conseguidos (de esta forma evitamos que
+		# al volver a pasar por el nivel re aparezcan todos los items)
+		GLOBAL.add_to_picked_item_list(id)
 		# elmina el nodo
 		queue_free()

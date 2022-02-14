@@ -1,22 +1,21 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/animations/player_all_animations.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://niveles/nivel_5_vida_y_trampas/lvl_5_player.gd" type="Script" id=2]
+[ext_resource path="res://niveles/nivel_8_transicion_de_escenas/lvl_8_player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.5, 13 )
 
-[node name="lvl_5_player" type="KinematicBody2D" groups=["player"]]
+[node name="lvl_8_player" type="KinematicBody2D" groups=["player"]]
 collision_layer = 5
 collision_mask = 5
 script = ExtResource( 2 )
-speed = 125
+speed = 150
 jump_speed = -300
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 3
 speed_scale = 2.0
 playing = true
 

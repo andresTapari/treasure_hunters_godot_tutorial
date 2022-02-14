@@ -34,11 +34,16 @@ var has_sword: bool				= true							# Bandera que tiene espada
 var move_enable: bool			= true							# Bandera para mover jugador
 
 func _ready() -> void:
-		# actualizamos la barra de vida al comienzo del nivel
+	# cargamos el puntaje de global:
+	score = GLOBAL.score
+	life = GLOBAL.health
+	total_life = GLOBAL.total_health
+
+	# actualizamos la barra de vida al comienzo del nivel y el oro
 	emit_signal('update_health',total_life,life)
+	emit_signal('update_score',score)
 
 func _physics_process(delta):
-	
 	if move_enable:
 		velocity.x = 0
 		if Input.is_action_pressed("ui_right"):
@@ -114,6 +119,7 @@ func _physics_process(delta):
 
 func add_score(_value: int)-> void:
 	score += _value
+	GLOBAL.score += _value
 	emit_signal("update_score",score)
 
 
@@ -152,6 +158,8 @@ func hit(_damage,_origin) -> void:
 	# se ejecuta cada vez que el personaje percibe daño
 	# Se resta la vida por el daño que percibe el personaje
 	life -= _damage 
+	# cargamos en la variable global la vida actual del personaje
+	GLOBAL.health = life
 	# se emite una señal para actualizar la barra de vida del personaje
 	emit_signal('update_health',total_life,life)
 	# colocamos la bandera de ataque en alto para forzar la animacion de daño
@@ -181,6 +189,7 @@ func hit(_damage,_origin) -> void:
 
 func heal(_value) -> void:
 	life += _value
+	GLOBAL.health = life
 	if life > total_life:
 		life = total_life
 	emit_signal('update_health',total_life,life)

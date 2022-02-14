@@ -12,10 +12,11 @@ export (type) var tipo = type.small_potion			# Exporamos variable para elegir qu
 var small_potion_health		= 2						# Cantidad de vida que cura posion pequeña
 var medium_potion_health	= 5						# Cantidad de vida que cura posion mediana
 var big_potion_health		= 10 					# Cantidad de vida que curar posion grande
-
 var health_value = small_potion_health				# Cantidad de vida que se pasa como argumento
+var id:	String = ""
 
 func _ready() -> void:
+	id = owner.id + "_" + name
 	#Cuando el nodo comienza
 	match tipo:
 		# si es del tipo posion pequeña
@@ -51,6 +52,8 @@ func _on_pickable_item_health_body_entered(body: Node) -> void:
 		body.heal(health_value)
 		# reproduce animacion de consumir posion
 		animatedSprite.play("potion_effect")
+		# Agregamos a la lista de objetos conseguidos
+		GLOBAL.add_to_picked_item_list(id)
 		# Espera a que la animacion termine
 		yield(animatedSprite,"animation_finished")
 		# elimina el nodo posion

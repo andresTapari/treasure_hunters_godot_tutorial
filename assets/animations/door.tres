@@ -18,13 +18,13 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 1 ), ExtResource( 10 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "opening",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "closing",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 1 ), ExtResource( 10 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "opening",
+"speed": 10.0
 } ]

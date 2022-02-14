@@ -6,14 +6,15 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15.5, 20.5 )
 
-[node name="door" type="Area2D"]
+[node name="door" type="Area2D" groups=["door"]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 10.5 )
+position = Vector2( 0, -9 )
 shape = SubResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -20 )
 frames = ExtResource( 1 )

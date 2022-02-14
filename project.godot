@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="Treasure Hunter"
-run/main_scene="res://niveles/nivel_7_enemigos_rango/lvl.tscn"
+run/main_scene="res://niveles/nivel_8_transicion_de_escenas/lvl_main.tscn"
 config/icon="res://assets/sprites/captain_icon.png"
+
+[autoload]
+
+GLOBAL="*res://niveles/nivel_8_transicion_de_escenas/GLOBAL_DATA.gd"
 
 [display]
 
