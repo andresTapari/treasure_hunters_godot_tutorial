@@ -40,27 +40,27 @@ tile_data = PoolIntArray( 2, 8, 0, 5, 9, 0, 15, 9, 0, 65551, 0, 0, 131072, 8, 0,
 
 [node name="candle" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 221, 99 )
-frame = 2
+frame = 0
 
 [node name="candle2" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 48, 175.5 )
-frame = 4
+frame = 2
 
 [node name="candle3" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 272, 208 )
-frame = 0
+frame = 4
 
 [node name="candle4" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 432, 208 )
-frame = 0
+frame = 4
 
 [node name="window" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 432, 80 )
-frame = 65
+frame = 37
 
 [node name="window2" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 128, 63.5 )
-frame = 64
+frame = 36
 
 [node name="door" parent="TileMap_fondo_detalles" instance=ExtResource( 10 )]
 position = Vector2( 384, 224 )
