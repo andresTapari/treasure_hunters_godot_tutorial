@@ -45,4 +45,5 @@ func scene_transition_fade(fade_in: bool = true ) -> void:
 	tween.interpolate_property($Panel, "modulate",color_in, color_out, 0.4,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	# Iniciamos la transicion
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	tween.start()

@@ -1,9 +1,7 @@
 extends Area2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 func _on_PitFall_body_entered(body: Node) -> void:
-	if body.is_in_group("player"):
+	# Si body esta en el grupo player
+	if body.is_in_group("player") or body.is_in_group("entity"):
+		# le descuenta 999 de vida para muerte instantanea
 		body.hit(999)

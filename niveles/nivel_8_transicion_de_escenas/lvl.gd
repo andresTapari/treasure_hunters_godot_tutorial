@@ -6,8 +6,11 @@ export var id: String = "lvl"
 
 func _ready():
 	## Al iniciar un nivel actualizamos la informacion en el HUD
+	# Actualizamos barra de salud
 	$CanvasLayer.handle_update_health(GLOBAL.total_health,GLOBAL.health)
+	# Actualizamos puntaje
 	$CanvasLayer.handle_update_score(GLOBAL.score)
+	# Actualizamos contador de vidas
 	$CanvasLayer.handle_update_lives(GLOBAL.lives)
 	
 	## Señales de Player:

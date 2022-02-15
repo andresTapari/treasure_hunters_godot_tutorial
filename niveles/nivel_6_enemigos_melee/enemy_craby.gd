@@ -56,7 +56,7 @@ func _ready() -> void:
 		# Establecemos el largo del Fov
 		rayCast_fov.cast_to=Vector2(fov_lenght,0)
 		# Establecemos el estado actual como Idle
-		set_current_state(state.idle)
+		set_current_state(state.patrol)
 	else:
 		# si estan vacios da un aviso que no tiene posiciones para patrullar:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")
@@ -277,7 +277,7 @@ func _physics_process(_delta: float) -> void:
 			pass
 
 # Funcion Hit
-func hit(_damage: int,_direction) -> void:
+func hit(_damage: int,_direction = Vector2(1,-10)) -> void:
 	# A la variable vida le descuenta el daño.
 	life -= _damage
 	# se carga un impulso en direccón del golpe

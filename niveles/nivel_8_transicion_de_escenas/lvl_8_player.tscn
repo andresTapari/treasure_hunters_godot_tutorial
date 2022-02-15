@@ -16,6 +16,7 @@ jump_speed = -300
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
+frame = 1
 speed_scale = 2.0
 playing = true
 
@@ -37,6 +38,10 @@ collide_with_areas = true
 [node name="Tween" type="Tween" parent="."]
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+rotation = -3.14159
+cast_to = Vector2( 0, 10 )
 
 [connection signal="frame_changed" from="AnimatedSprite" to="." method="_on_AnimatedSprite_frame_changed"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

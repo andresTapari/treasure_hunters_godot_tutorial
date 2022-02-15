@@ -34,6 +34,7 @@ var atck_enable: bool			= false							# Vandera que player esta atacando
 var damage_range: Vector2		= Vector2(25,0)					# Rango de daño de player
 var has_sword: bool				= true							# Bandera que tiene espada
 var move_enable: bool			= true							# Bandera para mover jugador
+var jumping: bool				= false
 
 func _ready() -> void:
 	# cargamos el puntaje de global:
@@ -108,6 +109,7 @@ func _physics_process(delta):
 	if !atck_enable:
 		if velocity == Vector2.ZERO:
 			animatedSprite.play("idle")
+			
 		
 		elif velocity.y < 0 and move_enable:
 			animatedSprite.play("jump")
@@ -115,9 +117,11 @@ func _physics_process(delta):
 		elif velocity.y > 0:
 			animatedSprite.play("fall")
 	
-	
+	var snap = Vector2.DOWN * 16
+	if is_on_floor():
+		snap = Vector2.ZERO
 	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2.UP) 
+	velocity = move_and_slide_with_snap(velocity, snap,Vector2.UP) 
 
 func add_score(_value: int, _lives)-> void:
 	score += _value
@@ -207,10 +211,16 @@ func heal(_value) -> void:
 	GLOBAL.health = life
 	emit_signal('update_health',total_life,life)
 
+	
 #  Esta funcion se ejecuta cuando el personaje se cae por un borde:
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().reload_current_scene()
 
-
-
+func is_under_ceiling() -> bool:
+	$RayCast2D2.force_raycast_update()
+	var collider = $RayCast2D2.get_collider()
+	if collider:
+		if collider.is_in_group("platforms"):
+			return true
+	return false
