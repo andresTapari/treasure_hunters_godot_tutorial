@@ -5,15 +5,20 @@ onready var player = get_node('lvl_8_player')
 export var id: String = "lvl"
 
 func _ready():
+	## Al iniciar un nivel actualizamos la informacion en el HUD
 	$CanvasLayer.handle_update_health(GLOBAL.total_health,GLOBAL.health)
 	$CanvasLayer.handle_update_score(GLOBAL.score)
-	# Conectamos la señal "update_score" de player con la función del HUD
-	# que actualiza el puntaje
-	player.connect("update_score",$CanvasLayer,"handle_update_score")
-	# Conectamos la señal "update_score" de player con la función del HUD
-	player.connect('update_health',$CanvasLayer,"handle_update_health")
+	$CanvasLayer.handle_update_lives(GLOBAL.lives)
 	
-	# Conectamos las señales de las puertas:
+	## Señales de Player:
+	# Conectamos la señal "update_score" de player con la función del HUD
+	player.connect('update_score',$CanvasLayer,"handle_update_score")
+	# Conectamos la señal "update_health" de player con la función del HUD
+	player.connect('update_health',$CanvasLayer,"handle_update_health")
+	# Conectamos la señal "update_lives" de player con la funcion del HUD:
+	player.connect('update_lives',$CanvasLayer,"handle_update_lives")
+	
+	## Conectamos las señales de Puertas:
 	# Alojamos todos los hijos del nodo en childrens
 	var childrens:Array = get_children()
 	# Repetimos por cada elemento en la lista childrens

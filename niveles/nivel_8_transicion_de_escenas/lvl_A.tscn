@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/sprites/tiles/pirate_ship.tres" type="TileSet" id=1]
 [ext_resource path="res://assets/decorations/window.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/door.tscn" type="PackedScene" id=7]
 [ext_resource path="res://niveles/nivel_3_juntar_monedas/pickable_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/spikes.tscn" type="PackedScene" id=9]
+[ext_resource path="res://niveles/nivel_8_transicion_de_escenas/pitFall.tscn" type="PackedScene" id=10]
 
 [node name="lvl" type="Node2D"]
 position = Vector2( 1, 0 )
@@ -41,15 +42,14 @@ tile_data = PoolIntArray( 65550, 9, 0, 393219, 17, 0, 393220, 14, 0, 393221, 16,
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 426, 85 )
-frame = 18
+frame = 23
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )
-frame = 2
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 336, 192 )
-frame = 1
+frame = 2
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 1 )
@@ -77,3 +77,6 @@ position = Vector2( 183, 112 )
 
 [node name="lvl_8_player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 148, 115 )
+
+[node name="PitFall" parent="." instance=ExtResource( 10 )]
+position = Vector2( 98, 319 )

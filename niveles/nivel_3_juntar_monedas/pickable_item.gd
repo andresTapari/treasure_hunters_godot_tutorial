@@ -30,9 +30,9 @@ func _ready():	# <- Se ejecuta cuando el nodo aparece en la escena raiz
 			# si es una calavera de oro
 			# reproduce animacion de calavera de oro
 			animatedSprite.play("golden_skull")
-			# puntaje es igual a 20
-			score = 20
-
+			# No agrega puntaje
+			score = 0
+ 
 		_: #default
 			# reproduce animacion de moneda de plata
 			animatedSprite.play("silver_coin")
@@ -40,11 +40,12 @@ func _ready():	# <- Se ejecuta cuando el nodo aparece en la escena raiz
 			score = 5
 
 func _on_pickable_item_body_entered(body):
+	var _lives = 0
 	# si el cuerpo con el que colisiona es player
 	if body.is_in_group("player"):
-		# llama a la funcion de player para agregar puntaje
-		body.add_score(score)
 		if tipo == item.golden_skull:
+			# Agrega una vida
+			_lives += 1
 			# si el item es una calavera
 			# reproduce animacion de efecto de calavera
 			animatedSprite.play("golden_skull_efect")
@@ -52,6 +53,8 @@ func _on_pickable_item_body_entered(body):
 			# si no es una calavera
 			# reproduce animacion de efecto de moneda
 			animatedSprite.play("coin_effect")
+		# llama a la funcion de player para agregar puntaje
+		body.add_score(score,_lives)
 		# espera a que termine la animacion
 		yield(animatedSprite, "animation_finished")
 		# llamamos a la funcion add_to_picked_item_list para agregar

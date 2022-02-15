@@ -8,6 +8,7 @@ onready var health_barr: Node2D = get_node("life_barr")
 
 
 func _ready() -> void:
+	$Panel.modulate = Color(1,1,1,1)
 	scene_transition_fade()
 
 func handle_update_score(_value: int) -> void:
@@ -17,6 +18,9 @@ func handle_update_score(_value: int) -> void:
 func handle_update_health(_totalLife: int, _currentLife: int) -> void:
 	# Actualizamos parametros de la barra de viad
 	health_barr.update_health_barr(_currentLife,_totalLife)
+
+func handle_update_lives(_value) -> void:
+	label_lives.text = String(_value)
 
 # Funciona para oscurecer/aclarar la pantalla en la transicion de escenas
 func scene_transition_fade(fade_in: bool = true ) -> void:

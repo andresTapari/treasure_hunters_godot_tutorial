@@ -2,6 +2,7 @@ extends Area2D
 
 # Señales:
 signal fade_out(_boolean)
+
 # Nodos:
 onready var animatedSprite: AnimatedSprite = get_node('AnimatedSprite')
 
@@ -25,7 +26,7 @@ func _ready() -> void:
 		target_lvl = next_lvl
 
 # Funcion se ejecuta cuando el jugador interactua con la puerta
-func hit(_damage:int ,direction:Vector2) -> void:
+func hit(_damage:int ,_direction:Vector2) -> void:
 	# Reproducimos animacion de abrir puerta
 	animatedSprite.play("opening")
 	# Establecemos el indice de la puerta donde el jugador debe aparecer

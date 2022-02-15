@@ -4,10 +4,12 @@ extends KinematicBody2D
 var SWORD = preload("res://niveles/nivel_4_romper_objetos/sword_projectile.tscn")
 
 # Señales:
-signal update_score(_value) #->lvl/CanvasLayer.handle_update_score(_value)
-# Agregamos otra señal para actualizar el total de vida
-signal update_health(_total,_actual) #->lvl/CanvasLayer.handle_update_health(_total,_actual)
-
+# Señal para actualizar el puntaje:
+signal update_score(_value) 			#->lvl/CanvasLayer.handle_update_score(_value)
+# Señal para actualizar la barra de salud
+signal update_health(_total,_actual) 	#->lvl/CanvasLayer.handle_update_health(_total,_actual)
+# Señal para actualiar el contador de vidas:
+signal update_lives(_value)				#->lvl/CanvasLayer.handle_update_lives(_value)
 # Nodos:
 onready var animatedSprite 	= get_node('AnimatedSprite')
 onready var rayCast			= get_node("RayCast2D")		#Nodo RayCast 2D
@@ -117,10 +119,12 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP) 
 
-func add_score(_value: int)-> void:
+func add_score(_value: int, _lives)-> void:
 	score += _value
 	GLOBAL.score += _value
-	emit_signal("update_score",score)
+	GLOBAL.lives += _lives
+	emit_signal("update_score",GLOBAL.score)
+	emit_signal("update_lives",GLOBAL.lives)
 
 
 func _on_AnimatedSprite_frame_changed() -> void:
@@ -143,7 +147,7 @@ func handle_sword_destroy() -> void:
 	# volvemos a poner en true la espada para poder volver a lanzarla
 	has_sword = true
 
-func hit(_damage,_origin) -> void:
+func hit(_damage: int,_origin: Vector2 = Vector2(1,0)) -> void:
 	# determinamos la direccion donde proviene el daño
 	var dir: Vector2= global_position.direction_to(_origin)
 	# evaluamos si esta a la izquierda:
@@ -168,6 +172,11 @@ func hit(_damage,_origin) -> void:
 	move_enable = false
 	# si ya no le queda vida
 	if life <= 0:
+		# Descontamos una vida:
+		GLOBAL.lives -= 1
+		if GLOBAL.lives == 0:
+			#condicion de game over
+			pass
 		# desactivamos la caja de colision para que deje de percibir daño 
 		# o juntar items y se caiga por los limites de la pantalla
 		$CollisionShape2D.set_deferred("disabled",true)
@@ -177,6 +186,10 @@ func hit(_damage,_origin) -> void:
 		yield(animatedSprite,"animation_finished")
 		# detenemos animación
 		animatedSprite.stop()
+		#Reiniciamos la salud del personaje
+		life = GLOBAL.total_health
+		# Reiniciamos la salud global del personaje
+		GLOBAL.health = GLOBAL.total_health
 		# salimos de la función
 		return
 	# reproducimos animación de daño
@@ -189,11 +202,15 @@ func hit(_damage,_origin) -> void:
 
 func heal(_value) -> void:
 	life += _value
-	GLOBAL.health = life
 	if life > total_life:
 		life = total_life
+	GLOBAL.health = life
 	emit_signal('update_health',total_life,life)
 
+#  Esta funcion se ejecuta cuando el personaje se cae por un borde:
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().reload_current_scene()
+
+
+
