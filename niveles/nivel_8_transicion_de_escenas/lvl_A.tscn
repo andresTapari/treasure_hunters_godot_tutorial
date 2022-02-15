@@ -41,15 +41,15 @@ tile_data = PoolIntArray( 65550, 9, 0, 393219, 17, 0, 393220, 14, 0, 393221, 16,
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 426, 85 )
-frame = 13
+frame = 18
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 176, 192 )
-frame = 1
+frame = 2
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 3 )]
 position = Vector2( 336, 192 )
-frame = 0
+frame = 1
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 1 )
@@ -73,7 +73,7 @@ position = Vector2( 216, 211 )
 position = Vector2( 240, 211 )
 
 [node name="spikes" parent="." instance=ExtResource( 9 )]
-position = Vector2( 209, 112 )
+position = Vector2( 183, 112 )
 
 [node name="lvl_8_player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 148, 115 )

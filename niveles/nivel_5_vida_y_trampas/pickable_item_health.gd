@@ -41,13 +41,13 @@ func _ready() -> void:
 func _on_pickable_item_health_body_entered(body: Node) -> void:
 		# Esta funcion se ejcuta si una entidad toca la posion
 	if body.is_in_group("player"):
-		# Desactivamos la forma de colision para que no la junte varias veces 
-		# mientras la misma desaparece
-		$CollisionShape2D.set_deferred("disabled",true)
 		# si la entidad es player
 		if body.total_life == body.life:
 			# si el player tiene toda su viada, sale de la funcion
 			return
+		# Desactivamos la forma de colision para que no la junte varias veces 
+		# mientras la misma desaparece
+		$CollisionShape2D.set_deferred("disabled",true)
 		# llama a la funcion curar de player, y le pasa el valor de curar como argumento
 		body.heal(health_value)
 		# reproduce animacion de consumir posion
