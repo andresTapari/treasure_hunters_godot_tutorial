@@ -48,7 +48,7 @@ func change_scene(path: String):
 	#     get_tree().set_current_scene('res://niveles/nivel_8_transicion_de_escenas/lvl_A.tscn')
 	#
 	# entonces debemos proceder de la siguiente forma: 
-	
+
 	# 1. Removemos la escena actual
 	current_scene.queue_free()
 	

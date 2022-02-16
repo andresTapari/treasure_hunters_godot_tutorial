@@ -9,7 +9,7 @@ extents = Vector2( 16, 5 )
 [sub_resource type="RayShape2D" id=3]
 length = 9.0
 
-[node name="KinematicBody2D" type="KinematicBody2D" groups=["platform"]]
+[node name="fixed_platform" type="KinematicBody2D" groups=["platform"]]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]

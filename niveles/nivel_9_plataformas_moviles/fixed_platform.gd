@@ -15,6 +15,7 @@ var spin_enable: bool = false					# Bandera para habilitar la rotacion de la pla
 var spin_to_rotate: int = 0						# Cantidad de grados a girar
 
 func _ready() -> void:
+	# Si las posiciones A y B no estan vacias:
 	if !position_target_A.is_empty() and !position_target_B.is_empty():
 		# Se asigna a la patrol_target_A la posision de A
 		patrol_target_A = get_node(position_target_A).position
@@ -45,6 +46,7 @@ func _physics_process(delta: float) -> void:
 			# pone la bandera de rotacion en false
 			spin_enable = false
 
+# Esta funcion se llama cada vez que timer termina de contar:
 func _on_Timer_timeout() -> void:
 	# calculamos la distancia hacia A
 	var dist_to_a: float = global_position.distance_to(patrol_target_A)
@@ -73,24 +75,36 @@ func _on_Timer_timeout() -> void:
 	# Cuando termina reiniciamos el $Timer
 	$Timer.start()
 
+# Esta funcion se llama cada vez que la plataforma pasa por un "spinning_poing"
 func spin(_value:int) -> void:
 	# establecemos la variable en verdadero
 	spin_enable = true
 	# establecemos la cantidad de grados a girar como _value
 	spin_to_rotate = _value
 
+# Esta funcion se llama cada vez se detecta a player debajo de la plataforma
 func _on_Area2D_body_entered(body: Node) -> void:
+	# Si body esta en el grupo player:
 	if body.is_in_group("player"):
+		# si body esta en el piso:
 		if body.is_on_floor():
+			# llama a la funcion hit de body con 999 de daño
 			body.hit(999)
+			# limipia target_node
 			target_node = null
+			# pone en falso la bandera check_top_crush
 			check_top_crush = false
 
+# Esta funcion se llama cada vez que se detecta a player sobre la plataforma
 func _on_Area2D_top_body_entered(body: Node) -> void:
+	# establece a body como target
 	target_node = body
+	# pone en verdadero la bandera check_top_crush
 	check_top_crush = true
 
-
+# Esta funcion se llama cada vez que se detecta que player sale de la plataforma
 func _on_Area2D_top_body_exited(body: Node) -> void:
+	# limpia el target_node
 	target_node = null
+	# pone en falso la bandera check_top_crush
 	check_top_crush = false
