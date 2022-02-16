@@ -1,16 +1,7 @@
 extends Area2D
 
-
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _on_Spinning_point_body_entered(body: Node) -> void:
+	# Si el cuerpo es parte del grupo platform
+	if body.is_in_group("platform"):
+		# llama a la funcion spin y le pasa un giro de 360º
+		body.spin(360);

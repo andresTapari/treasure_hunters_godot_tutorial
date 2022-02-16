@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/decorations/chain_small.tscn" type="PackedScene" id=1]
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/lvl.gd" type="Script" id=2]
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/ui_hud_nivel_8.tscn" type="PackedScene" id=3]
+[ext_resource path="res://niveles/nivel_9_plataformas_moviles/spinning_point.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/decorations/candle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sprites/tiles/pirate_ship.tres" type="TileSet" id=6]
 [ext_resource path="res://assets/decorations/window.tscn" type="PackedScene" id=7]
@@ -40,25 +41,27 @@ tile_data = PoolIntArray( 2, 8, 0, 5, 9, 0, 15, 9, 0, 65551, 0, 0, 131072, 8, 0,
 
 [node name="candle" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 221, 99 )
-frame = 5
+frame = 4
 
 [node name="candle2" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 48, 175.5 )
-frame = 1
+frame = 0
 
 [node name="candle3" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 272, 208 )
+frame = 2
 
 [node name="candle4" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 432, 208 )
+frame = 2
 
 [node name="window" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 432, 80 )
-frame = 6
+frame = 51
 
 [node name="window2" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 128, 63.5 )
-frame = 5
+frame = 50
 
 [node name="door" parent="TileMap_fondo_detalles" instance=ExtResource( 10 )]
 position = Vector2( 384, 224 )
@@ -66,29 +69,29 @@ position = Vector2( 384, 224 )
 [node name="chain_small" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 visible = false
 position = Vector2( 48, 48 )
-frame = 1
+frame = 2
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small" instance=ExtResource( 9 )]
 position = Vector2( 8, 16 )
-frame = 4
+frame = 5
 
 [node name="chain_small2" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 position = Vector2( 76, 111.5 )
-frame = 1
+frame = 2
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small2" instance=ExtResource( 9 )]
 position = Vector2( 8, 16 )
-frame = 4
+frame = 5
 
 [node name="chain_small3" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 visible = false
 position = Vector2( 336, 176 )
-frame = 1
+frame = 2
 flip_h = true
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small3" instance=ExtResource( 9 )]
 position = Vector2( -8, 16 )
-frame = 4
+frame = 5
 flip_h = true
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["platforms"]]
@@ -121,10 +124,10 @@ position = Vector2( 80, 115 )
 position = Vector2( 117, 115 )
 
 [node name="Position2D5" type="Position2D" parent="."]
-position = Vector2( 175, 137 )
+position = Vector2( 174, 173 )
 
 [node name="Position2D6" type="Position2D" parent="."]
-position = Vector2( 304, 137 )
+position = Vector2( 303, 172 )
 
 [node name="fixed_vertical_platform" parent="." instance=ExtResource( 11 )]
 position = Vector2( 80, 244 )
@@ -136,8 +139,11 @@ position = Vector2( 117, 115 )
 position_target_A = NodePath("../Position2D7")
 position_target_B = NodePath("../Position2D8")
 
+[node name="Spinning_point" parent="." instance=ExtResource( 4 )]
+position = Vector2( 259, 172 )
+
 [node name="fixed_vertical_platform2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 304, 137 )
+position = Vector2( 303, 173 )
 position_target_A = NodePath("../Position2D6")
 position_target_B = NodePath("../Position2D5")
 
