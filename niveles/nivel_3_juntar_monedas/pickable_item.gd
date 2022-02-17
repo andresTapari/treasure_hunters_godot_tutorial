@@ -11,14 +11,13 @@ var id:	String = ""
 
 func _ready():	# <- Se ejecuta cuando el nodo aparece en la escena raiz
 	id = owner.id + "_" + name
-	print_debug(id)
 	match tipo:	# <- Evalua el tipo
 		item.silver_coin:
 			# si es una moneda de plata
 			# reproduce animacion de moneda de plata
 			animatedSprite.play("silver_coin")
 			# puntaje es 5
-			score = 5
+			score = 1
 		item.golden_coin:
 			# si es una moneda de oro
 			# reproduce animacion de moneda de oro
@@ -55,11 +54,11 @@ func _on_pickable_item_body_entered(body):
 			animatedSprite.play("coin_effect")
 		# llama a la funcion de player para agregar puntaje
 		body.add_score(score,_lives)
-		# espera a que termine la animacion
-		yield(animatedSprite, "animation_finished")
 		# llamamos a la funcion add_to_picked_item_list para agregar
 		# el item a la lista de items conseguidos (de esta forma evitamos que
 		# al volver a pasar por el nivel re aparezcan todos los items)
 		GLOBAL.add_to_picked_item_list(id)
+		# espera a que termine la animacion
+		yield(animatedSprite, "animation_finished")
 		# elmina el nodo
 		queue_free()
