@@ -63,7 +63,7 @@ script = ExtResource( 25 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "coin_effect"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Node2D" type="Node2D" parent="."]

@@ -106,19 +106,23 @@ position_target_B = NodePath("../Position2D2")
 
 [node name="candle" parent="." instance=ExtResource( 12 )]
 position = Vector2( 144, 228 )
+frame = 1
 
 [node name="candle2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 399, 226 )
+frame = 1
 
 [node name="candle3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 304, 77 )
+frame = 1
 
 [node name="candle4" parent="." instance=ExtResource( 12 )]
 position = Vector2( 207, 77 )
+frame = 1
 
 [node name="candle5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 53, 77 )
-frame = 2
+frame = 0
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 208, 261 )
