@@ -42,27 +42,26 @@ tile_data = PoolIntArray( 2, 8, 0, 5, 9, 0, 15, 9, 0, 65551, 0, 0, 131072, 8, 0,
 
 [node name="candle" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 221, 99 )
-frame = 4
 
 [node name="candle2" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 48, 175.5 )
-frame = 0
+frame = 5
 
 [node name="candle3" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 272, 208 )
-frame = 2
+frame = 1
 
 [node name="candle4" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 432, 208 )
-frame = 2
+frame = 1
 
 [node name="window" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 432, 80 )
-frame = 21
+frame = 10
 
 [node name="window2" parent="TileMap_fondo_detalles" instance=ExtResource( 7 )]
 position = Vector2( 128, 63.5 )
-frame = 20
+frame = 9
 
 [node name="door" parent="TileMap_fondo_detalles" instance=ExtResource( 10 )]
 position = Vector2( 384, 224 )
@@ -70,29 +69,29 @@ position = Vector2( 384, 224 )
 [node name="chain_small" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 visible = false
 position = Vector2( 48, 48 )
-frame = 4
+frame = 1
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small" instance=ExtResource( 9 )]
 position = Vector2( 8, 16 )
-frame = 7
+frame = 4
 
 [node name="chain_small2" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 position = Vector2( 76, 111.5 )
-frame = 4
+frame = 1
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small2" instance=ExtResource( 9 )]
 position = Vector2( 8, 16 )
-frame = 7
+frame = 4
 
 [node name="chain_small3" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 visible = false
 position = Vector2( 336, 176 )
-frame = 4
+frame = 1
 flip_h = true
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small3" instance=ExtResource( 9 )]
 position = Vector2( -8, 16 )
-frame = 7
+frame = 4
 flip_h = true
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["platforms"]]
