@@ -15,8 +15,7 @@ func _physics_process(delta):		# <- Se ejecuta una vez por cada proceso fisico
 
 func _on_sword_projectile_body_entered(body: Node) -> void:
 	call_deferred("set","monitoring",false)
-	if body.is_in_group("entity"):
-#		$CollisionShape2D.set_deferred("disabled",false)
+	if body.is_in_group("entity") or body.is_in_group("interruptor"):
 		body.hit(damage,direction)
 		emit_signal("sword_destroy")
 		queue_free()
@@ -24,5 +23,12 @@ func _on_sword_projectile_body_entered(body: Node) -> void:
 		speed = 0
 		$AnimatedSprite.play("embedded")
 		yield($AnimatedSprite,"animation_finished")
+		emit_signal("sword_destroy")
+		queue_free()
+
+
+func _on_sword_projectile_area_entered(area: Area2D) -> void:
+	if area.is_in_group("interruptor"):
+		area.hit(0,Vector2.ZERO)
 		emit_signal("sword_destroy")
 		queue_free()

@@ -21,7 +21,7 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 303.0 ],
 "_edit_vertical_guides_": [ 516.0 ]
 }
-id = "lvl_0_A"
+id = "lvl_0_stage_1"
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 4 )]
 
@@ -60,9 +60,11 @@ tile_data = PoolIntArray( 131078, 5, 0, 131081, 5, 0, 196609, 21, 0, 196610, 21,
 
 [node name="door" parent="." instance=ExtResource( 7 )]
 position = Vector2( 68, 244 )
+next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn"
 
 [node name="door2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 441, 84 )
+next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_2.tscn"
 door_indx = 1
 
 [node name="Spinning_point" parent="." instance=ExtResource( 5 )]
@@ -103,23 +105,19 @@ position_target_B = NodePath("../Position2D2")
 
 [node name="candle" parent="." instance=ExtResource( 12 )]
 position = Vector2( 144, 228 )
-frame = 1
 
 [node name="candle2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 399, 226 )
-frame = 1
 
 [node name="candle3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 304, 77 )
-frame = 1
 
 [node name="candle4" parent="." instance=ExtResource( 12 )]
 position = Vector2( 207, 77 )
-frame = 1
 
 [node name="candle5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 53, 77 )
-frame = 0
+frame = 2
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 208, 261 )

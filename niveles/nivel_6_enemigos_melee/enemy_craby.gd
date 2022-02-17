@@ -56,7 +56,7 @@ func _ready() -> void:
 		# Establecemos el largo del Fov
 		rayCast_fov.cast_to=Vector2(fov_lenght,0)
 		# Establecemos el estado actual como Idle
-		set_current_state(state.patrol)
+		set_current_state(state.idle)
 	else:
 		# si estan vacios da un aviso que no tiene posiciones para patrullar:
 		print_debug("WARNING: PATROL TARGETS ARE EMPTY!!!")

@@ -87,6 +87,8 @@ func _physics_process(delta):
 							collider.hit(damage,rayCast.cast_to.normalized())
 						elif collider is Area2D:
 							collider.get_parent().hit(damage,rayCast.cast_to.normalized())
+					if collider.is_in_group("interruptor"):
+							collider.hit(0,Vector2.ZERO)
 					if collider.is_in_group("door"):
 						collider.hit(damage,rayCast.cast_to.normalized())
 				yield(animatedSprite,"animation_finished")

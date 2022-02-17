@@ -6,6 +6,7 @@ export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var idle_time: int   = 1					# Tiempo de espera hasta comenzar a moverse
 export var travel_time: int = 2					# Duracion del recorrido entre coordenadas
 export var spin_speed: int = 600				# Velocidad de giro
+export var enable: bool = true
 
 var patrol_target_A: Vector2 = Vector2.ZERO		# Coordenada A a donde moverse
 var patrol_target_B: Vector2 = Vector2.ZERO		# Coordenada B a donde moverse
@@ -23,8 +24,9 @@ func _ready() -> void:
 		patrol_target_B = get_node(position_target_B).position
 		# Asignamos el tiempo de espera en el timer
 		$Timer.wait_time = idle_time
-		# Iniciamos el contador del timer
-		$Timer.start()
+		# si esta habilitado
+		if enable:# Iniciamos el contador del timer
+			$Timer.start()
 
 func _physics_process(delta: float) -> void:
 	# Revisamos si check_top_crush es verdadero
@@ -75,6 +77,15 @@ func _on_Timer_timeout() -> void:
 	# Cuando termina reiniciamos el $Timer
 	$Timer.start()
 
+# Funcion se llama de forma externa, habilita o deshabilita su capacidad de moverse
+func set_enable(_value:bool = true)->void:
+	enable =_value
+	if enable: 
+		_on_Timer_timeout() 
+	else:
+		$Timer.stop()
+		$Tween.stop_all()
+
 # Esta funcion se llama cada vez que la plataforma pasa por un "spinning_poing"
 func spin(_value:int) -> void:
 	# establecemos la variable en verdadero
@@ -103,7 +114,7 @@ func _on_Area2D_top_body_entered(body: Node) -> void:
 	check_top_crush = true
 
 # Esta funcion se llama cada vez que se detecta que player sale de la plataforma
-func _on_Area2D_top_body_exited(body: Node) -> void:
+func _on_Area2D_top_body_exited(_body: Node) -> void:
 	# limpia el target_node
 	target_node = null
 	# pone en falso la bandera check_top_crush

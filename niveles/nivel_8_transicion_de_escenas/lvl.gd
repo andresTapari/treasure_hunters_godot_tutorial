@@ -7,7 +7,7 @@ export var id: String = "lvl"
 func _ready():
 	## Al iniciar un nivel actualizamos la informacion en el HUD
 	# Actualizamos barra de salud
-	$CanvasLayer.handle_update_health(GLOBAL.total_health,GLOBAL.health)
+	$CanvasLayer.handle_update_health(GLOBAL.total_health, GLOBAL.health)
 	# Actualizamos puntaje
 	$CanvasLayer.handle_update_score(GLOBAL.score)
 	# Actualizamos contador de vidas
@@ -68,7 +68,6 @@ func get_door_position(_indx: int) -> Vector2:
 				_position = element.global_position
 	# retornamos posicion
 	return _position
-
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	pass # Replace with function body.

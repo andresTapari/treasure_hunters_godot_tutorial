@@ -37,8 +37,8 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "spining"
-frame = 2
 speed_scale = 2.0
 playing = true
 
+[connection signal="area_entered" from="." to="." method="_on_sword_projectile_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_sword_projectile_body_entered"]
