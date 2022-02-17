@@ -30,3 +30,8 @@ margin_left = 437.0
 margin_top = 6.0
 margin_right = 477.0
 margin_bottom = 46.0
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

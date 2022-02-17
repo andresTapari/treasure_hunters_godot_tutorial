@@ -3,12 +3,14 @@ extends CanvasLayer
 # Nodos:
 onready var label_coin:   Label = get_node("CoinCounter/Label")
 onready var label_lives:  Label = get_node("CoinCounter/Label2")
+onready var clock_label:  Label = get_node("CoinCounter/Label3")
 onready var health_barr: Node2D = get_node("life_barr") 
 
 
 
 func _ready() -> void:
 	$Panel.modulate = Color(1,1,1,1)
+	_on_Timer_timeout()
 	scene_transition_fade()
 
 func handle_update_score(_value: int) -> void:
@@ -47,3 +49,17 @@ func scene_transition_fade(fade_in: bool = true ) -> void:
 	# Iniciamos la transicion
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	tween.start()
+
+
+func _on_Timer_timeout() -> void:
+	var time_now = OS.get_unix_time()
+	var time_elapsed = time_now - GLOBAL.time_start
+	clock_label.text = format_time(time_elapsed)
+
+func format_time(elapsed: int) -> String:
+	var minutes: int = int(float(elapsed / 60))
+#	minutes = minutes / 60
+	var seconds = elapsed % 60
+	#minutes = minutes % 60
+	var str_elapsed = "%02d : %02d" % [minutes, seconds]
+	return str_elapsed

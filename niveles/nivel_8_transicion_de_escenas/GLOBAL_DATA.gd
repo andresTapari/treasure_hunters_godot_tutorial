@@ -9,6 +9,11 @@ var total_health: 	int = 10				# Salud Total
 var health: 		int = 10				# Salud Actual
 var lives:			int = 3					# Vidas del jugador
 
+var time_start: int = 0
+
+func _ready() -> void:
+	time_start = OS.get_unix_time()
+
 func add_to_picked_item_list(_id:String) -> void:
 	picked_items.push_front(_id)
 
