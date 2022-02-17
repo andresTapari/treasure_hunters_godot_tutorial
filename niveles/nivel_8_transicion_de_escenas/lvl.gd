@@ -52,7 +52,7 @@ func _ready():
 				if GLOBAL.picked_items.has(element.id):
 					# borramos el elemento del nivel
 					element.queue_free()
-	
+
 func get_door_position(_indx: int) -> Vector2:
 	# Alojamos todos los hijos del nodo en childrens
 	var childrens:Array = get_children()
