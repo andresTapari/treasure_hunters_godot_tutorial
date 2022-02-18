@@ -15,9 +15,11 @@ onready var timer_queuefree      = get_node("Timer_queuefree")
 # Variables:
 export var cadence: 		 int = 5		# cadencia de disparo del cañon
 export var life: 			 int = 3		# vida del cañon
+export var dammage:			 int = 999		# daño del proyectile
 export var knock_back_force: int = 5		# fuerza de empuje hacia atras.
 export var explosion_force:  int = 60		# fuerza de empuje de particulas
 export var flipped:			bool = false	# invierte el cañon
+export var shoot_on_ready:  bool = true		# dispara sobre aparecer
 
 func _ready():
 	timer_queuefree.connect('timeout',self,'queue_free')
@@ -29,8 +31,13 @@ func _ready():
 		animatedSpriteCanon.flip_h = true
 	# establecemos el tiempo de espera entre disparos como "cadence"
 	timer.wait_time = cadence
-	# iniciamos le timer
-	timer.start()
+	# si la variable shoot esta lista:
+	if shoot_on_ready:
+		# efectuamos disparo
+		_on_Timer_timeout()
+	else:
+		# iniciamos le timer
+		timer.start()
 	
 
 func hit(_damage: int,_direction) -> void:
@@ -89,6 +96,8 @@ func _on_AnimatedSprite_cannon_frame_changed():
 				canon_bal.direction=Vector2(-1,0)
 				# asignamos la posicion en el mundo 
 				canon_bal.position = self.position + muzzle.position
+				# asignamos el daño
+				canon_bal.damage = dammage
 			# agregamos al nodo padre del cañon, la instancia de la bala de cañon
 			owner.add_child(canon_bal)
 			# esperamos que la animacion del muzzle termine 

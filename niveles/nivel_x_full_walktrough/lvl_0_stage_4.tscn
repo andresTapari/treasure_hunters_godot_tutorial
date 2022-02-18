@@ -29,19 +29,18 @@ tile_data = PoolIntArray( -65537, 2, 0, -131072, 2, 1, -131071, 2, 1, -131070, 2
 
 [node name="door3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 363, 116 )
-next_lvl = "res://niveles/nivel_8_transicion_de_escenas/lvl_main.tscn"
-door_indx = 1
+next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_5.tscn"
+door_indx = 2
 next_door_indx = 1
 
 [node name="door2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 146, 116 )
-next_lvl = "res://niveles/nivel_8_transicion_de_escenas/lvl_main.tscn"
+next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_5.tscn"
 door_indx = 1
-next_door_indx = 1
 
 [node name="door" parent="." instance=ExtResource( 1 )]
 position = Vector2( 204, 212 )
-next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_3.tscn"
+next_lvl = "res://niveles/nivel_x_full_walktrough/lvl_0_stage_2.tscn"
 next_door_indx = 1
 
 [node name="TileMap_detalles" type="TileMap" parent="." groups=["ground"]]
@@ -54,15 +53,14 @@ tile_data = PoolIntArray( 65537, 8, 0, 65550, 9, 0, 196617, 17, 0, 262158, 11, 0
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 4 )]
 position = Vector2( 426, 85 )
-frame = 41
+frame = 56
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 176, 192 )
-frame = 1
+frame = 4
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 337, 193 )
-frame = 0
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 3 )
