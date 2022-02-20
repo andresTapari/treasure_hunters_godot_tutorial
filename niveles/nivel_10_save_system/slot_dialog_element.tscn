@@ -1,0 +1,135 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://res/pyrate_theme.tres" type="Theme" id=2]
+
+[node name="MarginContainer" type="MarginContainer"]
+margin_right = 114.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 114, 170 )
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_right = 114.0
+margin_bottom = 170.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Button"]
+margin_right = 114.0
+margin_bottom = 132.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Button/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 114.0
+margin_bottom = 4.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Button/VBoxContainer"]
+margin_top = 8.0
+margin_right = 114.0
+margin_bottom = 26.0
+
+[node name="VSeparator" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 27.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Button/VBoxContainer/HBoxContainer"]
+margin_left = 31.0
+margin_right = 83.0
+margin_bottom = 18.0
+text = "EMPTY SLOT"
+
+[node name="VSeparator2" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 87.0
+margin_right = 114.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="Button/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 30.0
+margin_right = 114.0
+margin_bottom = 34.0
+
+[node name="TextureRect" type="TextureRect" parent="Button/VBoxContainer"]
+margin_top = 38.0
+margin_right = 114.0
+margin_bottom = 102.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="HSeparator3" type="HSeparator" parent="Button/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 106.0
+margin_right = 114.0
+margin_bottom = 110.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Button/VBoxContainer"]
+margin_top = 114.0
+margin_right = 114.0
+margin_bottom = 132.0
+
+[node name="VSeparator" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 50.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="Label_score" type="Label" parent="Button/VBoxContainer/HBoxContainer2"]
+margin_left = 54.0
+margin_right = 59.0
+margin_bottom = 18.0
+text = "0"
+
+[node name="VSeparator2" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 63.0
+margin_right = 114.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="HSeparator5" type="HSeparator" parent="Button/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 136.0
+margin_right = 114.0
+margin_bottom = 140.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Button/VBoxContainer"]
+margin_top = 144.0
+margin_right = 114.0
+margin_bottom = 162.0
+
+[node name="VSeparator" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer3"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 42.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="Label_time" type="Label" parent="Button/VBoxContainer/HBoxContainer3"]
+margin_left = 46.0
+margin_right = 68.0
+margin_bottom = 18.0
+text = "00:00"
+
+[node name="VSeparator2" type="VSeparator" parent="Button/VBoxContainer/HBoxContainer3"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 72.0
+margin_right = 114.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+
+[node name="HSeparator4" type="HSeparator" parent="Button/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 166.0
+margin_right = 114.0
+margin_bottom = 170.0

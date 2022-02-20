@@ -30,41 +30,41 @@ tile_data = PoolIntArray( 65540, 8, 0, 65547, 9, 0, 65551, 0, 0, 131087, 0, 0, 1
 
 [node name="candle" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 176, 112 )
-frame = 0
+frame = 4
 
 [node name="candle2" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 328, 184 )
-frame = 2
+frame = 0
 
 [node name="candle3" parent="TileMap_fondo_detalles" instance=ExtResource( 5 )]
 position = Vector2( 240, 96 )
-frame = 4
+frame = 2
 
 [node name="chain_small" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 position = Vector2( 336, 80 )
-frame = 2
+frame = 0
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small" instance=ExtResource( 2 )]
 position = Vector2( 8, 16 )
-frame = 5
+frame = 3
 
 [node name="chain_small2" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 position = Vector2( 176, 80 )
 scale = Vector2( -1, 1 )
-frame = 2
+frame = 0
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small2" instance=ExtResource( 2 )]
 position = Vector2( 8, 16 )
-frame = 5
+frame = 3
 
 [node name="chain_small3" parent="TileMap_fondo_detalles" instance=ExtResource( 1 )]
 position = Vector2( 272, 176 )
-frame = 2
+frame = 0
 flip_h = true
 
 [node name="chaing_big" parent="TileMap_fondo_detalles/chain_small3" instance=ExtResource( 2 )]
 position = Vector2( -8, 16 )
-frame = 5
+frame = 3
 flip_h = true
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
