@@ -1,7 +1,6 @@
 extends WindowDialog
 
 func _ready() -> void:
-	popup_centered()
 	pass
 
 func _on_Button_yes_pressed() -> void:

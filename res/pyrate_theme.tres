@@ -61,6 +61,7 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [resource]
+default_font = ExtResource( 2 )
 Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
@@ -72,5 +73,6 @@ Button/styles/hover = SubResource( 2 )
 Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = SubResource( 3 )
 Label/fonts/font = ExtResource( 2 )
+LineEdit/fonts/font = null
 Panel/styles/panel = SubResource( 5 )
 WindowDialog/styles/panel = SubResource( 4 )
