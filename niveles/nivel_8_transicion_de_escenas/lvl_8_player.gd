@@ -91,6 +91,8 @@ func _physics_process(delta):
 							collider.hit(0,Vector2.ZERO)
 					if collider.is_in_group("door"):
 						collider.hit(damage,rayCast.cast_to.normalized())
+					if collider.is_in_group("save_point"):
+						collider.hit(damage,rayCast.cast_to.normalized())
 				yield(animatedSprite,"animation_finished")
 				# sale en modo combate
 				atck_enable = false

@@ -6,9 +6,8 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_name.tscn" type="PackedScene" id=4]
 
 [node name="WindowDialog" type="WindowDialog"]
-visible = true
 margin_right = 432.0
-margin_bottom = 237.0
+margin_bottom = 269.0
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -24,9 +23,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_right = 382.0
-margin_bottom = 18.0
+margin_bottom = 4.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 8.0
+margin_right = 382.0
+margin_bottom = 26.0
 text = "SELECT SLOT TO SAVE"
 align = 1
 __meta__ = {
@@ -35,15 +41,15 @@ __meta__ = {
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 22.0
+margin_top = 30.0
 margin_right = 382.0
-margin_bottom = 26.0
+margin_bottom = 34.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 30.0
+margin_top = 38.0
 margin_right = 382.0
-margin_bottom = 200.0
+margin_bottom = 208.0
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
 modulate = Color( 1, 1, 1, 0 )
@@ -91,17 +97,40 @@ margin_bottom = 170.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 204.0
-margin_right = 382.0
-margin_bottom = 204.0
-
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 208.0
+margin_top = 212.0
 margin_right = 382.0
-margin_bottom = 212.0
+margin_bottom = 216.0
 size_flags_vertical = 3
 
-[node name="WindowDialog" parent="." instance=ExtResource( 4 )]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 220.0
+margin_right = 382.0
+margin_bottom = 242.0
+
+[node name="VSeparator5" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 170.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 174.0
+margin_right = 208.0
+margin_bottom = 22.0
+text = "CANCEL"
+
+[node name="VSeparator6" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 212.0
+margin_right = 382.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="WindowDialog_name" parent="." instance=ExtResource( 4 )]
+
+[connection signal="about_to_show" from="." to="." method="_on_WindowDialog_about_to_show"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

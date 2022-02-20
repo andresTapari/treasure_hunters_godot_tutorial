@@ -1,4 +1,5 @@
 extends Node
+
 # Constantes:
 var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
 var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
@@ -7,6 +8,7 @@ var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
 # Transicion de niveles:
 var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
 											# -1 si no usa una puerta. (main_lvl)
+
 # Datos del personaje
 var picked_items: Array = []				# Lista de items conseguidos
 var score: 			int = 0					# Puntaje
@@ -19,6 +21,7 @@ var slot_name:	 String	 = ""				# Nombre de la partida guardada
 var current_lvl: String  = ""				# path al lvl actual
 var current_time: int	 = 0				# tiempo actual de juego
 var thumbnail_path: String  = ""			# path a la minitatura del nivel
+var image_buffer: Image						# Buffer de imagen a mostrar
 
 # Archivo a guardar:
 var data_to_save: Dictionary = {	"slot_name": slot_name,
@@ -40,6 +43,9 @@ func add_to_picked_item_list(_id:String) -> void:
 	picked_items.push_front(_id)
 
 func save_data(_indx: int, _slot_name: String) -> void:
+	# guardamos la minitatura 
+	var image_path:String = "res://thumbnail/"+ _slot_name +".png"
+	image_buffer.save_png(image_path)
 	# actualizamos datos del diccionario
 	data_to_save["slot_name"]		= _slot_name
 	data_to_save["current_lvl"]		= current_lvl
@@ -48,7 +54,7 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	data_to_save["current_score"]	= score
 	data_to_save["current_lives"]	= lives
 	data_to_save["picked_idems"]	= picked_items
-	data_to_save["thumbnail_path"]	= thumbnail_path
+	data_to_save["thumbnail_path"]	= image_path
 
 	# Creamos la variable direccion de archivo
 	var _file_path: String = "" 
@@ -80,3 +86,20 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	file.store_string(data_to_save_string)
 	# Cerramos el archivo
 	file.close()
+
+func check_saved_data() -> Array:
+	var file = File.new()
+	var data_1:Dictionary
+	var data_2:Dictionary
+	var data_3:Dictionary
+	if file.open(SAVE_PATH_FILE_1, File.READ) == OK:
+		data_1 = str2var(file.get_as_text())
+	file.close()
+	if file.open(SAVE_PATH_FILE_2, File.READ) == OK:
+		data_2 = str2var(file.get_as_text())
+	file.close()
+	if file.open(SAVE_PATH_FILE_3, File.READ) == OK:
+		data_3 = str2var(file.get_as_text())
+	file.close()
+	var _list = [data_1,data_2,data_3]
+	return _list

@@ -25,14 +25,14 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 23.0
 
-[node name="Area2D" type="Area2D" groups=["door"]]
+[node name="Area2D" type="Area2D" groups=["save_point"]]
 pause_mode = 2
 script = ExtResource( 12 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 15, -46 )
 frames = SubResource( 1 )
-frame = 5
+frame = 8
 playing = true
 
 [node name="Platform" type="Sprite" parent="."]
@@ -44,9 +44,9 @@ position = Vector2( 0, -23 )
 shape = SubResource( 2 )
 
 [node name="WindowDialog_save" parent="." instance=ExtResource( 1 )]
-visible = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -20.0
 margin_top = -63.0
 margin_right = 20.0

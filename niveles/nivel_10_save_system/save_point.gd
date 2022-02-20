@@ -1,18 +1,20 @@
 extends Area2D
 
+signal hide_hud(_value) # lvl->handle_hide_hud
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Label.modulate = Color(1,1,1,0)
 
 func hit(_value: int, _direction: Vector2) -> void:
-	get_tree().paused = true
+	GLOBAL.image_buffer = get_viewport().get_texture().get_data()
+	GLOBAL.image_buffer.flip_y()
+#	GLOBAL.image_buffer = GLOBAL.image_buffer.flip_y()
+
+	emit_signal("hide_hud",true)
 	$WindowDialog_save.popup_centered()
+	get_tree().paused = true
+	yield($WindowDialog_save,"hide")
+	emit_signal("hide_hud",false)
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):
@@ -23,6 +25,7 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		tween.start()
 
 func _on_Area2D_body_exited(body: Node) -> void:
+#	emit_signal("hide_hud",false)
 	if body.is_in_group("player"):
 		var tween = get_node("Tween")
 		tween.interpolate_property($Label, "modulate",

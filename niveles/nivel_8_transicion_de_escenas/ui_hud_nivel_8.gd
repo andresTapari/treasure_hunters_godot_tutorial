@@ -1,10 +1,10 @@
 extends CanvasLayer
 
 # Nodos:
-onready var label_coin:   Label = get_node("CoinCounter/Label")
-onready var label_lives:  Label = get_node("CoinCounter/Label2")
-onready var clock_label:  Label = get_node("CoinCounter/Label3")
-onready var health_barr: Node2D = get_node("life_barr") 
+onready var label_coin:   Label = get_node("Control/CoinCounter/Label")
+onready var label_lives:  Label = get_node("Control/CoinCounter/Label2")
+onready var clock_label:  Label = get_node("Control/CoinCounter/Label3")
+onready var health_barr: Node2D = get_node("Control/life_barr") 
 
 
 
@@ -54,6 +54,7 @@ func scene_transition_fade(fade_in: bool = true ) -> void:
 func _on_Timer_timeout() -> void:
 	var time_now = OS.get_unix_time()
 	var time_elapsed = time_now - GLOBAL.time_start
+	GLOBAL.current_time = time_elapsed
 	clock_label.text = format_time(time_elapsed)
 
 func format_time(elapsed: int) -> String:

@@ -69,6 +69,8 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 100, 0 )
 align = 1
 max_length = 10
+placeholder_text = "yOUR AWESOME GAME"
+caret_blink = true
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
@@ -132,3 +134,6 @@ margin_top = 81.0
 margin_right = 210.0
 margin_bottom = 89.0
 size_flags_vertical = 3
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/Button2" to="." method="_on_Button2_pressed"]

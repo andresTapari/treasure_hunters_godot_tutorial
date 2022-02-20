@@ -5,6 +5,8 @@ onready var player = get_node('lvl_8_player')
 export var id: String = "lvl"
 
 func _ready():
+	# Establecemos el lvl actual
+	GLOBAL.current_lvl = self.filename
 	## Al iniciar un nivel actualizamos la informacion en el HUD
 	# Actualizamos barra de salud
 	$CanvasLayer.handle_update_health(GLOBAL.total_health, GLOBAL.health)
@@ -30,7 +32,8 @@ func _ready():
 		if element.is_in_group("door"):
 			# conectamos la señal "fade_out" a la funcion  CanvasLayer.scene_transition_fade
 			element.connect('fade_out',$CanvasLayer,"scene_transition_fade")
-
+		if element.is_in_group("save_point"):
+			element.connect('hide_hud',self,"handle_hide_hud")
 	# cargamos la variable global de next_lvl_door_indx, en _indx
 	var _indx = GLOBAL.next_lvl_door_indx
 	
@@ -38,7 +41,6 @@ func _ready():
 	if _indx > -1:
 		# la posicion global del jugador sera la que devuelva la funcion get_door_position(_indx)
 		player.global_position = get_door_position(_indx)
-	
 	# limpiamos items conseguidos:
 	# Si la lista picked_items no esta vacia:
 	if !GLOBAL.picked_items.empty():
@@ -71,3 +73,6 @@ func get_door_position(_indx: int) -> Vector2:
 
 func _on_Area2D_body_entered(body: Node) -> void:
 	pass # Replace with function body.
+
+func handle_hide_hud(_value:bool) -> void:
+	$CanvasLayer/Control.visible = !_value
