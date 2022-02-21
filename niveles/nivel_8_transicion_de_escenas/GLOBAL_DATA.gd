@@ -51,7 +51,7 @@ var time_start: int = 0
 
 func _ready() -> void:
 	var dir = Directory.new()
-	dir.open("user://")
+	dir.open("res://")
 	dir.make_dir(SAVE_FOLDER)
 	dir.make_dir(THUMBNAIL_FOLDER)
 	time_start = OS.get_unix_time()

@@ -25,7 +25,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 424, 89 )
-frame = 55
+frame = 40
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 visible = false
