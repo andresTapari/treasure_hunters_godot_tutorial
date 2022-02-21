@@ -7,6 +7,7 @@ var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
 var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
 var SAVE_PATH_DIR: String 	 = "res://saves/"
 var THUMBNAIL_FOLDER: String = "res://thumbnail/"
+var ROOT_PATH_FOLDER: String = "res://"
 
 ## Path para usuario:
 #var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
@@ -14,6 +15,7 @@ var THUMBNAIL_FOLDER: String = "res://thumbnail/"
 #var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
 #var SAVE_PATH_DIR: String 	  = "user://saves/"
 #var THUMBNAIL_FOLDER: String = "user://thumbnail/"
+#var ROOT_PATH_FOLDER: String = "user://"
 
 var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
 var SAVE_FOLDER:String	= "saves"
@@ -51,7 +53,7 @@ var time_start: int = 0
 
 func _ready() -> void:
 	var dir = Directory.new()
-	dir.open("res://")
+	dir.open(ROOT_PATH_FOLDER)
 	dir.make_dir(SAVE_FOLDER)
 	dir.make_dir(THUMBNAIL_FOLDER)
 	time_start = OS.get_unix_time()
