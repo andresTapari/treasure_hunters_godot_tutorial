@@ -1,10 +1,14 @@
 extends Control
 
 # Nodos:
+## Botones:
 onready var button_start = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_start")
 onready var button_load  = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_load")
 onready var button_setup = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_setup")
 onready var button_exit  = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_exit")
+
+## Dialogos:
+onready var load_game_dialog = get_node("WindowDialog")
 
 func _ready() -> void:
 	# Creamos una variable directorio
@@ -22,12 +26,16 @@ func _ready() -> void:
 
 # Esta funcion se ejecuta cuando se presiona el boton start:
 func _on_Button_start_pressed() -> void:
+	# Llamamos a la funcion dentro de global start_new_game
+	GLOBAL.start_new_game()
 
-	pass # Replace with function body.
 
 # Esta funcion se ejecuta cuando se presiona el boton cargar:
 func _on_Button_load_pressed() -> void:
-	pass # Replace with function body.
+	# Establecemos la ventana de dialogo en modo cargar juego
+	load_game_dialog.current_mode_save = false
+	# Mostramos la ventana de dialogo centrada en pantalla
+	load_game_dialog.popup_centered()
 
 # Esta funcion se ejecuta cuando se presiona el boton setup:
 func _on_Button_setup_pressed() -> void:

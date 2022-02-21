@@ -15,10 +15,6 @@ func _ready() -> void:
 	button_slot_1.connect("button_pressed",self,"handle_button_pressed")
 	button_slot_2.connect("button_pressed",self,"handle_button_pressed")
 	button_slot_3.connect("button_pressed",self,"handle_button_pressed")
-	if current_mode_save:
-		title_label.text = "SELECT SLOT TO SAVE"
-	else:
-		title_label.text = "SELECT GAME TO PLAY"
 
 func handle_button_pressed(_index,_empty)->void:
 	# si el modo de esta ventana es para guardar:
@@ -46,7 +42,7 @@ func handle_button_pressed(_index,_empty)->void:
 				hide()
 	# Si el modo de la ventana es para cargar una partida:
 	else:
-		pass
+		GLOBAL.load_saved_data(_index-1)
 
 
 func _on_Button_pressed() -> void:
@@ -54,6 +50,10 @@ func _on_Button_pressed() -> void:
 	hide()
 
 func _on_WindowDialog_about_to_show() -> void:
+	if current_mode_save:
+		title_label.text = "SELECT SLOT TO SAVE"
+	else:
+		title_label.text = "SELECT GAME TO PLAY"
 	saved_data = GLOBAL.check_saved_data()
 	if !saved_data[0].empty():
 		button_slot_1.update_data(saved_data[0])

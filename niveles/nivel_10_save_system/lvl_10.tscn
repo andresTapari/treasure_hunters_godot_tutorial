@@ -25,7 +25,7 @@ tile_data = PoolIntArray( 65540, 8, 0, 65550, 9, 0, 131075, 8, 0, 131076, 2, 0, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 424, 89 )
-frame = 15
+frame = 2
 
 [node name="TileMap_plataformas" type="TileMap" parent="."]
 visible = false
@@ -51,7 +51,7 @@ position = Vector2( 175, 179 )
 position = Vector2( 208, 144 )
 
 [node name="lvl_8_player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 94, 205 )
+position = Vector2( 259, 148 )
 
 [node name="Area2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( 297, 160 )

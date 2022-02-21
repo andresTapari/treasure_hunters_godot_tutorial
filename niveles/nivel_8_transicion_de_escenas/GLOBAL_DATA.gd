@@ -30,7 +30,7 @@ var score: 			int = 0					# Puntaje
 var total_health: 	int = 10				# Salud Total
 var health: 		int = 10				# Salud Actual
 var lives:			int = 3					# Vidas del jugador
-
+var p_position: Vector2 = Vector2.ZERO
 # Sistema de guardado:
 var slot_name:	 String	 = ""				# Nombre de la partida guardada
 var current_lvl: String  = ""				# path al lvl actual
@@ -45,6 +45,7 @@ var data_to_save: Dictionary = {	"slot_name": slot_name,
 									"current_time": current_time,
 									"current_score": score,
 									"current_lives": lives,
+									"player_position":p_position,
 									"picked_idems": picked_items,
 									"thumbnail_path":thumbnail_path
 								}
@@ -72,6 +73,7 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	data_to_save["current_time"]	= current_time
 	data_to_save["current_score"]	= score
 	data_to_save["current_lives"]	= lives
+	data_to_save["player_position"] = p_position
 	data_to_save["picked_idems"]	= picked_items
 	data_to_save["thumbnail_path"]	= image_path
 
@@ -123,3 +125,51 @@ func check_saved_data() -> Array:
 	var _list = [data_1,data_2,data_3]
 	return _list
 
+func load_saved_data(_index) -> void:
+	# Cargamos datos guardados en el disco
+	var _list_saved_data =  check_saved_data() 
+	# Cargamos los datos de la partida en una variable
+	var disk_data: Dictionary = _list_saved_data[_index]
+	# Reestablecemos los datos de juego con los de la partida anterior
+	current_lvl 	= disk_data["current_lvl"]
+	health 			= disk_data["current_health"]
+	current_time 	= disk_data["current_time"] # esto se pasa a un offset de tiempo luego
+	score 			= disk_data["current_score"]
+	lives 			= disk_data["current_lives"]
+	picked_items 	= disk_data["picked_idems"]
+	p_position		= disk_data["player_position"]
+	change_current_scene(current_lvl)
+
+func change_current_scene(_lvl_path) -> void:
+	# Para cambiar escena como no estamos cambiando una escena constante
+	# no podemos usar esta funcion directamente:
+	#
+	#     get_tree().set_current_scene('res://niveles/nivel_8_transicion_de_escenas/lvl_A.tscn')
+	#
+	# entonces debemos proceder de la siguiente forma: 
+	
+	# 1. Obtenemos el nodo RAIZ
+	var root = get_tree().get_root()
+
+	# 2. Obtenemos la escena actual
+	var current_scene = root.get_child(root.get_child_count() - 1)
+	
+	# 3. Removemos la escena
+	current_scene.queue_free()
+	
+	# 4. Cargamos la siguiente escena
+	var new_scene = ResourceLoader.load(_lvl_path)
+	
+	# 5. Creamos una instancia de la nueva escena
+	current_scene = new_scene.instance()
+	
+	# 6. La agregamos a la escena activa, como hija del nodo raiz
+	get_tree().get_root().add_child(current_scene)
+
+	# Opcionalmente, para hacerlo compatible
+	# con la API SceneTree.change_scene().
+	get_tree().set_current_scene(current_scene)
+
+func start_new_game() -> void:
+	# Para comenzar una nueva partida cambiamos la escena actual a la siguiente:
+	get_tree().change_scene('res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn')

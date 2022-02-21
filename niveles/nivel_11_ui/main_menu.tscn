@@ -6,10 +6,14 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_slot_dialog.tscn" type="PackedScene" id=4]
 
 [node name="main_menu" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 37.0
-margin_bottom = 37.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -119.0
+margin_top = -119.0
+margin_right = 119.0
+margin_bottom = 119.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
@@ -72,13 +76,13 @@ margin_bottom = 156.0
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 24.0
+margin_right = 28.0
 margin_bottom = 156.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 28.0
-margin_right = 83.0
+margin_left = 32.0
+margin_right = 80.0
 margin_bottom = 156.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -88,23 +92,23 @@ __meta__ = {
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 4.0
 size_flags_vertical = 3
 
 [node name="HSeparator6" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 8.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 12.0
 size_flags_vertical = 3
 
 [node name="Button_start" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 16.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 38.0
 theme = ExtResource( 1 )
-text = "START GAME"
+text = "NEW GAME"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,13 +116,13 @@ __meta__ = {
 [node name="HSeparator3" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 42.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 46.0
 size_flags_vertical = 3
 
 [node name="Button_load" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 50.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 72.0
 disabled = true
 text = "LOAD GAME"
@@ -126,46 +130,46 @@ text = "LOAD GAME"
 [node name="HSeparator4" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 76.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 80.0
 size_flags_vertical = 3
 
 [node name="Button_setup" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 84.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 106.0
 text = "SETUP"
 
 [node name="HSeparator5" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 110.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 114.0
 size_flags_vertical = 3
 
 [node name="Button_exit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 118.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 140.0
 text = "EXIT"
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 144.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 148.0
 size_flags_vertical = 3
 
 [node name="HSeparator7" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 152.0
-margin_right = 55.0
+margin_right = 48.0
 margin_bottom = 156.0
 size_flags_vertical = 3
 
 [node name="VSeparator2" type="VSeparator" parent="MarginContainer/HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 87.0
+margin_left = 84.0
 margin_right = 112.0
 margin_bottom = 156.0
 size_flags_horizontal = 3

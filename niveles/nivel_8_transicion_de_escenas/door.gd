@@ -36,31 +36,4 @@ func hit(_damage:int ,_direction:Vector2) -> void:
 	# Esperamos que la animacion de la puerta termine
 	yield(animatedSprite,"animation_finished")
 	# llamamos a la funcion cambair escena
-	change_scene(target_lvl)
-	
-
-
-func change_scene(path: String):
-	
-	# Para cambiar escena como no estamos cambiando una escena constante
-	# no podemos usar esta funcion directamente:
-	#
-	#     get_tree().set_current_scene('res://niveles/nivel_8_transicion_de_escenas/lvl_A.tscn')
-	#
-	# entonces debemos proceder de la siguiente forma: 
-
-	# 1. Removemos la escena actual
-	current_scene.queue_free()
-	
-	# 2. Cargamos la siguiente escena
-	var new_scene = ResourceLoader.load(path)
-	
-	# 3. Creamos una instancia de la nueva escena
-	current_scene = new_scene.instance()
-	
-	# 4. La agregamos a la escena activa, como hija del nodo raiz
-	get_tree().get_root().add_child(current_scene)
-
-	# Opcionalmente, para hacerlo compatible
-	# con la API SceneTree.change_scene().
-	get_tree().set_current_scene(current_scene)
+	GLOBAL.change_current_scene(target_lvl)

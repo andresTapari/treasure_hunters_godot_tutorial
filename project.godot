@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Treasure Hunter"
-run/main_scene="res://niveles/nivel_10_save_system/lvl_10.tscn"
+run/main_scene="res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn"
 config/icon="res://assets/sprites/captain_icon.png"
 
 [autoload]
