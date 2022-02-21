@@ -109,6 +109,8 @@ margin_bottom = 60.0
 size_flags_vertical = 3
 
 [node name="WindowDialog_slot" parent="." instance=ExtResource( 3 )]
+margin_right = 435.0
+margin_bottom = 275.0
 
 [connection signal="popup_hide" from="." to="." method="_on_WindowDialog_save_popup_hide"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button_no" to="." method="_on_Button_no_pressed"]

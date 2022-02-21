@@ -6,16 +6,19 @@ func _ready() -> void:
 	$Label.modulate = Color(1,1,1,0)
 
 func hit(_value: int, _direction: Vector2) -> void:
-#	GLOBAL.image_buffer = $Camera2D.get_viewport().get_texture().get_data()
-
+	# Sacamos captura de la pantalla de juego
 	GLOBAL.image_buffer = get_viewport().get_texture().get_data()
+	# Rotamos la imagen
 	GLOBAL.image_buffer.flip_y()
-#	GLOBAL.image_buffer = GLOBAL.image_buffer.flip_y()
-
+	# Emitimos una señal para esconder el HUD
 	emit_signal("hide_hud",true)
+	# Llamamos a la función popup, que hace aparecer una ventana de dialgo
 	$WindowDialog_save.popup_centered()
+	# Pausamos la escena
 	get_tree().paused = true
+	# Esperamos a que la ventana de dialogo se oculte
 	yield($WindowDialog_save,"hide")
+	# Reaparecemos el HUD
 	emit_signal("hide_hud",false)
 
 func _on_Area2D_body_entered(body: Node) -> void:

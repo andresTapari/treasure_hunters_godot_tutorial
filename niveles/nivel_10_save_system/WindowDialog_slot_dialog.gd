@@ -26,8 +26,8 @@ func handle_button_pressed(_index,_empty)->void:
 			print($WindowDialog_name.name_file)
 			# Aca guardamos
 			GLOBAL.save_data(_index,$WindowDialog_name.name_file)
-		emit_signal('done')
-		hide()
+			emit_signal('done')
+			hide()
 	else:
 		$WindowDialog_name.line_edit.text = saved_data[_index-1]["slot_name"]
 		$WindowDialog_name.popup_centered()
@@ -36,8 +36,8 @@ func handle_button_pressed(_index,_empty)->void:
 			print($WindowDialog_name.name_file)
 			# Aca guardamos
 			GLOBAL.save_data(_index,$WindowDialog_name.name_file)
-		emit_signal('done')
-		hide()
+			emit_signal('done')
+			hide()
 
 func _on_Button_pressed() -> void:
 	emit_signal('done')

@@ -5,7 +5,8 @@ signal button_pressed(_index) #WindowDialog_slot_dialog->handle_button_pressed()
 
 # Nodos:
 onready var label_name		= get_node("Button/VBoxContainer/HBoxContainer/Label")
-onready var icon_thumbnail	= get_node("Button/VBoxContainer/ViewportContainer/Viewport/TextureRect")
+#onready var icon_thumbnail	= get_node("Button/VBoxContainer/ViewportContainer/Viewport/TextureRect")
+onready var icon_thumbnail	= get_node("Button/VBoxContainer/HBoxContainer4/ViewportContainer/Viewport/TextureRect")
 onready var label_score		= get_node("Button/VBoxContainer/HBoxContainer2/Label_score")
 onready var label_time		= get_node("Button/VBoxContainer/HBoxContainer3/Label_time")
 
