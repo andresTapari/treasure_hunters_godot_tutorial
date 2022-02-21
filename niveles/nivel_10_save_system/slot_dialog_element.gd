@@ -22,6 +22,7 @@ func update_data(saved_data:Dictionary) -> void:
 	label_score.text = String(saved_data["current_score"])
 	label_time.text  = format_time(saved_data["current_time"])
 	icon_thumbnail.texture = load(saved_data["thumbnail_path"])
+	
 #	var sizeto=Vector2(64,64)
 #	var size=icon_thumbnail.texture.get_size()
 #	var scale_vactor=sizeto/size

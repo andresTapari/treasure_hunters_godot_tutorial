@@ -36,3 +36,7 @@ func _on_WindowDialog_about_to_show() -> void:
 	saved_data = GLOBAL.check_saved_data()
 	if !saved_data[0].empty():
 		button_slot_1.update_data(saved_data[0])
+	if !saved_data[1].empty():
+		button_slot_2.update_data(saved_data[1])
+	if !saved_data[2].empty():
+		button_slot_3.update_data(saved_data[2])

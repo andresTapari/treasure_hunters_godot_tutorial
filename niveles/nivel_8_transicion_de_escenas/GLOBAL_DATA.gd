@@ -1,9 +1,20 @@
 extends Node
 
 # Constantes:
+## path para modo proyecto:
 var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
 var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
 var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
+var THUMBNAIL_FOLDER: String = "res://thumbnail/"
+
+## Path para usuario:
+#var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
+#var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
+#var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
+#var THUMBNAIL_FOLDER: String = "user://thumbnail/"
+
+var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
+var SAVE_FOLDER:String	= "saves"
 
 # Transicion de niveles:
 var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
@@ -37,6 +48,10 @@ var data_to_save: Dictionary = {	"slot_name": slot_name,
 var time_start: int = 0
 
 func _ready() -> void:
+	var dir = Directory.new()
+	dir.open("user://")
+	dir.make_dir(SAVE_FOLDER)
+	dir.make_dir(THUMBNAIL_FOLDER)
 	time_start = OS.get_unix_time()
 
 func add_to_picked_item_list(_id:String) -> void:
@@ -44,7 +59,7 @@ func add_to_picked_item_list(_id:String) -> void:
 
 func save_data(_indx: int, _slot_name: String) -> void:
 	# guardamos la minitatura 
-	var image_path:String = "res://thumbnail/"+ _slot_name +".png"
+	var image_path:String = THUMBNAIL_FOLDER + _slot_name +".png"
 	image_buffer.save_png(image_path)
 	# actualizamos datos del diccionario
 	data_to_save["slot_name"]		= _slot_name

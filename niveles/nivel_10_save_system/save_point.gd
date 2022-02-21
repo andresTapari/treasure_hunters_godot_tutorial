@@ -6,6 +6,8 @@ func _ready() -> void:
 	$Label.modulate = Color(1,1,1,0)
 
 func hit(_value: int, _direction: Vector2) -> void:
+#	GLOBAL.image_buffer = $Camera2D.get_viewport().get_texture().get_data()
+
 	GLOBAL.image_buffer = get_viewport().get_texture().get_data()
 	GLOBAL.image_buffer.flip_y()
 #	GLOBAL.image_buffer = GLOBAL.image_buffer.flip_y()
