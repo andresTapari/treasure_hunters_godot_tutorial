@@ -5,12 +5,14 @@ extends Node
 var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
 var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
 var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
+var SAVE_PATH_DIR: String 	 = "res://saves/"
 var THUMBNAIL_FOLDER: String = "res://thumbnail/"
 
 ## Path para usuario:
 #var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
 #var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
 #var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
+#var SAVE_PATH_DIR: String 	  = "user://saves/"
 #var THUMBNAIL_FOLDER: String = "user://thumbnail/"
 
 var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
@@ -118,3 +120,4 @@ func check_saved_data() -> Array:
 	file.close()
 	var _list = [data_1,data_2,data_3]
 	return _list
+

@@ -6,6 +6,7 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_name.tscn" type="PackedScene" id=4]
 
 [node name="WindowDialog" type="WindowDialog"]
+visible = true
 margin_right = 432.0
 margin_bottom = 269.0
 theme = ExtResource( 2 )
@@ -64,6 +65,7 @@ size_flags_vertical = 3
 [node name="MarginContainer" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
 margin_left = 8.0
 margin_right = 122.0
+margin_bottom = 170.0
 self_indx = 1
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
@@ -78,6 +80,7 @@ size_flags_vertical = 3
 [node name="MarginContainer2" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
 margin_left = 134.0
 margin_right = 248.0
+margin_bottom = 170.0
 self_indx = 2
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
@@ -92,6 +95,7 @@ size_flags_vertical = 3
 [node name="MarginContainer3" parent="VBoxContainer/HBoxContainer2" instance=ExtResource( 1 )]
 margin_left = 260.0
 margin_right = 374.0
+margin_bottom = 170.0
 self_indx = 3
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]

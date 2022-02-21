@@ -3,8 +3,8 @@
 "current_lives": 3,
 "current_lvl": "res://niveles/nivel_10_save_system/lvl_10.tscn",
 "current_score": 4,
-"current_time": 2,
+"current_time": 6474,
 "picked_idems": [ "lvl_pickable_item", "lvl_pickable_item4", "lvl_pickable_item3", "lvl_pickable_item2" ],
-"slot_name": "ANDRES",
-"thumbnail_path": "res://thumbnail/ANDRES.png"
+"slot_name": "Andres",
+"thumbnail_path": "res://thumbnail/Andres.png"
 }

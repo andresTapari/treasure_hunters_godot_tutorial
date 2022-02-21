@@ -1,17 +1,38 @@
 extends Control
 
+# Nodos:
+onready var button_start = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_start")
+onready var button_load  = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_load")
+onready var button_setup = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_setup")
+onready var button_exit  = get_node("MarginContainer/HBoxContainer/VBoxContainer/Button_exit")
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-	#$WindowDialog.popup()
+	# Creamos una variable directorio
+	var directory = Directory.new();
+	# Creamos una variable booleana donde alojamos el resultado de si existe el archivo de guardado 1
+	var save_file_1_exist: bool = directory.file_exists(GLOBAL.SAVE_PATH_FILE_1)
+	# Creamos una variable booleana donde alojamos el resultado de si existe el archivo de guardado 2
+	var save_file_2_exist: bool = directory.file_exists(GLOBAL.SAVE_PATH_FILE_2)
+	# Creamos una variable booleana donde alojamos el resultado de si existe el archivo de guardado 3
+	var save_file_3_exist: bool = directory.file_exists(GLOBAL.SAVE_PATH_FILE_3)
+	# Si existe archivo 1 o existe archivo 2 o existe archivo 3
+	if save_file_1_exist or save_file_2_exist or save_file_3_exist:
+		# Habilitamos el boton cargar partida
+		button_load.disabled = false
 
+# Esta funcion se ejecuta cuando se presiona el boton start:
+func _on_Button_start_pressed() -> void:
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+	pass # Replace with function body.
+
+# Esta funcion se ejecuta cuando se presiona el boton cargar:
+func _on_Button_load_pressed() -> void:
+	pass # Replace with function body.
+
+# Esta funcion se ejecuta cuando se presiona el boton setup:
+func _on_Button_setup_pressed() -> void:
+	pass # Replace with function body.
+
+# Esta funcion se ejecuta cuando se presiona el boton exit:
+func _on_Button_exit_pressed() -> void:
+	pass # Replace with function body.
