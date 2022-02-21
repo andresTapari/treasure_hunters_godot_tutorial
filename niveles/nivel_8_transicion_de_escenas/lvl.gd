@@ -2,7 +2,10 @@ extends Node2D
 
 # creamos una variable para player
 onready var player = get_node('lvl_8_player')
+
+# Variables:
 export var id: String = "lvl"
+export var STAGE_INDEX: int = 0
 
 func _ready():
 	# Establecemos el lvl actual

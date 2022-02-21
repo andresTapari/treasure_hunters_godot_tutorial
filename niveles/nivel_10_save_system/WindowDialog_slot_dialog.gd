@@ -19,6 +19,17 @@ func _ready() -> void:
 	
 func handle_button_pressed(_index,_empty)->void:
 	if _empty:
+		$WindowDialog_name.line_edit.text = ""
+		$WindowDialog_name.popup_centered()
+		yield($WindowDialog_name,'hide')
+		if !$WindowDialog_name.name_file.empty():
+			print($WindowDialog_name.name_file)
+			# Aca guardamos
+			GLOBAL.save_data(_index,$WindowDialog_name.name_file)
+		emit_signal('done')
+		hide()
+	else:
+		$WindowDialog_name.line_edit.text = saved_data[_index-1]["slot_name"]
 		$WindowDialog_name.popup_centered()
 		yield($WindowDialog_name,'hide')
 		if !$WindowDialog_name.name_file.empty():

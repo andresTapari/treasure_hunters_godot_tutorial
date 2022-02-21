@@ -15,7 +15,8 @@
 [node name="lvl" type="Node2D"]
 position = Vector2( 1, 0 )
 script = ExtResource( 2 )
-id = "lvl_A"
+id = "lvl_0_stage_4"
+STAGE_INDEX = 4
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 9 )]
 
@@ -53,14 +54,14 @@ tile_data = PoolIntArray( 65537, 8, 0, 65550, 9, 0, 196617, 17, 0, 262158, 11, 0
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 4 )]
 position = Vector2( 426, 85 )
-frame = 56
+frame = 29
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 176, 192 )
-frame = 4
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 337, 193 )
+frame = 2
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["ground"]]
 tile_set = ExtResource( 3 )

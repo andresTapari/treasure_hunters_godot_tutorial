@@ -18,19 +18,20 @@ func _ready():
 	pass # Replace with function body.
 
 func update_data(saved_data:Dictionary) -> void:
+	empty = false
 	label_name.text  = saved_data["slot_name"]
 	label_score.text = String(saved_data["current_score"])
 	label_time.text  = format_time(saved_data["current_time"])
-	icon_thumbnail.texture = load(saved_data["thumbnail_path"])
-	
-#	var sizeto=Vector2(64,64)
-#	var size=icon_thumbnail.texture.get_size()
-#	var scale_vactor=sizeto/size
-#	icon_thumbnail.set_scale(scale) = scale_vactor
-	
+	var image = Image.new()
+	var err = image.load(saved_data["thumbnail_path"])
+	if err != OK:
+		print_debug("ERROR CARGANDO THUMBNAIL")
+	var texture = ImageTexture.new()
+	texture.create_from_image(image,8)
+	icon_thumbnail.texture = texture
+
 func _on_Button_pressed():
 	emit_signal('button_pressed',self_indx, empty)
-	#GLOBAL.save_data(self_indx,"")
 
 func format_time(elapsed: int) -> String:
 	var minutes: int = int(float(elapsed / 60))

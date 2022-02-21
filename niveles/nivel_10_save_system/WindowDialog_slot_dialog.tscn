@@ -27,6 +27,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 382.0
 margin_bottom = 4.0
+input_pass_on_modal_close_click = false
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
@@ -44,6 +45,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_top = 30.0
 margin_right = 382.0
 margin_bottom = 34.0
+input_pass_on_modal_close_click = false
 size_flags_vertical = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -55,6 +57,7 @@ margin_bottom = 208.0
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 4.0
 margin_bottom = 170.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -68,6 +71,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 126.0
 margin_right = 130.0
 margin_bottom = 170.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -81,6 +85,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 252.0
 margin_right = 256.0
 margin_bottom = 170.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -94,6 +99,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 378.0
 margin_right = 382.0
 margin_bottom = 170.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -102,6 +108,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_top = 212.0
 margin_right = 382.0
 margin_bottom = 216.0
+input_pass_on_modal_close_click = false
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -113,6 +120,7 @@ margin_bottom = 242.0
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 170.0
 margin_bottom = 22.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -127,6 +135,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_left = 212.0
 margin_right = 382.0
 margin_bottom = 22.0
+input_pass_on_modal_close_click = false
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
