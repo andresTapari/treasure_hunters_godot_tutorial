@@ -45,10 +45,12 @@ func _ready():
 	if _indx > -1:
 		# la posicion global del jugador sera la que devuelva la funcion get_door_position(_indx)
 		player.global_position = get_door_position(_indx)
-#	else:
-#		# la posicion global del jugador sera la que tenia cuando guardo una partida
-#		player.global_position = GLOBAL.p_position
-
+	
+	if GLOBAL.loaded_game:
+		# la posicion global del jugador sera la que tenia cuando guardo una partida
+		player.global_position = GLOBAL.p_position
+		# reiniciamos la bandera de juego cargado
+		GLOBAL.loaded_game = false
 	# limpiamos items conseguidos:
 	# Si la lista picked_items no esta vacia:
 	if !GLOBAL.picked_items.empty():

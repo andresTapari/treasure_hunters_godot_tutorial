@@ -2,20 +2,20 @@ extends Node
 
 # Constantes:
 ## Descomentar esto en DEBUG:
-#var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
-#var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
-#var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
-#var SAVE_PATH_DIR: String 	 = "res://saves/"
-#var THUMBNAIL_FOLDER: String = "res://thumbnail/"
-#var ROOT_PATH_FOLDER: String = "res://"
+var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
+var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
+var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
+var SAVE_PATH_DIR: String 	 = "res://saves/"
+var THUMBNAIL_FOLDER: String = "res://thumbnail/"
+var ROOT_PATH_FOLDER: String = "res://"
 
 ## Descomentar esto en RELEASE:
-var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
-var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
-var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
-var SAVE_PATH_DIR:    String = "user://saves/"
-var THUMBNAIL_FOLDER: String = "user://thumbnail/"
-var ROOT_PATH_FOLDER: String = "user://"
+#var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
+#var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
+#var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
+#var SAVE_PATH_DIR:    String = "user://saves/"
+#var THUMBNAIL_FOLDER: String = "user://thumbnail/"
+#var ROOT_PATH_FOLDER: String = "user://"
 
 var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
 var SAVE_FOLDER:String	= "saves"
@@ -32,15 +32,18 @@ var score: 			int = 0					# Puntaje
 var total_health: 	int = 10				# Salud Total
 var health: 		int = 10				# Salud Actual
 var lives:			int = 3					# Vidas del jugador
+
 var p_position: Vector2 = Vector2.ZERO
 
 # Sistema de guardado:
-var slot_name:	 String	 = ""				# Nombre de la partida guardada
-var current_lvl: String  = ""				# path al lvl actual
-var current_time: int	 = 0				# tiempo actual de juego
+var slot_name:	 	String  = ""			# Nombre de la partida guardada
+var current_lvl: 	String  = ""			# path al lvl actual
 var thumbnail_path: String  = ""			# path a la minitatura del nivel
-var image_buffer: Image						# Buffer de imagen a mostrar
-var time_offset: int	 = 0				# Offset de tiempo, es el tiempo de la partida guardada anterior.
+var current_time:	int		= 0				# tiempo actual de juego
+var time_offset: 	int	 	= 0				# Offset de tiempo, es el tiempo de la partida guardada anterior.
+var image_buffer: 	Image					# Buffer de imagen a mostrar
+var loaded_game:	bool    = false			# Bandera para indicar que se cargo 
+											# un juego de una partida guardada
 
 # Archivo a guardar:
 var data_to_save: Dictionary = {	"slot_name": slot_name,
@@ -131,6 +134,8 @@ func check_saved_data() -> Array:
 	return _list
 
 func load_saved_data(_index) -> void:
+	# ponemos la bandera de partida cargada en alto
+	loaded_game = true
 	# Cargamos datos guardados en el disco
 	var _list_saved_data =  check_saved_data() 
 	# Cargamos los datos de la partida en una variable

@@ -42,7 +42,9 @@ func handle_button_pressed(_index,_empty)->void:
 				hide()
 	# Si el modo de la ventana es para cargar una partida:
 	else:
-		GLOBAL.load_saved_data(_index-1)
+		# LLamamos a la funcion para cargar la partida
+		GLOBAL.load_saved_data(_index - 1)
+		
 
 
 func _on_Button_pressed() -> void:

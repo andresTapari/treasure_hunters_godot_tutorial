@@ -29,7 +29,6 @@ func _on_Button_start_pressed() -> void:
 	# Llamamos a la funcion dentro de global start_new_game
 	GLOBAL.start_new_game()
 
-
 # Esta funcion se ejecuta cuando se presiona el boton cargar:
 func _on_Button_load_pressed() -> void:
 	# Establecemos la ventana de dialogo en modo cargar juego
@@ -39,8 +38,10 @@ func _on_Button_load_pressed() -> void:
 
 # Esta funcion se ejecuta cuando se presiona el boton setup:
 func _on_Button_setup_pressed() -> void:
+	# Muestra la ventana centrada 
 	$setup_dialog.popup_centered()
 
 # Esta funcion se ejecuta cuando se presiona el boton exit:
 func _on_Button_exit_pressed() -> void:
-	pass # Replace with function body.
+	# Salimos del juego
+	get_tree().quit()

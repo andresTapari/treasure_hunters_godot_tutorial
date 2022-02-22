@@ -28,5 +28,5 @@ func _on_Button_pressed() -> void:
 	pass # Replace with function body.
 
 
-func _on_CheckBox_toggled(button_pressed: bool) -> void:
+func _on_CheckBox_toggled(_button_pressed: bool) -> void:
 	pass # Replace with function body.
