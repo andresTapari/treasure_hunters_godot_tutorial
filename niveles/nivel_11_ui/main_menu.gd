@@ -39,7 +39,7 @@ func _on_Button_load_pressed() -> void:
 
 # Esta funcion se ejecuta cuando se presiona el boton setup:
 func _on_Button_setup_pressed() -> void:
-	pass # Replace with function body.
+	$setup_dialog.popup_centered()
 
 # Esta funcion se ejecuta cuando se presiona el boton exit:
 func _on_Button_exit_pressed() -> void:

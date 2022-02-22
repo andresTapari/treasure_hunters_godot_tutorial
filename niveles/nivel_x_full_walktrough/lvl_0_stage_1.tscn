@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/decorations/chain_small.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/decorations/chain_big.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/decorations/candle.tscn" type="PackedScene" id=12]
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/pitFall.tscn" type="PackedScene" id=13]
 [ext_resource path="res://niveles/nivel_9_plataformas_moviles/fixed_platform.tscn" type="PackedScene" id=14]
+[ext_resource path="res://niveles/nivel_10_save_system/save_point.tscn" type="PackedScene" id=15]
 
 [node name="lvl_0_A" type="Node2D"]
 script = ExtResource( 3 )
@@ -40,19 +41,19 @@ tile_data = PoolIntArray( 2, 8, 0, 11, 9, 0, 12, 8, 0, 15, 9, 0, 65536, 8, 0, 65
 
 [node name="chaing_big" parent="TileMap_fondo_detalles" instance=ExtResource( 2 )]
 position = Vector2( 207, 129 )
-frame = 2
+frame = 3
 
 [node name="chain_small" parent="TileMap_fondo_detalles/chaing_big" instance=ExtResource( 1 )]
 position = Vector2( 9, -17 )
-frame = 1
+frame = 2
 
 [node name="chaing_big2" parent="TileMap_fondo_detalles" instance=ExtResource( 2 )]
 position = Vector2( 305, 128 )
-frame = 1
+frame = 2
 
 [node name="chain_small" parent="TileMap_fondo_detalles/chaing_big2" instance=ExtResource( 1 )]
 position = Vector2( -12, -16 )
-frame = 1
+frame = 2
 
 [node name="TileMap_plataformas" type="TileMap" parent="." groups=["platforms"]]
 tile_set = ExtResource( 6 )
@@ -107,19 +108,22 @@ position_target_B = NodePath("../Position2D2")
 
 [node name="candle" parent="." instance=ExtResource( 12 )]
 position = Vector2( 144, 228 )
+frame = 4
 
 [node name="candle2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 399, 226 )
+frame = 4
 
 [node name="candle3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 304, 77 )
+frame = 4
 
 [node name="candle4" parent="." instance=ExtResource( 12 )]
 position = Vector2( 207, 77 )
+frame = 4
 
 [node name="candle5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 53, 77 )
-frame = 2
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 208, 261 )
@@ -164,5 +168,8 @@ position_target_A = NodePath("../Position2D5")
 position_target_B = NodePath("../Position2D6")
 
 [node name="lvl_8_player" parent="." instance=ExtResource( 9 )]
-position = Vector2( 112, 149 )
+position = Vector2( 147, 243 )
 knokback_f = 200
+
+[node name="Area2D" parent="." instance=ExtResource( 15 )]
+position = Vector2( 126, 261 )

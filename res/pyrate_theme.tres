@@ -1,10 +1,13 @@
-[gd_resource type="Theme" load_steps=11 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://assets/ui/Green Button/Green Button Box.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/button_font.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/ui/Green Button/Green Button Box_hoober.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/Green Button/Green Button Box_clicked.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/ui/GreenBoard.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/Sliders/3.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/Sliders/HSLIDER.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/Yellow Button/1.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 3 )
@@ -42,6 +45,18 @@ margin_right = 2.0
 margin_top = 2.0
 margin_bottom = 2.0
 
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 14, 14 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 30, 6 )
+margin_left = 3.08429
+margin_right = 2.95578
+margin_top = 2.0562
+margin_bottom = 2.31322
+
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 5 )
 region_rect = Rect2( 0, 0, 94, 90 )
@@ -72,6 +87,13 @@ Button/fonts/font = ExtResource( 2 )
 Button/styles/hover = SubResource( 2 )
 Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = SubResource( 3 )
+CheckBox/styles/normal = SubResource( 6 )
+CheckBox/styles/pressed = SubResource( 6 )
+HSlider/icons/grabber = ExtResource( 6 )
+HSlider/icons/grabber_highlight = ExtResource( 6 )
+HSlider/styles/grabber_area = SubResource( 7 )
+HSlider/styles/grabber_area_highlight = SubResource( 7 )
+HSlider/styles/slider = SubResource( 7 )
 Label/fonts/font = ExtResource( 2 )
 LineEdit/fonts/font = null
 Panel/styles/panel = SubResource( 5 )

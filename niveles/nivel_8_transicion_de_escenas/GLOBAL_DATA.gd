@@ -1,21 +1,21 @@
 extends Node
 
 # Constantes:
-## path para modo proyecto:
-var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
-var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
-var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
-var SAVE_PATH_DIR: String 	 = "res://saves/"
-var THUMBNAIL_FOLDER: String = "res://thumbnail/"
-var ROOT_PATH_FOLDER: String = "res://"
+## Descomentar esto en DEBUG:
+#var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
+#var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
+#var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
+#var SAVE_PATH_DIR: String 	 = "res://saves/"
+#var THUMBNAIL_FOLDER: String = "res://thumbnail/"
+#var ROOT_PATH_FOLDER: String = "res://"
 
-## Path para usuario:
-#var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
-#var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
-#var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
-#var SAVE_PATH_DIR: String 	  = "user://saves/"
-#var THUMBNAIL_FOLDER: String = "user://thumbnail/"
-#var ROOT_PATH_FOLDER: String = "user://"
+## Descomentar esto en RELEASE:
+var SAVE_PATH_FILE_1: String = "user://saves/data_1.dat"
+var SAVE_PATH_FILE_2: String = "user://saves/data_2.dat"
+var SAVE_PATH_FILE_3: String = "user://saves/data_3.dat"
+var SAVE_PATH_DIR:    String = "user://saves/"
+var THUMBNAIL_FOLDER: String = "user://thumbnail/"
+var ROOT_PATH_FOLDER: String = "user://"
 
 var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
 var SAVE_FOLDER:String	= "saves"
@@ -23,7 +23,9 @@ var SAVE_FOLDER:String	= "saves"
 # Transicion de niveles:
 var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
 											# -1 si no usa una puerta. (main_lvl)
-
+var timer_firt_run: bool = true				# Evita que el timer se reinicie cada vez
+											# que ocurra una transicion de niveles
+											
 # Datos del personaje
 var picked_items: Array = []				# Lista de items conseguidos
 var score: 			int = 0					# Puntaje
@@ -31,12 +33,14 @@ var total_health: 	int = 10				# Salud Total
 var health: 		int = 10				# Salud Actual
 var lives:			int = 3					# Vidas del jugador
 var p_position: Vector2 = Vector2.ZERO
+
 # Sistema de guardado:
 var slot_name:	 String	 = ""				# Nombre de la partida guardada
 var current_lvl: String  = ""				# path al lvl actual
 var current_time: int	 = 0				# tiempo actual de juego
 var thumbnail_path: String  = ""			# path a la minitatura del nivel
 var image_buffer: Image						# Buffer de imagen a mostrar
+var time_offset: int	 = 0				# Offset de tiempo, es el tiempo de la partida guardada anterior.
 
 # Archivo a guardar:
 var data_to_save: Dictionary = {	"slot_name": slot_name,
@@ -57,7 +61,6 @@ func _ready() -> void:
 	dir.open(ROOT_PATH_FOLDER)
 	dir.make_dir(SAVE_FOLDER)
 	dir.make_dir(THUMBNAIL_FOLDER)
-	time_start = OS.get_unix_time()
 
 func add_to_picked_item_list(_id:String) -> void:
 	picked_items.push_front(_id)
@@ -65,6 +68,7 @@ func add_to_picked_item_list(_id:String) -> void:
 func save_data(_indx: int, _slot_name: String) -> void:
 	# guardamos la minitatura 
 	var image_path:String = THUMBNAIL_FOLDER + _slot_name +".png"
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	image_buffer.save_png(image_path)
 	# actualizamos datos del diccionario
 	data_to_save["slot_name"]		= _slot_name
@@ -102,6 +106,7 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	# Convertimos el diccionario al tipo string
 	var data_to_save_string: = var2str(data_to_save)
 	# Abrimos el archivo en modo escritura
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	file.open(_file_path,File.WRITE)
 	# Guardamos los datos
 	file.store_string(data_to_save_string)
@@ -133,7 +138,7 @@ func load_saved_data(_index) -> void:
 	# Reestablecemos los datos de juego con los de la partida anterior
 	current_lvl 	= disk_data["current_lvl"]
 	health 			= disk_data["current_health"]
-	current_time 	= disk_data["current_time"] # esto se pasa a un offset de tiempo luego
+	time_offset 	= disk_data["current_time"] # esto se pasa a un offset de tiempo luego
 	score 			= disk_data["current_score"]
 	lives 			= disk_data["current_lives"]
 	picked_items 	= disk_data["picked_idems"]
@@ -141,6 +146,7 @@ func load_saved_data(_index) -> void:
 	change_current_scene(current_lvl)
 
 func change_current_scene(_lvl_path) -> void:
+	
 	# Para cambiar escena como no estamos cambiando una escena constante
 	# no podemos usar esta funcion directamente:
 	#
@@ -148,6 +154,11 @@ func change_current_scene(_lvl_path) -> void:
 	#
 	# entonces debemos proceder de la siguiente forma: 
 	
+	# 0. Iniciamos el timer en el momento que cargamos la partida:
+	if timer_firt_run:
+		time_start = OS.get_unix_time()
+		timer_firt_run = false
+
 	# 1. Obtenemos el nodo RAIZ
 	var root = get_tree().get_root()
 
@@ -171,5 +182,10 @@ func change_current_scene(_lvl_path) -> void:
 	get_tree().set_current_scene(current_scene)
 
 func start_new_game() -> void:
+	# Ponemos en falso la bandera del timer:
+	timer_firt_run = false
+	# Iniciamios el timer en el momento que arrancamos la partida
+	# warning-ignore:RETURN_VALUE_DISCARDED
+	time_start = OS.get_unix_time()
 	# Para comenzar una nueva partida cambiamos la escena actual a la siguiente:
 	get_tree().change_scene('res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn')

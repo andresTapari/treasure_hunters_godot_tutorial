@@ -53,7 +53,7 @@ func scene_transition_fade(fade_in: bool = true ) -> void:
 
 func _on_Timer_timeout() -> void:
 	var time_now = OS.get_unix_time()
-	var time_elapsed = time_now - GLOBAL.time_start
+	var time_elapsed = time_now - GLOBAL.time_start + GLOBAL.time_offset
 	GLOBAL.current_time = time_elapsed
 	clock_label.text = format_time(time_elapsed)
 

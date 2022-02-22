@@ -2,6 +2,7 @@ extends WindowDialog
 
 func _ready() -> void:
 	# Conectamos la señal de la ventana de dialogo slot con handle_done_signal
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	$WindowDialog_slot.connect("done",self,"handle_done_signal")
 
 # Esta funcion se ejecuta cuando precionamos el boton SI

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://res/pyrate_theme.tres" type="Theme" id=1]
 [ext_resource path="res://niveles/nivel_11_ui/main_menu.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/Small Banner (guide).png" type="Texture" id=3]
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_slot_dialog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://niveles/nivel_11_ui/setup_menu.tscn" type="PackedScene" id=5]
 
 [node name="main_menu" type="Control"]
 anchor_left = 0.5
@@ -175,6 +176,9 @@ margin_bottom = 156.0
 size_flags_horizontal = 3
 
 [node name="WindowDialog" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="setup_dialog" parent="." instance=ExtResource( 5 )]
 visible = false
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Button_start" to="." method="_on_Button_start_pressed"]

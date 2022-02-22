@@ -34,6 +34,7 @@ func _on_Button_pressed():
 	emit_signal('button_pressed',self_indx, empty)
 
 func format_time(elapsed: int) -> String:
+	#warning-ignore:INTEGER_DIVISION
 	var minutes: int = int(float(elapsed / 60))
 #	minutes = minutes / 60
 	var seconds = elapsed % 60

@@ -8,8 +8,9 @@ export var id: String = "lvl"
 export var STAGE_INDEX: int = 0
 
 func _ready():
-	# Establecemos el lvl actual
+	# Establecemos el lvl actual en el registro de GLOBAL
 	GLOBAL.current_lvl = self.filename
+	
 	## Al iniciar un nivel actualizamos la informacion en el HUD
 	# Actualizamos barra de salud
 	$CanvasLayer.handle_update_health(GLOBAL.total_health, GLOBAL.health)
@@ -37,13 +38,17 @@ func _ready():
 			element.connect('fade_out',$CanvasLayer,"scene_transition_fade")
 		if element.is_in_group("save_point"):
 			element.connect('hide_hud',self,"handle_hide_hud")
+
 	# cargamos la variable global de next_lvl_door_indx, en _indx
 	var _indx = GLOBAL.next_lvl_door_indx
-	
 	# si _index es mayor a -1
 	if _indx > -1:
 		# la posicion global del jugador sera la que devuelva la funcion get_door_position(_indx)
 		player.global_position = get_door_position(_indx)
+#	else:
+#		# la posicion global del jugador sera la que tenia cuando guardo una partida
+#		player.global_position = GLOBAL.p_position
+
 	# limpiamos items conseguidos:
 	# Si la lista picked_items no esta vacia:
 	if !GLOBAL.picked_items.empty():
