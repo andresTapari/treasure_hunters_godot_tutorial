@@ -176,7 +176,6 @@ margin_bottom = 156.0
 size_flags_horizontal = 3
 
 [node name="WindowDialog" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="setup_dialog" parent="." instance=ExtResource( 5 )]
 

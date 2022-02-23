@@ -144,6 +144,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="WindowDialog_name" parent="." instance=ExtResource( 4 )]
+visible = true
 
 [connection signal="about_to_show" from="." to="." method="_on_WindowDialog_about_to_show"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

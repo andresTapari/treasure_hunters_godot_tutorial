@@ -8,6 +8,8 @@ export var id: String = "lvl"
 export var STAGE_INDEX: int = 0
 
 func _ready():
+	print_debug("ready_call")
+	
 	# Establecemos el lvl actual en el registro de GLOBAL
 	GLOBAL.current_lvl = self.filename
 	
@@ -41,17 +43,20 @@ func _ready():
 
 	# cargamos la variable global de next_lvl_door_indx, en _indx
 	var _indx = GLOBAL.next_lvl_door_indx
+
 	# si _index es mayor a -1
 	if _indx > -1:
 		# la posicion global del jugador sera la que devuelva la funcion get_door_position(_indx)
 		player.global_position = get_door_position(_indx)
-	
+
+	# si hay una partida precargada
 	if GLOBAL.loaded_game:
 		# la posicion global del jugador sera la que tenia cuando guardo una partida
 		player.global_position = GLOBAL.p_position
 		# reiniciamos la bandera de juego cargado
 		GLOBAL.loaded_game = false
 	# limpiamos items conseguidos:
+
 	# Si la lista picked_items no esta vacia:
 	if !GLOBAL.picked_items.empty():
 		# cargamos todos los hijos en una lista temporal
@@ -81,7 +86,7 @@ func get_door_position(_indx: int) -> Vector2:
 	# retornamos posicion
 	return _position
 
-func _on_Area2D_body_entered(body: Node) -> void:
+func _on_Area2D_body_entered(_body: Node) -> void:
 	pass # Replace with function body.
 
 func handle_hide_hud(_value:bool) -> void:

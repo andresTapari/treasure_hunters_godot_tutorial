@@ -1,17 +1,22 @@
 extends WindowDialog
 
+# Señales:
 signal done # WindowDialog_save->handle_done_signal
 
-export var self_indx: int 
-onready var title_label   = get_node("VBoxContainer/Label")
-onready var button_slot_1 = get_node("VBoxContainer/HBoxContainer2/MarginContainer")
-onready var button_slot_2 = get_node("VBoxContainer/HBoxContainer2/MarginContainer2")
-onready var button_slot_3 = get_node("VBoxContainer/HBoxContainer2/MarginContainer3")
+# Nodos:
+onready var title_label     = get_node("VBoxContainer/Label")
+onready var dialog_set_name = get_node("WindowDialog_name")
+onready var button_slot_1   = get_node("VBoxContainer/HBoxContainer2/MarginContainer")
+onready var button_slot_2   = get_node("VBoxContainer/HBoxContainer2/MarginContainer2")
+onready var button_slot_3   = get_node("VBoxContainer/HBoxContainer2/MarginContainer3")
 
-var current_mode_save: bool = true
-var saved_data: Array
+# Variables
+var current_mode_save: bool = true				# Modo actual de la ventana 
+												# True = Guardar, False = Cargar
+var saved_data: Array							# Datos guardados
 
 func _ready() -> void:
+	# Conectamos las señales de los botones
 	button_slot_1.connect("button_pressed",self,"handle_button_pressed")
 	button_slot_2.connect("button_pressed",self,"handle_button_pressed")
 	button_slot_3.connect("button_pressed",self,"handle_button_pressed")
@@ -21,23 +26,23 @@ func handle_button_pressed(_index,_empty)->void:
 	if current_mode_save:
 		# Si este boton esta vacio:
 		if _empty:
-			$WindowDialog_name.line_edit.text = ""
-			$WindowDialog_name.popup_centered()
-			yield($WindowDialog_name,'hide')
-			if !$WindowDialog_name.name_file.empty():
-				print($WindowDialog_name.name_file)
+			dialog_set_name.line_edit.text = ""
+			dialog_set_name.popup_centered()
+			yield(dialog_set_name,'hide')
+			if !dialog_set_name.name_file.empty():
+				print(dialog_set_name.name_file)
 				# Aca guardamos
-				GLOBAL.save_data(_index,$WindowDialog_name.name_file)
+				GLOBAL.save_data(_index,dialog_set_name.name_file)
 				emit_signal('done')
 				hide()
 		else:
-			$WindowDialog_name.line_edit.text = saved_data[_index-1]["slot_name"]
-			$WindowDialog_name.popup_centered()
-			yield($WindowDialog_name,'hide')
-			if !$WindowDialog_name.name_file.empty():
-				print($WindowDialog_name.name_file)
+			dialog_set_name.line_edit.text = saved_data[_index-1]["slot_name"]
+			dialog_set_name.popup_centered()
+			yield(dialog_set_name,'hide')
+			if !dialog_set_name.name_file.empty():
+				print(dialog_set_name.name_file)
 				# Aca guardamos
-				GLOBAL.save_data(_index,$WindowDialog_name.name_file)
+				GLOBAL.save_data(_index,dialog_set_name.name_file)
 				emit_signal('done')
 				hide()
 	# Si el modo de la ventana es para cargar una partida:

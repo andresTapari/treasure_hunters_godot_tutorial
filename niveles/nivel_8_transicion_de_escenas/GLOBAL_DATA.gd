@@ -23,10 +23,10 @@ var SAVE_FOLDER:String	= "saves"
 # Transicion de niveles:
 var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
 											# -1 si no usa una puerta. (main_lvl)
-var timer_firt_run: bool = true				# Evita que el timer se reinicie cada vez
+var timer_first_run: bool = true				# Evita que el timer se reinicie cada vez
 											# que ocurra una transicion de niveles
 											
-# Datos del personaje
+# Datos del personajeº
 var picked_items: Array = []				# Lista de items conseguidos
 var score: 			int = 0					# Puntaje
 var total_health: 	int = 10				# Salud Total
@@ -160,9 +160,9 @@ func change_current_scene(_lvl_path) -> void:
 	# entonces debemos proceder de la siguiente forma: 
 	
 	# 0. Iniciamos el timer en el momento que cargamos la partida:
-	if timer_firt_run:
+	if timer_first_run:
 		time_start = OS.get_unix_time()
-		timer_firt_run = false
+		timer_first_run = false
 
 	# 1. Obtenemos el nodo RAIZ
 	var root = get_tree().get_root()
@@ -188,7 +188,7 @@ func change_current_scene(_lvl_path) -> void:
 
 func start_new_game() -> void:
 	# Ponemos en falso la bandera del timer:
-	timer_firt_run = false
+	timer_first_run = false
 	# Iniciamios el timer en el momento que arrancamos la partida
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	time_start = OS.get_unix_time()
