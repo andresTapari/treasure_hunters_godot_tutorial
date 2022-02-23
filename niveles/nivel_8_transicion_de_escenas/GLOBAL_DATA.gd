@@ -194,3 +194,15 @@ func start_new_game() -> void:
 	time_start = OS.get_unix_time()
 	# Para comenzar una nueva partida cambiamos la escena actual a la siguiente:
 	get_tree().change_scene('res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn')
+
+func del_saved_data() -> void:
+	var file = Directory.new()
+#	if file.open(SAVE_PATH_FILE_1, File.READ) == OK:
+#		file.close()
+	file.remove(SAVE_PATH_FILE_1)
+#	if file.open(SAVE_PATH_FILE_2, File.READ) == OK:
+#		file.close()
+	file.remove(SAVE_PATH_FILE_2)
+##	if file.open(SAVE_PATH_FILE_3, File.READ) == OK:
+#		file.close()
+	file.remove(SAVE_PATH_FILE_3)

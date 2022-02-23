@@ -62,15 +62,14 @@ tile_data = PoolIntArray( 65550, 9, 0, 131087, 9, 0, 262159, 11, 0, 393220, 14, 
 
 [node name="window" parent="TileMap_detalles" instance=ExtResource( 5 )]
 position = Vector2( 426, 85 )
-frame = 6
+frame = 18
 
 [node name="candle" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 176, 192 )
-frame = 2
+frame = 4
 
 [node name="candle2" parent="TileMap_detalles" instance=ExtResource( 2 )]
 position = Vector2( 336, 192 )
-frame = 1
 
 [node name="pickable_item" parent="." instance=ExtResource( 8 )]
 position = Vector2( 187, 116 )

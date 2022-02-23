@@ -25,6 +25,10 @@ func _on_Button2_pressed() -> void:
 
 
 func _on_Button_pressed() -> void:
+	# Borramos archivos guardados:
+	GLOBAL.del_saved_data()
+#	var dir = Directory.new()
+#	dir.remove("user://savegame.save")
 	pass # Replace with function body.
 
 

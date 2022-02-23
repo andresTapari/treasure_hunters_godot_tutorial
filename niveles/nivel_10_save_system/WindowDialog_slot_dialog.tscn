@@ -6,7 +6,6 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_name.tscn" type="PackedScene" id=4]
 
 [node name="WindowDialog" type="WindowDialog"]
-visible = true
 margin_right = 432.0
 margin_bottom = 269.0
 theme = ExtResource( 2 )
