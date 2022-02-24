@@ -5,6 +5,7 @@ signal hide_hud(_value) # lvl->handle_hide_hud
 func _ready() -> void:
 	$Label.modulate = Color(1,1,1,0)
 
+# esta funcion se ejecuta cuando el jugador interactua con el punto de guardado
 func hit(_value: int, _position: Vector2) -> void:
 	# Sacamos captura de la pantalla de juego
 	GLOBAL.image_buffer = get_viewport().get_texture().get_data()

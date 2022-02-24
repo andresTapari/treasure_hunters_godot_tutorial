@@ -7,6 +7,9 @@ signal hide_hud(_value) 	# ui_hud->handle_hide_hud()
 onready var load_game_dialog = get_node("WindowDialog_save")
 onready var setup_dialog	 = get_node("setup_dialog")
 
+var start_time:  int = 0			# Tiempo a partir que esta ventana aparece
+var finish_time: int = 0			# Tiempo cuando esta ventana desaparece
+
 func _ready() -> void:
 	pass
 
@@ -15,6 +18,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed('ui_pause'):
 		# Evaluamos si el juego esta en pausa, si no lo esta:
 		if !get_tree().paused:
+			# guardamos el tiempo cuando esta ventana aparece
+			start_time = OS.get_unix_time()
 			# emitimos señal para ocultar el HUD
 			emit_signal('hide_hud',true)
 			# mostramos esta ventana
@@ -57,4 +62,8 @@ func _on_Button_exit_game_pressed() -> void:
 	get_tree().quit()
 
 func _on_pause_menu_popup_hide() -> void:
+	# Guardamos el tiempo cuando esta ventana se esconde
+	finish_time = OS.get_unix_time()
+	# Establecemos el tiempo de pausa
+	GLOBAL.paused_time += finish_time - start_time
 	_on_Button_continue_pressed()

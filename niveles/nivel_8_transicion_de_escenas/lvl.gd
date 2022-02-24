@@ -8,7 +8,7 @@ export var id: String = "lvl"
 export var STAGE_INDEX: int = 0
 
 func _ready():
-	print_debug("ready_call")
+#	print_debug("ready_call")
 	
 	# Establecemos el lvl actual en el registro de GLOBAL
 	GLOBAL.current_lvl = self.filename

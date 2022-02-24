@@ -10,24 +10,36 @@ onready var label_score		= get_node("Button/VBoxContainer/HBoxContainer2/Label_s
 onready var label_time		= get_node("Button/VBoxContainer/HBoxContainer3/Label_time")
 
 # Variables:
-export var self_indx: int
-var empty: bool = true
+export var self_indx: 	int
+var empty: 				bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+
 func update_data(saved_data:Dictionary) -> void:
+	# establecemos la bandera de vacio en falso
 	empty = false
+	# establecemos en el label la informacion contenida en "slot_name"
 	label_name.text  = saved_data["slot_name"]
+	# establecemos en el label la informacion contenida en "current_score"
 	label_score.text = String(saved_data["current_score"])
+	# establecemos en el label la informacion contenida en "current_time"
 	label_time.text  = format_time(saved_data["current_time"])
+	# creamos una instancia de la clase Image
 	var image = Image.new()
+	# cargamos la imagen guardada en "thumbnail_path"
 	var err = image.load(saved_data["thumbnail_path"])
+	# si no devuelve error
 	if err != OK:
+		# mostramos error de cargando miniatura
 		print_debug("ERROR CARGANDO THUMBNAIL")
+	# creamos una instancia nueva de la clase textura 
 	var texture = ImageTexture.new()
+	# asignamos a la nueva textura la imagen
 	texture.create_from_image(image,8)
+	# establecemos en la textura del icono, la nueva textura creada con la imagen
 	icon_thumbnail.texture = texture
 
 func _on_Button_pressed():

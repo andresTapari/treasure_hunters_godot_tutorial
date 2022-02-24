@@ -10,6 +10,7 @@ signal update_score(_value) 			#->lvl/CanvasLayer.handle_update_score(_value)
 signal update_health(_total,_actual) 	#->lvl/CanvasLayer.handle_update_health(_total,_actual)
 # Señal para actualiar el contador de vidas:
 signal update_lives(_value)				#->lvl/CanvasLayer.handle_update_lives(_value)
+
 # Nodos:
 onready var animatedSprite 	= get_node('AnimatedSprite')
 onready var rayCast			= get_node("RayCast2D")		#Nodo RayCast 2D
