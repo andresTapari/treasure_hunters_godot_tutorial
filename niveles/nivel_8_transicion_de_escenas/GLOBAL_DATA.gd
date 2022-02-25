@@ -267,6 +267,7 @@ func start_new_game() -> void:
 	# Para comenzar una nueva partida cambiamos la escena actual a la siguiente:
 #	get_tree().change_scene('res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn')
 	change_current_scene('res://niveles/nivel_x_full_walktrough/lvl_0_stage_0.tscn')
+
 func del_saved_data() -> void:
 	# creamos una instancia de Directory
 	var file = Directory.new()
