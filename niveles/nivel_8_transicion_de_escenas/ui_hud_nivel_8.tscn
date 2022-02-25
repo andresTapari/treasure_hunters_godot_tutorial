@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/ui_coin_counter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://niveles/nivel_8_transicion_de_escenas/ui_hud_nivel_8.gd" type="Script" id=2]
 [ext_resource path="res://niveles/nivel_11_ui/pause_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://niveles/nivel_11_ui/game_over.tscn" type="PackedScene" id=4]
 [ext_resource path="res://niveles/nivel_5_vida_y_trampas/ui_life_barr.tscn" type="PackedScene" id=5]
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -43,5 +44,8 @@ margin_bottom = 46.0
 autostart = true
 
 [node name="pause_menu" parent="." instance=ExtResource( 3 )]
+
+[node name="game_over_dialog" parent="." instance=ExtResource( 4 )]
+pause_mode = 2
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

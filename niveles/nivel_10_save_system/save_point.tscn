@@ -30,10 +30,12 @@ radius = 23.0
 pause_mode = 2
 script = ExtResource( 12 )
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -23 )
 frames = SubResource( 1 )
-frame = 2
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -53,8 +55,6 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Tween" type="Tween" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Area2D_body_exited"]
