@@ -5,7 +5,7 @@ extends Node
 var SAVE_PATH_FILE_1: String = "res://saves/data_1.dat"
 var SAVE_PATH_FILE_2: String = "res://saves/data_2.dat"
 var SAVE_PATH_FILE_3: String = "res://saves/data_3.dat"
-var SAVE_PATH_DIR: String 	 = "res://saves/"
+var SAVE_PATH_DIR:    String = "res://saves/"
 var THUMBNAIL_FOLDER: String = "res://thumbnail/"
 var ROOT_PATH_FOLDER: String = "res://"
 
@@ -19,23 +19,26 @@ var ROOT_PATH_FOLDER: String = "res://"
 
 ## Contantes Generales:
 var THUMBNAIL_FOLDER_NAME: String = "thumbnail"
-var SAVE_FOLDER:String	= "saves"
+var SAVE_FOLDER:           String = "saves"
+
+# Nodos:
+var milisecond_timer : Timer
 
 # Transicion de niveles:
 var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
 											# -1 si no usa una puerta. (main_lvl)
 var timer_first_run: bool = true			# Evita que el timer se reinicie cada vez
 											# que ocurra una transicion de niveles
-											
 
-# Datos del personajeº
-var picked_items: Array = []				# Lista de items conseguidos
-var score: 			int = 0					# Puntaje
-var total_health: 	int = 10				# Salud Total
-var health: 		int = 10				# Salud Actual
-var lives:			int = 3					# Vidas del jugador
-var p_position: Vector2 = Vector2.ZERO
 
+# Datos del personaje:
+var picked_items:	  Array = []			# Lista de items conseguidos
+var score: 			 	int = 0				# Puntaje
+var total_health: 	 	int = 10			# Salud Total
+var health: 		 	int = 10			# Salud Actual
+var lives:				int = 3				# Vidas del jugador
+var p_position:  	Vector2 = Vector2.ZERO	# Posicion de player
+var time_counter_ms:  float = 0				# Tiempo de juego transcurrido
 
 # Sistema de guardado:
 var slot_name:	 	String  = ""			# Nombre de la partida guardada
@@ -48,7 +51,7 @@ var loaded_game:	bool    = false			# Bandera para indicar que se cargo
 											# un juego de una partida guardada (afecta posicion jugador)
 
 # Otras variables:
-var paused_time: 	int = 0					# tiempo que dura la pausa (afecta a tiempo en hud y tiempo guardado)
+#var paused_time: 	int = 0					# tiempo que dura la pausa (afecta a tiempo en hud y tiempo guardado)
 
 # Archivo a guardar:
 var data_to_save: Dictionary = {	
@@ -66,6 +69,18 @@ var data_to_save: Dictionary = {
 var time_start: int = 0
 
 func _ready() -> void:
+	# Iniciamos el timer:
+	## Creamos una clase timer:
+	milisecond_timer = Timer.new()
+	## Lo agregamos como hijo al nodo
+	add_child(milisecond_timer)
+	## Estableccemos el tiempo:
+	milisecond_timer.wait_time = 0.1
+	## Configuramos el modo de repeticion
+	milisecond_timer.one_shot = false
+	## Conecamos la señal:
+	milisecond_timer.connect("timeout",self,"handle_milisecond_timer_out")
+	
 	# Cuando se inicia el juego:
 	## Creamos clase Directorio
 	var dir = Directory.new()
@@ -183,7 +198,13 @@ func check_saved_data() -> Array:
 func load_saved_data(_index) -> void:
 	# ponemos la bandera de partida cargada en alto
 	loaded_game = true
+	# 
 	timer_first_run = true
+	# Reiniciamos el contador de timer:
+	time_counter_ms = 0
+	# Iniciamos el timer:
+	milisecond_timer.start()
+
 	# Cargamos datos guardados en el disco
 	var _list_saved_data =  check_saved_data() 
 	# Cargamos los datos de la partida en una variable
@@ -207,15 +228,14 @@ func change_current_scene(_lvl_path) -> void:
 #	print_debug("paused_time: ",paused_time,"\ncurrent_time:",current_time,\
 #				"\noffset_time:",time_offset)
 	# 0. Iniciamos el timer en el momento que cargamos la partida:
-	if loaded_game:
-		paused_time = 0
+#	if loaded_game:
+#		paused_time = 0
 	if timer_first_run:
 		time_start = OS.get_unix_time()
 		timer_first_run = false
 	
-		#DEBUG:
-	print_debug("escena saliente:\n paused_time: ",paused_time,"\ncurrent_time:", \
-				current_time,"\noffset_time:",time_offset)
+	#DEBUG:
+	print_debug("current_time: ", current_time,"\noffset_time: ",time_offset)
 	# Para cambiar escena, como no estamos cambiando una escena constante,
 	# no podemos usar esta funcion directamente:
 	#
@@ -257,8 +277,15 @@ func start_new_game() -> void:
 	total_health 	= 10		# Salud Total
 	health	 		= 10		# Salud Actual
 	lives			= 3			# Vidas del jugador
-	paused_time 	=  0		# Tiempo de juego en pausa
+#	paused_time 	=  0		# Tiempo de juego en pausa
 	
+	# Iniciamos timer:
+	## Reiniciamos la variable de conteo de segundos
+	time_counter_ms = 0 
+	time_offset = 0
+	## Iniciamos el timer
+	milisecond_timer.start()
+
 	# Ponemos en falso la bandera del timer:
 	timer_first_run = false
 	# Iniciamios el timer en el momento que arrancamos la partida
@@ -279,3 +306,7 @@ func del_saved_data() -> void:
 	file.remove(SAVE_PATH_FILE_3)
 	# removemos la instancia file
 	file = null
+
+func handle_milisecond_timer_out() -> void:
+	# aumentamos el contador de tiempo 0.1"
+	time_counter_ms += 0.1

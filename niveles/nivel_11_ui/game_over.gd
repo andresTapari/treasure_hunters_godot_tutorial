@@ -1,7 +1,7 @@
 extends WindowDialog
 
 # Señales:
-signal hide_hud(_value) 	# ui_hud->handle_hide_hud()
+# signal hide_hud(_value) 	# ui_hud->handle_hide_hud()
 
 # Nodos:
 onready var score_label = get_node('MarginContainer/VBoxContainer/HBoxContainer/Label_score')
