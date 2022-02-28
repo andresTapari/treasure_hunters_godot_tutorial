@@ -30,7 +30,6 @@ var next_lvl_door_indx: int = -1			# Indice de puerta donde aparecer
 var timer_first_run: bool = true			# Evita que el timer se reinicie cada vez
 											# que ocurra una transicion de niveles
 
-
 # Datos del personaje:
 var picked_items:	  Array = []			# Lista de items conseguidos
 var score: 			 	int = 0				# Puntaje
@@ -44,6 +43,7 @@ var time_counter_ms:  float = 0				# Tiempo de juego transcurrido
 var slot_name:	 	String  = ""			# Nombre de la partida guardada
 var current_lvl: 	String  = ""			# path al lvl actual
 var thumbnail_path: String  = ""			# path a la minitatura del nivel
+var date_time:		String  = ""			# fecha de guardado
 var current_time:	int		= 0				# tiempo actual de juego
 var time_offset: 	int	 	= 0				# Offset de tiempo, es el tiempo de la partida guardada anterior.
 var image_buffer: 	Image					# Buffer de imagen a mostrar
@@ -57,6 +57,7 @@ var loaded_game:	bool    = false			# Bandera para indicar que se cargo
 var data_to_save: Dictionary = {	
 									"slot_name": slot_name,
 									"current_lvl": current_lvl,
+									"date": date_time,
 									"current_health": health,
 									"current_time": current_time,
 									"current_score": score,
@@ -102,6 +103,13 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	## creamos la direccion donde sera guardada la miniatura 
 	var image_path:String = THUMBNAIL_FOLDER + _slot_name +".png"
 	## guardamos la miniatura
+	# determinar la fecha:
+	var _date: Dictionary    = OS.get_datetime()
+	var _date_string: String = "[" + String(_date["day"])   + " / " + \
+									 String(_date["month"]) + " / " + \
+									 String(_date["year"])  + "]"
+	date_time = _date_string
+	
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	image_buffer.save_png(image_path)
 	
@@ -112,6 +120,7 @@ func save_data(_indx: int, _slot_name: String) -> void:
 	data_to_save["slot_name"]		= _slot_name		# Nombre de partida
 	data_to_save["current_lvl"]		= current_lvl		# Stage actual
 	data_to_save["current_health"]	= health			# Salud Actual
+	data_to_save["date"]			= date_time			# Guardamos la fecha 
 	data_to_save["current_time"]	= current_time		# Tiempo de partida
 	data_to_save["current_score"]	= score				# puntaje
 	data_to_save["current_lives"]	= lives				# Total de vida actual

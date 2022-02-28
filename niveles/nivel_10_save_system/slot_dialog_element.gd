@@ -5,6 +5,7 @@ signal button_pressed(_index) #WindowDialog_slot_dialog->handle_button_pressed()
 
 # Nodos:
 onready var label_name		= get_node("Button/VBoxContainer/HBoxContainer/Label")
+onready var label_date		= get_node("Button/VBoxContainer/HBoxContainer5/Label")
 onready var icon_thumbnail	= get_node("Button/VBoxContainer/HBoxContainer4/ViewportContainer/Viewport/TextureRect")
 onready var label_score		= get_node("Button/VBoxContainer/HBoxContainer2/Label_score")
 onready var label_time		= get_node("Button/VBoxContainer/HBoxContainer3/Label_time")
@@ -23,6 +24,8 @@ func update_data(saved_data:Dictionary) -> void:
 	empty = false
 	# establecemos en el label la informacion contenida en "slot_name"
 	label_name.text  = saved_data["slot_name"]
+	# establecemos la fecha de la partida guardada
+	label_date.text  = saved_data["date"]
 	# establecemos en el label la informacion contenida en "current_score"
 	label_score.text = String(saved_data["current_score"])
 	# establecemos en el label la informacion contenida en "current_time"

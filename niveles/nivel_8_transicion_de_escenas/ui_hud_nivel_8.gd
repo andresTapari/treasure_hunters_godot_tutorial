@@ -52,11 +52,8 @@ func scene_transition_fade(fade_in: bool = true ) -> void:
 
 
 func _on_Timer_timeout() -> void:
-	# Obtenemos el tiempo de la computadora en este momento
-#	var time_now = OS.get_unix_time()
+	# Obtenemos el tiempo transcurrido desde el inicio de la partida
 	var time_now = int(GLOBAL.time_counter_ms)
-	if GLOBAL.loaded_game:
-		GLOBAL.paused_time = 0
 	# Calculamos el tiempo transcurrido como la resta de:
 		# > Tiempo ahora: el tiempo maquina en este momento
 		# > Tiempo Offset: el tiempo de la partida guardada
@@ -66,9 +63,7 @@ func _on_Timer_timeout() -> void:
 	GLOBAL.current_time = time_elapsed
 	# Damos formato de segundos transcurridos a: [min:seg] y lo mostramos en el label
 	clock_label.text = format_time(time_elapsed)
-#	print_debug("Timer:\n paused_time: ",GLOBAL.paused_time,"\ncurrent_time:", \
-#				GLOBAL.current_time,"\noffset_time:",GLOBAL.time_offset)
-				
+
 func format_time(elapsed: int) -> String:
 	# warning-ignore: INTEGER_DIVISION
 	var minutes: int = int(float(elapsed / 60))
