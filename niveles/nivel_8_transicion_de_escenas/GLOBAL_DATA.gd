@@ -80,6 +80,7 @@ func _ready() -> void:
 	## Configuramos el modo de repeticion
 	milisecond_timer.one_shot = false
 	## Conecamos la señal:
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	milisecond_timer.connect("timeout",self,"handle_milisecond_timer_out")
 	
 	# Cuando se inicia el juego:

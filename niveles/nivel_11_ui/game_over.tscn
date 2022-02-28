@@ -5,6 +5,7 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_slot_dialog.tscn" type="PackedScene" id=3]
 
 [node name="game_over_dialog" type="WindowDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -14,6 +15,7 @@ margin_top = -76.5
 margin_right = 87.5
 margin_bottom = 76.5
 theme = ExtResource( 1 )
+popup_exclusive = true
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -169,6 +171,7 @@ text = "EXIT"
 [node name="load_game_dialog" parent="." instance=ExtResource( 3 )]
 
 [connection signal="about_to_show" from="." to="." method="_on_game_over_dialog_about_to_show"]
+[connection signal="hide" from="." to="." method="_on_game_over_dialog_hide"]
 [connection signal="popup_hide" from="." to="." method="_on_game_over_dialog_popup_hide"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button_load" to="." method="_on_Button_load_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button_restart" to="." method="_on_Button_restart_pressed"]

@@ -55,3 +55,8 @@ func _on_Button_main_pressed() -> void:
 func _on_Button_exit_pressed() -> void:
 	# Salimos del juego
 	get_tree().quit()
+
+
+func _on_game_over_dialog_hide():
+	pass
+#	popup_centered()
