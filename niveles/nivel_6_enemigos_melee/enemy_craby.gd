@@ -28,6 +28,7 @@ export var force_factor		= 45				# Fuerza de nock-back
 export var speed			= 150				# Velocidad de movimiento
 export var damage			= 2
 export var fov_lenght		= 150				# Alcanze de deteccion
+export var fov_tolerance	= 20				# Tolerancia del fov
 export var position_target_A: NodePath			# Coordenadas hasta donde patrullar
 export var position_target_B: NodePath			# Coordenadas hasta donde patrullar
 export var min_t_to_wait: int = 0				# Tiempo minimo para esperar
@@ -143,14 +144,15 @@ func _physics_process(_delta: float) -> void:
 			rayCast_fov.force_raycast_update()
 			# Creamos la variable collider donde alojar al jugador
 			var collider
-			# Si ya tiene target a seguir
+			# Si ya tiene target a seguir:
 			if target_to_chase:
 				# Si el objetivo se encuentra fuera del rango de vision
-				if position.distance_to(target_to_chase.position) > fov_lenght:
+				if position.distance_to(target_to_chase.position) > fov_lenght + fov_tolerance:
 					# anulamos el target a perseguir
 					target_to_chase = null
 				# asigna target a collider:
 				collider = target_to_chase
+			# si no hay target a seguir:
 			else:
 				# Si no lo tiene, asigna el primer objeto que el rayo intersecta
 				collider = rayCast_fov.get_collider()
@@ -175,10 +177,15 @@ func _physics_process(_delta: float) -> void:
 						animatedSprite.play("run")
 						# Movemos el personaje hacia el jugador:
 						linear_velocity.x = speed * dir_cof
+				else:
+					# si no vemos al jugador volvemos al estado patrullar
+					set_current_state(state.patrol)
+			# si no hay collider
 			else:
 				# si no hay collider se mueve a la ultima posicion encontrada
-				if abs(target_to_move.x - position.x) < dist_tolerancia:
+				if abs(target_to_move.x - position.x) <= dist_tolerancia:
 					# Movemos el personaje hacia el jugador:
+					print_debug("bucle")
 					linear_velocity.x = speed * dir_cof
 				else:
 					# Establecemos estado IDLE
