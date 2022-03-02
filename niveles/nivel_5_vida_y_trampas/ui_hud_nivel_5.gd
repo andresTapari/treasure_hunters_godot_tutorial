@@ -5,7 +5,8 @@ onready var label_coin: Label = get_node("Node2D/Label")
 onready var health_barr: Node2D = get_node("life_barr") 
 
 func _ready() -> void:
-	$Panel.modulate = Color(1,1,1,1)
+	pass
+#	$Panel.modulate = Color(1,1,1,1)
 	
 
 func handle_update_score(_value: int) -> void:

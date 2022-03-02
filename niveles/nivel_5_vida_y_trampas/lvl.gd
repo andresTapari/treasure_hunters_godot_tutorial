@@ -1,5 +1,7 @@
 extends Node2D
 
+export var id: String = ""
+
 # creamos una variable para player
 onready var player = get_node('lvl_5_player')
 

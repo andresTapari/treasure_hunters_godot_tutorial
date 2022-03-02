@@ -10,6 +10,7 @@ onready var time_label  = get_node("margin/VBoxContainer/HBoxContainer2/Label_ti
 # Variables:
 var exit_enable: bool = true	# Permite cerrar la ventana y que vuelva aparecer
 
+# Esta funcion se ejecuta al inicio del nodo
 func _ready() -> void:
 	hide()
 

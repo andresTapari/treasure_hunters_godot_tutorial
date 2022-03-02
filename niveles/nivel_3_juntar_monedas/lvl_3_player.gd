@@ -44,7 +44,7 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2.UP) 
 
-func add_score(_value: int)-> void:
+func add_score(_value: int,_lives: int)-> void:
 	# actualiza el puntaje de player
 	score += _value
 	# emite una señal hacia el hud con el puntaje
