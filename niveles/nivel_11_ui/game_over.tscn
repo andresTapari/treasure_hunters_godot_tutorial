@@ -4,44 +4,51 @@
 [ext_resource path="res://niveles/nivel_11_ui/game_over.gd" type="Script" id=2]
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_slot_dialog.tscn" type="PackedScene" id=3]
 
-[node name="game_over_dialog" type="WindowDialog"]
-visible = true
+[node name="Control" type="Control"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -87.5
-margin_top = -76.5
-margin_right = 87.5
-margin_bottom = 76.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
 theme = ExtResource( 1 )
-popup_exclusive = true
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="margin" type="MarginContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -72.0
-margin_top = -61.5
+margin_top = -63.0
 margin_right = 72.0
-margin_bottom = 61.5
+margin_bottom = 63.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Panel" type="Panel" parent="margin"]
 margin_right = 144.0
-margin_bottom = 123.0
+margin_bottom = 126.0
+theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="margin"]
+margin_right = 144.0
+margin_bottom = 126.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="margin/VBoxContainer"]
 margin_right = 144.0
 margin_bottom = 18.0
 text = "GAME OVER"
@@ -50,12 +57,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="margin/VBoxContainer"]
 margin_top = 22.0
 margin_right = 144.0
 margin_bottom = 40.0
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="margin/VBoxContainer/HBoxContainer"]
 margin_right = 27.0
 margin_bottom = 18.0
 text = "SCORE:"
@@ -64,14 +71,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="margin/VBoxContainer/HBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 31.0
 margin_right = 110.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 
-[node name="Label_score" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label_score" type="Label" parent="margin/VBoxContainer/HBoxContainer"]
 margin_left = 114.0
 margin_right = 144.0
 margin_bottom = 18.0
@@ -81,12 +88,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="margin/VBoxContainer"]
 margin_top = 44.0
 margin_right = 144.0
 margin_bottom = 62.0
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="margin/VBoxContainer/HBoxContainer2"]
 margin_right = 21.0
 margin_bottom = 18.0
 text = "TIME:"
@@ -95,14 +102,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="VSeparator2" type="VSeparator" parent="margin/VBoxContainer/HBoxContainer2"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 25.0
 margin_right = 110.0
 margin_bottom = 18.0
 size_flags_horizontal = 3
 
-[node name="Label_time" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label_time" type="Label" parent="margin/VBoxContainer/HBoxContainer2"]
 margin_left = 114.0
 margin_right = 144.0
 margin_bottom = 18.0
@@ -112,56 +119,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="margin/VBoxContainer"]
 margin_top = 66.0
 margin_right = 144.0
 margin_bottom = 88.0
 
-[node name="Button_load" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button_load" type="Button" parent="margin/VBoxContainer/HBoxContainer3"]
 margin_right = 66.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 66, 0 )
 text = "LOAD GAME"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="VSeparator" type="VSeparator" parent="margin/VBoxContainer/HBoxContainer3"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 70.0
 margin_right = 74.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 
-[node name="Button_restart" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Button_restart" type="Button" parent="margin/VBoxContainer/HBoxContainer3"]
 margin_left = 78.0
 margin_right = 144.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 66, 0 )
 text = "RESTART GAME"
 
-[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="margin/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 92.0
 margin_right = 144.0
 margin_bottom = 96.0
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="margin/VBoxContainer"]
 margin_top = 100.0
 margin_right = 144.0
 margin_bottom = 122.0
 
-[node name="Button_main" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button_main" type="Button" parent="margin/VBoxContainer/HBoxContainer4"]
 margin_right = 66.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 66, 0 )
 text = "MAIN MENU"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="VSeparator" type="VSeparator" parent="margin/VBoxContainer/HBoxContainer4"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 70.0
 margin_right = 74.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 
-[node name="Button_exit" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer4"]
+[node name="Button_exit" type="Button" parent="margin/VBoxContainer/HBoxContainer4"]
 margin_left = 78.0
 margin_right = 144.0
 margin_bottom = 22.0
@@ -169,11 +176,7 @@ rect_min_size = Vector2( 66, 0 )
 text = "EXIT"
 
 [node name="load_game_dialog" parent="." instance=ExtResource( 3 )]
-
-[connection signal="about_to_show" from="." to="." method="_on_game_over_dialog_about_to_show"]
-[connection signal="hide" from="." to="." method="_on_game_over_dialog_hide"]
-[connection signal="popup_hide" from="." to="." method="_on_game_over_dialog_popup_hide"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button_load" to="." method="_on_Button_load_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer3/Button_restart" to="." method="_on_Button_restart_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer4/Button_main" to="." method="_on_Button_main_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer4/Button_exit" to="." method="_on_Button_exit_pressed"]
+margin_left = -48.0
+margin_top = -39.5
+margin_right = 384.0
+margin_bottom = 229.5

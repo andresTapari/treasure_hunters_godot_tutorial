@@ -1,11 +1,11 @@
-extends WindowDialog
+extends Control
 
 # Señales:
 # signal hide_hud(_value) 	# ui_hud->handle_hide_hud()
 
 # Nodos:
-onready var score_label = get_node('MarginContainer/VBoxContainer/HBoxContainer/Label_score')
-onready var time_label  = get_node('MarginContainer/VBoxContainer/HBoxContainer2/Label_time')
+onready var score_label = get_node("margin/VBoxContainer/HBoxContainer/Label_score")
+onready var time_label  = get_node("margin/VBoxContainer/HBoxContainer2/Label_time")
 
 # Variables:
 var exit_enable: bool = true	# Permite cerrar la ventana y que vuelva aparecer
