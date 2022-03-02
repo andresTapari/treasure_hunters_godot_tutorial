@@ -5,7 +5,6 @@
 [ext_resource path="res://niveles/nivel_10_save_system/WindowDialog_slot_dialog.tscn" type="PackedScene" id=3]
 
 [node name="Control" type="Control"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -20,6 +19,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.5
+margin_top = -81.5
+margin_right = 98.5
+margin_bottom = 81.5
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="margin" type="MarginContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -29,14 +42,6 @@ margin_left = -72.0
 margin_top = -63.0
 margin_right = 72.0
 margin_bottom = 63.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="margin"]
-margin_right = 144.0
-margin_bottom = 126.0
-theme = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -180,3 +185,9 @@ margin_left = -48.0
 margin_top = -39.5
 margin_right = 384.0
 margin_bottom = 229.5
+
+[connection signal="hide" from="." to="." method="_on_Control_hide"]
+[connection signal="pressed" from="margin/VBoxContainer/HBoxContainer3/Button_load" to="." method="_on_Button_load_pressed"]
+[connection signal="pressed" from="margin/VBoxContainer/HBoxContainer3/Button_restart" to="." method="_on_Button_restart_pressed"]
+[connection signal="pressed" from="margin/VBoxContainer/HBoxContainer4/Button_main" to="." method="_on_Button_main_pressed"]
+[connection signal="pressed" from="margin/VBoxContainer/HBoxContainer4/Button_exit" to="." method="_on_Button_exit_pressed"]

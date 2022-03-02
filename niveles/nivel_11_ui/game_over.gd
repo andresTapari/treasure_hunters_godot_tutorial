@@ -11,16 +11,14 @@ onready var time_label  = get_node("margin/VBoxContainer/HBoxContainer2/Label_ti
 var exit_enable: bool = true	# Permite cerrar la ventana y que vuelva aparecer
 
 func _ready() -> void:
-	pass
-#	call_deferred("popup_centered")
-#	popup_centered()
+	hide()
 
-# Esta funcion se ejecuta cuando se esta por mostrar la ventana:
-func _on_game_over_dialog_about_to_show() -> void:
-	get_tree().paused = true
+# Esta funcion se ejecuta cuando se muestra la ventana:
+func popup_centered():
 	score_label.text  = String(GLOBAL.score)
 	time_label.text   = format_time(GLOBAL.current_time)
-	
+	get_tree().paused = true
+	visible = true
 
 func format_time(elapsed: int) -> String:
 	# warning-ignore: INTEGER_DIVISION
@@ -30,12 +28,6 @@ func format_time(elapsed: int) -> String:
 	#minutes = minutes % 60
 	var str_elapsed = "%02d : %02d" % [minutes, seconds]
 	return str_elapsed
-
-func _on_game_over_dialog_popup_hide() -> void:	
-	if !exit_enable:
-		call_deferred("popup_centered")
-	else:
-		get_tree().paused = false
 
 func _on_Button_load_pressed() -> void:
 	$load_game_dialog.current_mode_save = false
@@ -56,7 +48,5 @@ func _on_Button_exit_pressed() -> void:
 	# Salimos del juego
 	get_tree().quit()
 
-
-func _on_game_over_dialog_hide():
-	pass
-#	popup_centered()
+func _on_Control_hide() -> void:
+	get_tree().paused = false

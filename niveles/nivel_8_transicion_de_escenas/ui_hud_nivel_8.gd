@@ -22,9 +22,9 @@ func handle_update_health(_totalLife: int, _currentLife: int) -> void:
 func handle_update_lives(_value) -> void:
 	label_lives.text = String(_value)
 	if _value == 0:
-		#$game_over_dialog.popup_centered()
-		$game_over_dialog.visible = true
-		
+		$Control.hide()
+		$game_over_dialog.popup_centered()
+
 # Funciona para oscurecer/aclarar la pantalla en la transicion de escenas
 func scene_transition_fade(fade_in: bool = true ) -> void:
 	# Cargamos en nodo tween en la variable tween
