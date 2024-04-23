@@ -4,8 +4,8 @@
 
 Juego con fines didacticos de plataformas, empleando el engine [Godot 3.x.x](https://godotengine.org/).
 
-# Probar demo
-* Enlace del juego.
+# Probar Juego
+* [Enlace del juego](https://andrestapa.itch.io/treasure-hunters-tutorial).
 
 # Instalación
 Descarga Godot Engine 3.x y carga el proyecto. Puedes ejecutarlo con F5 o cargar nivel por nivel, desde la carpeta niveles.
